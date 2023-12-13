@@ -63,7 +63,7 @@ class GRNAnnData(AnnData):
                 adata.varp['GRN'].data)
             ],
             columns = columns
-            )
+            ).sort_values(by=columns[2], ascending=False)
 
 def from_anndata(adata):
     if "GRN" not in adata.obsp:
