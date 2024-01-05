@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.10]
+        python-version: ["3.10"]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -28,6 +28,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
       - name: Install project
         run: make install
       - name: Run linter
@@ -38,7 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.10]
+        python-version: ["3.10"]
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -48,25 +49,26 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          cache: 'poetry'
       - name: Install project
         run: make install
       - name: Run tests
         run: make test
       - name: "Upload coverage to Codecov"
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         # with:
         #   fail_ci_if_error: true
-
+#
   #tests_mac:
   #  needs: linter
   #  strategy:
   #    fail-fast: false
   #    matrix:
-  #      python-version: [3.10]
+  #      python-version: ["3.10"]
   #      os: [macos-latest]
   #  runs-on: ${{ matrix.os }}
   #  steps:
-  #    - uses: actions/checkout@v3
+  #    - uses: actions/checkout@v4
   #    - uses: actions/setup-python@v5
   #      with:
   #        python-version: ${{ matrix.python-version }}
@@ -74,17 +76,17 @@ jobs:
   #      run: make install
   #    - name: Run tests
   #      run: make test
-
+#
   #tests_win:
   #  needs: linter
   #  strategy:
   #    fail-fast: false
   #    matrix:
-  #      python-version: [3.9]
+  #      python-version: ["3.10"]
   #      os: [windows-latest]
   #  runs-on: ${{ matrix.os }}
   #  steps:
-  #    - uses: actions/checkout@v3
+  #    - uses: actions/checkout@v4
   #    - uses: actions/setup-python@v5
   #      with:
   #        python-version: ${{ matrix.python-version }}

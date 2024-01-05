@@ -32,20 +32,6 @@ Lets take a look at the structure of this template:
     └── test_base.py         # The base test case for the project
 ```
 
-### Why to include `tests`, `history` and `Containerfile` as part of the release?
-
-The `MANIFEST.in` file is used to include the files in the release, once the 
-project is released to PyPI all the files listed on MANIFEST.in will be included
-even if the files are static or not related to Python.
-
-Some build systems such as RPM, DEB, AUR for some Linux distributions, and also
-internal repackaging systems tends to run the tests before the packaging is performed.
-
-The Containerfile can be useful to provide a safer execution environment for 
-the project when running on a testing environment.
-
-I added those files to make it easier for packaging in different formats.
-
 ## The Makefile
 
 All the utilities for the template and project are on the Makefile
