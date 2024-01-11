@@ -1,0 +1,31 @@
+# grnndata (putting the grn in anndata)
+
+Awesome gene regulatory network enhanced anndata created by jkobject & remi trimbour
+
+grnndata works similarly to anndata. The goal was to use the .varm of anndata to store the GRN data associated with a dataset and have a formal way to work with GRNs.
+
+grnndata is a subclass of anndata.AnnData, it enforces only that a .varm exists for the anndata
+
+grnndata also contains multiple helper functions to work with GRNs in scRNAseq
+
+## Install it from PyPI
+
+```bash
+pip install grnndata
+```
+
+## Usage
+
+grnndata works similarly to anndata
+
+### How do I do if I generate a GRN per cell type?
+
+In this context, we recommend creating a grnndata per cell type. This will allow you to store the GRN data in the .varm of the grnndata and have a formal way to work with GRNs.
+
+### How do I do if I generate a GRN per cell?
+
+In this context, we recommend trying to merge them across a similar group of cells in some way and storing uncertainty or variance in the GRN and then creating a grnndata across this group of cells
+
+## Development
+
+Read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
