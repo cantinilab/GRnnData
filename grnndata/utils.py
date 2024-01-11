@@ -13,8 +13,8 @@ def fileToList(filename, strconv=lambda x: x):
         return [strconv(val[:-1]) for val in f.readlines()]
 
 
-TF = fileToList("./TF.txt")
 file_dir = os.path.dirname(os.path.realpath(__file__))
+TF = fileToList(file_dir + "/TF.txt")
 
 
 def get_centrality(grn, top_k=30):

@@ -22,7 +22,7 @@ class GRNAnnData(AnnData):
         super().__init__(*args, **kwargs)
         self.varp["GRN"] = grn
 
-    ## add concat
+    # add concat
     def concat(self, other):
         if not isinstance(other, GRNAnnData):
             raise ValueError("Can only concatenate with another GRNAnnData object")
@@ -31,36 +31,14 @@ class GRNAnnData(AnnData):
             grn=scipy.sparse.vstack([self.varp["GRN"], other.varp["GRN"]]),
         )
 
-    ## add slice
+    # add slice
     def __getitem__(self, *args):
         sub = super().__getitem__(*args)
         if sub.shape[1] < self.shape[1]:
-            locs = np.where(self.var_names == sub.var_names)[0]
-            sub.varm["All_Targets"] = self.varp["GRN"][locs]
+            sub.varm["all_targets"] = self.varp["GRN"][
+                self.var_names.isin(sub.var_names)
+            ]
         return sub
-
-    #    import pdb
-    #    pdb.set_trace()
-    #    if isinstance(name, str):
-    #        index = self.var_names.tolist().index(name)
-    #        return GRNAnnData(
-    #            self[:, name],
-    #            grn=self.varp["GRN"][index],
-    #        )
-    #    # need to put it in varm
-    #    if isinstance(name, list):
-    #        index = [self.var_names.tolist().index(i) for i in name]
-    #        return GRNAnnData(grn=self.varp["GRN"][index], X=self.X[index])
-    #    # need to put it in varm too
-    #    if isinstance(name, np.ndarray):
-    #        return GRNAnnData(grn=self.varp["GRN"][name], X=self.X[name])
-    #    # need to put it in varm too
-    #    if isinstance(name, slice):
-    #        return GRNAnnData(
-    #            grn=self.varp["GRN"][name, name],
-    #            X=self.X[name],
-    #        )
-    #    # need to put it in varm too
 
     @property
     def grn(self):
@@ -68,7 +46,7 @@ class GRNAnnData(AnnData):
             data=self.varp["GRN"], index=self.var_names, columns=self.var_names
         )
 
-    ## add return list of genes and corresponding weights
+    # add return list of genes and corresponding weights
     def extract_links(
         adata,  # AnnData object
         columns=[
@@ -95,8 +73,12 @@ class GRNAnnData(AnnData):
             columns=columns,
         ).sort_values(by=columns[2], ascending=False)
 
+    @classmethod
+    def read(cls, *args, **kwargs):
+        return from_anndata(AnnData.read(*args, **kwargs))
+
 
 def from_anndata(adata):
-    if "GRN" not in adata.obsp:
-        raise ValueError("GRN not found in adata.obsp")
-    return GRNAnnData(adata, grn=adata.obsp["GRN"])
+    if "GRN" not in adata.varp:
+        raise ValueError("GRN not found in adata.varp")
+    return GRNAnnData(adata, grn=adata.varp["GRN"])
