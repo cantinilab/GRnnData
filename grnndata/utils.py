@@ -24,7 +24,11 @@ def get_centrality(grn, top_k=30):
     also prints the top K most central nodes in the GRN.
 
     Args:
-        grn (_type_): _description_
+        grn (GRNAnnData): The gene regulatory network to analyze.
+        top_k (int, optional): The number of top results to return. Defaults to 30.
+
+    Returns:
+        (list): A list of the top K most central genes in the GRN (sorted by centrality
     """
     G = nx.from_numpy_array(grn.varp["GRN"])
     centrality = nx.eigenvector_centrality(G)
@@ -45,13 +49,16 @@ def get_centrality(grn, top_k=30):
 
 def enrichment(grn, of="Targets", doplot=True, top_k=30, **kwargs):
     """
-    enrichment uses the gseapy library to calculate the enrichment of the target genes in the adata
-    the enrichment is returned and plotted
+    This function performs enrichment analysis on a given gene regulatory network (grn).
 
-    Args:
-        grn (_type_): _description_
-        of (str, optional): either ['Targets', 'Regulators', 'Central']. Defaults to "Targets".
-        for_ (str, optional): _description_. Defaults to "TFs".
+    Parameters:
+        grn (GRNAnnData): The gene regulatory network to analyze.
+        of (str, optional): The specific component of the grn to focus on.
+        top_k (int, optional): The number of top results to return. Defaults to 10.
+        doplot (bool, optional): Whether to generate a plot of the results. Defaults to False.
+
+    Returns:
+        pandas.DataFrame: A DataFrame containing the results of the enrichment analysis.
     """
     if of == "Targets":
         rnk = grn.grn.sum(1).sort_values(ascending=False)
@@ -109,6 +116,19 @@ def enrichment(grn, of="Targets", doplot=True, top_k=30, **kwargs):
 
 
 def similarity(grn, other_grn):
+    """
+    This function calculates the similarity between two gene regulatory networks (grns).
+
+    Parameters:
+        grn (GRNAnnData): The first gene regulatory network.
+        other_grn (GRNAnnData): The second gene regulatory network.
+
+    Returns:
+        dict : A dictionary containing the similarity metrics between the two grns.
+            {"spearman_corr", "precision", "precision_rand", "recall", 
+            "recall_rand", "accuracy", "accuracy_rand", "sim_expr", 
+            "intra_similarity_self", "intra_similarity_other"}
+    """
     # similarity in expression
     selfX = grn.X
     selfXrand = selfX.copy()
@@ -181,3 +201,6 @@ def similarity(grn, other_grn):
         "intra_similarity_self": intra_similarity_self,
         "intra_similarity_other": intra_similarity_other,
     }
+
+def scalefreeness():
+    

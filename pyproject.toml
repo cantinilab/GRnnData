@@ -1,14 +1,20 @@
 [tool.poetry]
 name = "grnndata"
 version = "0.1.0"
-description = ""
+description = "Awesome gene regulatory network enhanced anndata"
 authors = ["jkobject"]
-readme = "README.md"
+readme = ["README.md", "LICENSE"]
+license = "GPL3"
+repository = "https://github.com/cantinilab/GRnnData"
+keywords = ["scRNAseq", "gene regulatory networks", "anndata", "scPrint"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 anndata = "*"
 scipy = "*"
+networkx = "*"
+gseapy = "1.*"
+numpy = "*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.4"

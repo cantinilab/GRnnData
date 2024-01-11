@@ -42,32 +42,49 @@ class GRNAnnData(AnnData):
 
     @property
     def grn(self):
+        """
+        Property that returns the gene regulatory network (GRN) as a pandas DataFrame.
+        The index and columns of the DataFrame are the gene names stored in 'var_names'.
+
+        Returns:
+            pd.DataFrame: The GRN as a DataFrame with gene names as index and columns.
+        """
         return pd.DataFrame(
             data=self.varp["GRN"], index=self.var_names, columns=self.var_names
         )
 
     # add return list of genes and corresponding weights
     def extract_links(
-        adata,  # AnnData object
+        self,
         columns=[
-            "row",
-            "col",
+            "regulator",
+            "target",
             "weight",
         ],  # output col names (e.g. 'TF', 'gene', 'score')
     ):
         """
-        little function to extract scores from anndata.varp['key'] as a pd.DataFrame :
+        This function extracts scores from anndata.varp['key'] and returns them as a pandas DataFrame.
+
+        The resulting DataFrame has the following structure:
             TF   Gene   Score
-            A        B          5
-            C        D         8
+            A    B      5
+            C    D      8
+
+        Where 'TF' and 'Gene' are the indices of the genes in the regulatory network, and 'Score' is the corresponding weight.
+
+        Args:
+            columns (list, optional): The names of the columns in the resulting DataFrame. Defaults to ['regulator', 'target', 'weight'].
+
+        Returns:
+            pd.DataFrame: The extracted scores as a DataFrame.
         """
         return pd.DataFrame(
             [
                 a
                 for a in zip(
-                    [adata.var_names[i] for i in adata.varp["GRN"].row],
-                    [adata.var_names[i] for i in adata.varp["GRN"].col],
-                    adata.varp["GRN"].data,
+                    [self.var_names[i] for i in self.varp["GRN"].row],
+                    [self.var_names[i] for i in self.varp["GRN"].col],
+                    self.varp["GRN"].data,
                 )
             ],
             columns=columns,

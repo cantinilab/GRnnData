@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/cantinilab/GRnnData/branch/main/graph/badge.svg?token=GRnnData_token_here)](https://codecov.io/gh/cantinilab/GRnnData)
 [![CI](https://github.com/cantinilab/GRnnData/actions/workflows/main.yml/badge.svg)](https://github.com/cantinilab/GRnnData/actions/workflows/main.yml)
 
-Awesome gene regulatory network enhanced anndata created by jkobject & remi trimbour
+Awesome gene regulatory network enhanced anndata created by @jkobject & remi trimbour
 
 grnndata works similarly to anndata. The goal was to use the .varm of anndata to store the GRN data associated with a dataset and have a formal way to work with GRNs.
 
