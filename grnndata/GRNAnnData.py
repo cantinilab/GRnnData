@@ -1,7 +1,11 @@
 from anndata import AnnData
+from anndata import read_h5ad as anndata_read_h5ad
 import scipy.sparse
 import pandas as pd
 import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+import networkx as nx
+import tqdm
 
 
 class GRNAnnData(AnnData):
@@ -19,7 +23,7 @@ class GRNAnnData(AnnData):
 
         @see https://anndata.readthedocs.io for more informaiotn on AnnData objects
         """
-        super().__init__(*args, **kwargs)
+        super(GRNAnnData, self).__init__(*args, **kwargs)
         self.varp["GRN"] = grn
 
     # add concat
@@ -49,9 +53,11 @@ class GRNAnnData(AnnData):
         Returns:
             pd.DataFrame: The GRN as a DataFrame with gene names as index and columns.
         """
-        return pd.DataFrame(
-            data=self.varp["GRN"], index=self.var_names, columns=self.var_names
-        )
+        if scipy.sparse.issparse(self.varp["GRN"]):
+            data = self.varp["GRN"].toarray()
+        else:
+            data = self.varp["GRN"]
+        return pd.DataFrame(data=data, index=self.var_names, columns=self.var_names)
 
     # add return list of genes and corresponding weights
     def extract_links(
@@ -90,12 +96,86 @@ class GRNAnnData(AnnData):
             columns=columns,
         ).sort_values(by=columns[2], ascending=False)
 
-    @classmethod
-    def read(cls, *args, **kwargs):
-        return from_anndata(AnnData.read(*args, **kwargs))
+    def __repr__(self):
+        text = super().__repr__()
+        text += "\n    with a grn of {} elements".format((self.varp["GRN"] != 0).sum())
+        return "GR" + text[1:]
+
+
+def read_h5ad(*args, **kwargs):
+    return from_anndata(anndata_read_h5ad(*args, **kwargs))
 
 
 def from_anndata(adata):
     if "GRN" not in adata.varp:
         raise ValueError("GRN not found in adata.varp")
     return GRNAnnData(adata, grn=adata.varp["GRN"])
+
+
+def from_scope_loomfile(filepath):
+    from loomxpy.loomxpy import SCopeLoom
+
+    scopefile = SCopeLoom.read_loom(filepath)
+    adata = AnnData(
+        scopefile.ex_mtx,
+        obs=pd.concat(
+            [pd.DataFrame(v, columns=[k]) for k, v in scopefile.col_attrs.items()],
+            axis=1,
+        ).set_index("CellID"),
+        var=pd.concat(
+            [pd.DataFrame(v, columns=[k]) for k, v in scopefile.row_attrs.items()],
+            axis=1,
+        ).set_index("Gene"),
+    )
+    for k, v in scopefile.embeddings.items():
+        adata.obsm[k] = v.embedding.values
+
+    adata.uns = {
+        i["name"]: i["values"]
+        for i in scopefile.global_attrs["MetaData"]["annotations"]
+    }
+    adata.uns["regulon_thresholds"] = scopefile.global_attrs["MetaData"][
+        "regulonThresholds"
+    ]
+
+    regulons_array = np.asarray(scopefile.row_attrs["Regulons"])
+    regulons_df = pd.DataFrame(
+        [reg.tolist() for reg in regulons_array], columns=regulons_array.dtype.names
+    )
+    regulons_df.index = adata.var.index
+    adata.varm["regulons"] = regulons_df
+
+    varnames = adata.var_names.tolist()
+    da = np.zeros((len(varnames), len(varnames)), dtype=np.float)
+    for i, (_, row) in enumerate(adata.varm["regulons"].iterrows()):
+        names = row[row > 0].index.tolist()
+        for name in names:
+            sign = name.split("_")[1]
+            name = name.split("_")[0]
+            da[i, varnames.index(name)] = 1 if sign == "+" else -1
+    return GRNAnnData(adata, grn=da)
+
+
+def from_adata_and_longform(adata, longform_df, has_weight=False):
+    varnames = adata.var_names.tolist()
+    da = np.zeros((len(varnames), len(varnames)), dtype=np.float)
+    svar = set(varnames)
+    if has_weight:
+        for i, j, v in longform_df.values:
+            if i in svar and j in svar:
+                da[varnames.index(i), varnames.index(j)] = v
+    else:
+        for i, j in longform_df.values:
+            if i in svar and j in svar:
+                da[varnames.index(i), varnames.index(j)] = 1
+    return GRNAnnData(adata, grn=da)
+
+
+def from_embeddings(embeddings_adata, threshold=0.4):
+    a = embeddings_adata.X
+    similarities = cosine_similarity(a.T)
+    similarities[similarities < 0.4] = 0
+    embeddings_gnndata = GRNAnnData(
+        embeddings_adata, grn=scipy.sparse.coo_array(similarities)
+    )
+    return embeddings_gnndata

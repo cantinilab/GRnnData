@@ -3,6 +3,7 @@ import gseapy as gp
 from gseapy.plot import barplot, dotplot
 import numpy as np
 import os.path
+import scanpy as sc
 
 
 def fileToList(filename, strconv=lambda x: x):
@@ -23,7 +24,7 @@ def get_centrality(grn, top_k=30):
     The centrality is added to the grn object as a new column in the var dataframe.
     also prints the top K most central nodes in the GRN.
 
-    Args:
+    Parameters:
         grn (GRNAnnData): The gene regulatory network to analyze.
         top_k (int, optional): The number of top results to return. Defaults to 30.
 
@@ -67,6 +68,8 @@ def enrichment(grn, of="Targets", doplot=True, top_k=30, **kwargs):
     elif of == "Central":
         get_centrality(grn, top_k=0)
         rnk = grn.var["centrality"].sort_values(ascending=False)
+    else:
+        raise ValueError("of must be one of 'Targets', 'Regulators', or 'Central'")
     rnk.name = None
     # run enrichment analysis
     pre_res = gp.prerank(
@@ -125,8 +128,8 @@ def similarity(grn, other_grn):
 
     Returns:
         dict : A dictionary containing the similarity metrics between the two grns.
-            {"spearman_corr", "precision", "precision_rand", "recall", 
-            "recall_rand", "accuracy", "accuracy_rand", "sim_expr", 
+            {"spearman_corr", "precision", "precision_rand", "recall",
+            "recall_rand", "accuracy", "accuracy_rand", "sim_expr",
             "intra_similarity_self", "intra_similarity_other"}
     """
     # similarity in expression
@@ -147,7 +150,6 @@ def similarity(grn, other_grn):
     grn_self = grn.varp["GRN"]
     grn_other = other_grn.varp["GRN"]
 
-    # Compute the number of similar edges
     # Compute the number of similar edges
     # Similar edges are those where both are non-zero and have the same sign
     similar_edges = (
@@ -189,6 +191,17 @@ def similarity(grn, other_grn):
     accuracy_rand = similar_edges_ct_rand / (
         total_edges + total_edges_rand - similar_edges_ct_rand
     )
+
+    # compute graph edit distance
+    G1 = nx.from_numpy_array(grn_self)
+    G2 = nx.from_numpy_array(grn_other)
+    dist = nx.graph_edit_distance(
+        G1,
+        G2,
+        node_match=None,
+        edge_match=lambda e1, e2: np.sign(e1) == np.sign(e2),
+        timeout=300,
+    )
     return {
         "spearman_corr": spearman_corr,
         "precision": precision,
@@ -200,7 +213,57 @@ def similarity(grn, other_grn):
         "sim_expr": inter_similarity,
         "intra_similarity_self": intra_similarity_self,
         "intra_similarity_other": intra_similarity_other,
+        "dist": dist,
     }
 
-def scalefreeness():
-    
+
+def metrics(grn):
+    """
+
+    ### small worldness
+    A small-world network is a type of mathematical graph in which most nodes are not neighbors of one another,
+    but most nodes can be reached from every other by a small number of hops or steps.
+    the sigma metric is a measure of small-worldness.
+    if sigma > 1, the network is a small-world network.
+
+    ### scale freeness
+    A scale-free network is a network whose degree distribution follows a power law,
+    at least asymptotically. The s metric is a measure of scale-freeness,
+    defined as ( S(G)={\frac {s(G)}{s_{\max }}} ), where ( s_{\max } )
+    is the maximum value of s(H) for H in the set of all graphs with degree distribution.
+    A graph with small S(G) is "scale-rich," and a graph with S(G) close to 1 is "scale-free"
+
+    Therefore, a graph is more scale-free when its S(G) value is closer to 1.
+    The range of the s metric is between 0 and 1, where 0 indicates "scale-rich" and 1 indicates "scale-free"
+    """
+    G = nx.from_numpy_array(grn.varp["GRN"])
+    # sw_sig = nx.sigma(G) # commented because too long
+    conn = nx.is_connected(G)
+    # clust_coef = nx.average_clustering(G)
+    scale_freeness = nx.algorithms.smetric.s_metric(G)
+    return {
+        # "small_worldness": sw_sig,
+        "is_connected": conn,
+        #  "clustering": clust_coef,
+        "scale_freeness": scale_freeness,
+    }
+
+
+def compute_connectivities(grn, stretch=2):
+    grn.uns["neighbors"] = {
+        "connectivities_key": "connectivities",
+        "params": {"method": "GRN"},
+    }
+    grn.varp["connectivities"] = nx.to_scipy_sparse_array(
+        nx.spanner(nx.from_numpy_array(grn.varp["GRN"]), stretch=stretch)
+    )
+    print(grn.varp["connectivities"])
+    return grn
+
+
+def plot_cluster(grn, color=["louvain"], min_dist=0.5, spread=0.7, stretch=2, **kwargs):
+    grn = compute_connectivities(grn, stretch=stretch)
+    subgrn = grn.T
+    sc.tl.louvain(subgrn, adjacency=subgrn.obsp["GRN"])
+    sc.tl.umap(subgrn, min_dist=min_dist, spread=spread)
+    sc.pl.umap(subgrn, color=color, **kwargs)
