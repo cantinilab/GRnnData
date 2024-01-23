@@ -235,6 +235,13 @@ def metrics(grn):
 
     Therefore, a graph is more scale-free when its S(G) value is closer to 1.
     The range of the s metric is between 0 and 1, where 0 indicates "scale-rich" and 1 indicates "scale-free"
+
+    Parameters:
+        grn : The Gene Regulatory Network for which the connectivities are to be computed.
+        stretch : The maximum distance between nodes in the spanner compared to the original graph. Default is 2.
+
+    Returns:
+        dict : {is_connected: bool, scale_freeness: float}
     """
     G = nx.from_numpy_array(grn.varp["GRN"])
     # sw_sig = nx.sigma(G) # commented because too long
@@ -250,6 +257,20 @@ def metrics(grn):
 
 
 def compute_connectivities(grn, stretch=2):
+    """
+    This function computes the connectivities of a given Gene Regulatory Network (GRN).
+    It uses the NetworkX library to convert the GRN into a graph and then computes the spanner of the graph.
+    The spanner of a graph is a subgraph that approximates the original graph in terms of distances between nodes.
+    The stretch parameter determines the maximum distance between nodes in the spanner compared to the original graph.
+    The computed connectivities are then stored in the GRN object.
+
+    Parameters:
+        grn : The Gene Regulatory Network for which the connectivities are to be computed.
+        stretch : The maximum distance between nodes in the spanner compared to the original graph. Default is 2.
+
+    Returns:
+    grn : The Gene Regulatory Network with the computed connectivities.
+    """
     grn.uns["neighbors"] = {
         "connectivities_key": "connectivities",
         "params": {"method": "GRN"},
@@ -262,6 +283,20 @@ def compute_connectivities(grn, stretch=2):
 
 
 def plot_cluster(grn, color=["louvain"], min_dist=0.5, spread=0.7, stretch=2, **kwargs):
+    """
+    This function plots the clusters of a given Gene Regulatory Network (GRN).
+    It first computes the connectivities of the GRN and then performs Louvain clustering on the transpose of the GRN.
+    The clusters are then visualized using UMAP.
+
+    Parameters:
+        grn : The Gene Regulatory Network to be clustered and visualized.
+        color : The color of the clusters. Default is "louvain".
+        min_dist : The minimum distance between points in the UMAP. Default is 0.5.
+        spread : The spread of the points in the UMAP. Default is 0.7.
+        stretch : The maximum distance between nodes in the spanner compared to the original graph. Default is 2.
+        **kwargs : Additional keyword arguments to be passed to the UMAP function.
+
+    """
     grn = compute_connectivities(grn, stretch=stretch)
     subgrn = grn.T
     sc.tl.louvain(subgrn, adjacency=subgrn.obsp["GRN"])
