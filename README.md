@@ -2,6 +2,8 @@
 
 [![codecov](https://codecov.io/gh/cantinilab/GRnnData/branch/main/graph/badge.svg?token=GRnnData_token_here)](https://codecov.io/gh/cantinilab/GRnnData)
 [![CI](https://github.com/cantinilab/GRnnData/actions/workflows/main.yml/badge.svg)](https://github.com/cantinilab/GRnnData/actions/workflows/main.yml)
+[![DOI](https://zenodo.org/badge/731236048.svg)](https://zenodo.org/doi/10.5281/zenodo.10573141)
+
 
 Awesome gene regulatory network enhanced anndata created by @jkobject & remi trimbour
 
