@@ -1,4 +1,4 @@
 # Documentation for `utils` module
 
-:::rnndata.utils
+::: grnndata.utils
     handler: python

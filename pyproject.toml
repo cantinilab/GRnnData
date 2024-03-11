@@ -15,6 +15,7 @@ scipy = "*"
 networkx = "*"
 gseapy = "1.*"
 numpy = "*"
+louvain = "*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.3"

@@ -4,6 +4,8 @@ from gseapy.plot import barplot, dotplot
 import numpy as np
 import os.path
 import scanpy as sc
+from scipy.sparse import issparse
+import scipy
 
 
 def fileToList(filename, strconv=lambda x: x):
@@ -118,6 +120,46 @@ def enrichment(grn, of="Targets", doplot=True, top_k=30, **kwargs):
     return val
 
 
+def enrichment_of(grn, target, of="Targets", doplot=False):
+    """ """
+    enr = gp.enrich(
+        gene_list=grn.var[
+            (grn.get(target).varm[of] != 0)[0]
+        ].index.tolist(),  # or gene_list=glist
+        gene_sets=[
+            "KEGG_2016",
+            {"h.all": gmt},
+            "ENCODE_TF_ChIP-seq_2014",
+            "GO_Molecular_Function_2015",
+            {"TFs": TF},
+            "../../../GRnnData/grnndata/celltype.gmt",
+            "OMIM_Disease",
+            "WikiPathways_2016",
+            "GO_Cellular_Component_2015",
+            "GTEx_Tissue_Sample_Gene_Expression_Profiles_up",
+            "TargetScan_microRNA",
+            "Chromosome_Location",
+            "PPI_Hub_Proteins",
+        ],
+        background=grn.var.index.tolist(),  # or "hsapiens_gene_ensembl", or int, or text file, or a list of genes
+        outdir=None,
+        verbose=True,
+    )
+    if doplot:
+        _ = dotplot(
+            enr.res2d[
+                (enr.res2d["FDR q-val"] < 0.1) & (enr.res2d["NES"] > 1)
+            ].sort_values(by=["NES"], ascending=False),
+            column="FDR q-val",
+            title="enrichment of " + of + " in the grn",
+            size=6,  # adjust dot size
+            figsize=(4, 5),
+            cutoff=0.25,
+            show_ring=False,
+        )
+    return enr2.results[enr2.results["Adjusted P-value"] < 0.2]
+
+
 def similarity(grn, other_grn):
     """
     This function calculates the similarity between two gene regulatory networks (grns).
@@ -134,16 +176,38 @@ def similarity(grn, other_grn):
     """
     # similarity in expression
     selfX = grn.X
-    selfXrand = selfX.copy()
     otherX = other_grn.X
+    if issparse(otherX):
+        otherX = otherX.todense()
     otherXrand = otherX.copy()
-    np.random.shuffle(selfXrand.data)
-    np.random.shuffle(otherXrand.data)
+    np.random.shuffle(otherXrand)
+    if issparse(selfX):
+        selfX = selfX.todense()
+    selfXrand = selfX.copy()
+    np.random.shuffle(selfXrand)
     # Compute intra matrix similarity
-    intra_similarity_self = np.dot(selfX, selfXrand.T)
-    intra_similarity_other = np.dot(otherX, otherXrand.T)
+    intra_similarity_self = np.nan_to_num(
+        np.diag(
+            np.corrcoef(selfXrand.T, selfX.T)[
+                selfXrand.shape[1] :, : selfXrand.shape[1]
+            ]
+        ),
+        1,
+    ).mean()
+    intra_similarity_other = np.nan_to_num(
+        np.diag(
+            np.corrcoef(otherX.T, otherXrand.T)[otherX.shape[1] :, : otherX.shape[1]]
+        ),
+        1,
+    ).mean()
     # Compute inter matrix similarity
-    inter_similarity = np.dot(selfX, otherX.T)
+    inter_similarity = np.nan_to_num(
+        np.diag(np.corrcoef(selfX.T, otherX.T)[selfX.shape[1] :, : selfX.shape[1]]),
+        1,
+    ).mean()
+    print("intra_similarity_self", intra_similarity_self)
+    print("intra_similarity_other", intra_similarity_other)
+    print("inter_similarity", inter_similarity)
 
     # similarity in network structure
     # Get the GRN network from both grn objects
@@ -155,7 +219,9 @@ def similarity(grn, other_grn):
     similar_edges = (
         (grn_self != 0) & (grn_other != 0) & (np.sign(grn_self) == np.sign(grn_other))
     )
+
     similar_edges_ct = np.sum(similar_edges)
+    print("similar_edges_ct", similar_edges_ct)
 
     # Compute the total number of edges
     total_edges = np.sum(grn_self != 0)
@@ -167,23 +233,26 @@ def similarity(grn, other_grn):
     precision = similar_edges_ct / total_edges
     recall = similar_edges_ct / total_edges_other
     accuracy = similar_edges_ct / (total_edges + total_edges_other - similar_edges_ct)
-
+    print("precision", precision)
+    print("recall", recall)
+    print("accuracy", accuracy)
     # Compute the Spearman's rank correlation between the two overlapping sets of edges
     spearman_corr = scipy.stats.spearmanr(
         grn_self[similar_edges].flatten(), grn_other[similar_edges].flatten()
     )
+    print("spearman_corr", spearman_corr)
     # Generate a random permutation of varp['grn'] matrix
-    grn_self_rand = grn_self.copy()
-    np.random.shuffle(grn_self_rand.data)
+    grn_other_rand = grn_other.copy()
+    np.random.shuffle(grn_other_rand)
 
     # Recompute the number of similar edges
     similar_edges_rand = (
         (grn_self != 0)
-        & (grn_self_rand != 0)
-        & (np.sign(grn_self) == np.sign(grn_self_rand))
+        & (grn_other_rand != 0)
+        & (np.sign(grn_self) == np.sign(grn_other_rand))
     )
     similar_edges_ct_rand = np.sum(similar_edges_rand)
-    total_edges_rand = np.sum((grn_self_rand != 0))
+    total_edges_rand = np.sum((grn_other_rand != 0))
 
     # Recompute precision, recall, and accuracy
     precision_rand = similar_edges_ct_rand / total_edges
@@ -191,17 +260,21 @@ def similarity(grn, other_grn):
     accuracy_rand = similar_edges_ct_rand / (
         total_edges + total_edges_rand - similar_edges_ct_rand
     )
+    print("rand precision", precision_rand)
+    print("rand recall", recall_rand)
+    print("rand accuracy", accuracy_rand)
 
     # compute graph edit distance
-    G1 = nx.from_numpy_array(grn_self)
-    G2 = nx.from_numpy_array(grn_other)
-    dist = nx.graph_edit_distance(
-        G1,
-        G2,
-        node_match=None,
-        edge_match=lambda e1, e2: np.sign(e1) == np.sign(e2),
-        timeout=300,
-    )
+
+    # G1 = nx.from_numpy_array(grn_self)
+    # G2 = nx.from_numpy_array(grn_other)
+    # dist = nx.graph_edit_distance(
+    #    G1,
+    #    G2,
+    #    node_match=None,
+    #    edge_match=lambda e1, e2: np.sign(e1) == np.sign(e2),
+    #    timeout=300,
+    # )
     return {
         "spearman_corr": spearman_corr,
         "precision": precision,
@@ -213,13 +286,12 @@ def similarity(grn, other_grn):
         "sim_expr": inter_similarity,
         "intra_similarity_self": intra_similarity_self,
         "intra_similarity_other": intra_similarity_other,
-        "dist": dist,
+        # "dist": dist,
     }
 
 
 def metrics(grn):
     """
-
     ### small worldness
     A small-world network is a type of mathematical graph in which most nodes are not neighbors of one another,
     but most nodes can be reached from every other by a small number of hops or steps.
@@ -247,7 +319,7 @@ def metrics(grn):
     # sw_sig = nx.sigma(G) # commented because too long
     conn = nx.is_connected(G)
     # clust_coef = nx.average_clustering(G)
-    scale_freeness = nx.algorithms.smetric.s_metric(G)
+    scale_freeness = nx.algorithms.smetric.s_metric(G, normalized=False)
     return {
         # "small_worldness": sw_sig,
         "is_connected": conn,
@@ -278,7 +350,6 @@ def compute_connectivities(grn, stretch=2):
     grn.varp["connectivities"] = nx.to_scipy_sparse_array(
         nx.spanner(nx.from_numpy_array(grn.varp["GRN"]), stretch=stretch)
     )
-    print(grn.varp["connectivities"])
     return grn
 
 
@@ -300,5 +371,5 @@ def plot_cluster(grn, color=["louvain"], min_dist=0.5, spread=0.7, stretch=2, **
     grn = compute_connectivities(grn, stretch=stretch)
     subgrn = grn.T
     sc.tl.louvain(subgrn, adjacency=subgrn.obsp["GRN"])
-    sc.tl.umap(subgrn, min_dist=min_dist, spread=spread)
+
     sc.pl.umap(subgrn, color=color, **kwargs)

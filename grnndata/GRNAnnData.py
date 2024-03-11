@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import networkx as nx
-import tqdm
+from matplotlib import pyplot as plt
 
 
 class GRNAnnData(AnnData):
@@ -36,12 +36,22 @@ class GRNAnnData(AnnData):
         )
 
     # add slice
-    def __getitem__(self, *args):
-        sub = super().__getitem__(*args)
-        if sub.shape[1] < self.shape[1]:
-            sub.varm["all_targets"] = self.varp["GRN"][
-                self.var_names.isin(sub.var_names)
-            ]
+    def get(self, elem):
+        if type(elem) == str:
+            elem = [elem]
+        loc = self.var.index.isin(elem)
+        sub = AnnData(
+            X=self.X[:, loc],
+            obs=self.obs,
+            var=self.var.loc[elem],
+        )
+        sub.varm["Targets"] = self.varp["GRN"][loc]
+        sub.varm["Regulators"] = self.varp["GRN"].T[loc]
+        reg = self.varp["GRN"][loc, loc]
+        if reg.shape[0] == 1:
+            sub.varp["GRN"] = np.array([reg])
+        else:
+            sub.varp["GRN"] = reg
         return sub
 
     @property
@@ -100,6 +110,32 @@ class GRNAnnData(AnnData):
         text = super().__repr__()
         text += "\n    with a grn of {} elements".format((self.varp["GRN"] != 0).sum())
         return "GR" + text[1:]
+
+    def plot_subgraph(self, seed, using="Targets", max_edges=40, plot_size=15):
+        subgrn = self.get(seed)
+        loc = subgrn.varm[using] != 0
+        sub = self.varp["GRN"][loc[0]][:, loc[0]]
+
+        print("total edges: " + str((sub != 0).sum()))
+        # Create DataFrame
+        df = pd.DataFrame(
+            sub, index=self.var_names[loc[0]], columns=self.var_names[loc[0]]
+        )
+
+        # Generate random indices
+        if max_edges > df.shape[0]:
+            max_edges = df.shape[0]
+        random_indices = np.random.choice(df.index, size=max_edges, replace=False)
+        # Subset the DataFrame using the random indices
+        # Create a graph from the DataFrame
+        G = nx.from_pandas_adjacency(
+            df.loc[random_indices, random_indices], create_using=nx.DiGraph()
+        )
+
+        # Draw the graph
+        plt.figure(figsize=(15, 15))  # Increase the size of the plot
+        nx.draw(G, with_labels=True, arrows=True)
+        plt.show()
 
 
 def read_h5ad(*args, **kwargs):
