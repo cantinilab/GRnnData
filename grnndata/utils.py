@@ -6,6 +6,7 @@ import os.path
 import scanpy as sc
 from scipy.sparse import issparse
 import scipy
+import powerlaw  # Power laws are probability distributions with the form:p(x)∝x−α
 
 
 def fileToList(filename, strconv=lambda x: x):
@@ -50,7 +51,30 @@ def get_centrality(grn, top_k=30):
     return top_central_genes
 
 
-def enrichment(grn, of="Targets", doplot=True, top_k=30, **kwargs):
+def enrichment(
+    grn,
+    of="Targets",
+    doplot=True,
+    top_k=30,
+    gene_sets=[
+        "KEGG_2016",
+        "ENCODE_TF_ChIP-seq_2014",
+        "GO_Molecular_Function_2015",
+        {"TFs": TF},
+        file_dir + "/celltype.gmt",
+        "OMIM_Disease",
+        "WikiPathways_2016",
+        "GO_Cellular_Component_2015",
+        "GTEx_Tissue_Sample_Gene_Expression_Profiles_up",
+        "TargetScan_microRNA",
+        "Chromosome_Location",
+        "PPI_Hub_Proteins",
+    ],
+    min_size=3,
+    max_size=1000,
+    permutation_num=1000,  # reduce number to speed up testing
+    **kwargs
+):
     """
     This function performs enrichment analysis on a given gene regulatory network (grn).
 
@@ -73,29 +97,15 @@ def enrichment(grn, of="Targets", doplot=True, top_k=30, **kwargs):
     else:
         raise ValueError("of must be one of 'Targets', 'Regulators', or 'Central'")
     rnk.name = None
+    rnk = rnk[rnk!=0]
     # run enrichment analysis
     pre_res = gp.prerank(
         rnk=rnk,  # or rnk = rnk,
-        gene_sets=[
-            "KEGG_2016",
-            "ENCODE_TF_ChIP-seq_2014",
-            "GO_Molecular_Function_2015",
-            {"TFs": TF},
-            file_dir + "/celltype.gmt",
-            "OMIM_Disease",
-            "WikiPathways_2016",
-            "GO_Cellular_Component_2015",
-            "GTEx_Tissue_Sample_Gene_Expression_Profiles_up",
-            "TargetScan_microRNA",
-            "Chromosome_Location",
-            "PPI_Hub_Proteins",
-        ],
-        min_size=5,
-        max_size=1000,
-        permutation_num=1000,  # reduce number to speed up testing
-        outdir=None,  # don't write to disk
-        seed=6,
-        verbose=True,  # see what's going on behind the scenes
+        gene_sets=gene_sets,
+        min_size=min_size,
+        max_size=max_size,
+        permutation_num=permutation_num,
+        **kwargs
     )
     val = (
         pre_res.res2d[(pre_res.res2d["FDR q-val"] < 0.1) & (pre_res.res2d["NES"] > 1)]
@@ -117,7 +127,7 @@ def enrichment(grn, of="Targets", doplot=True, top_k=30, **kwargs):
             show_ring=False,
         )
 
-    return val
+    return pre_res
 
 
 def enrichment_of(grn, target, of="Targets", doplot=False):
@@ -290,6 +300,10 @@ def similarity(grn, other_grn):
     }
 
 
+def extract_main(grn):
+    pass
+
+
 def metrics(grn):
     """
     ### small worldness
@@ -319,12 +333,25 @@ def metrics(grn):
     # sw_sig = nx.sigma(G) # commented because too long
     conn = nx.is_connected(G)
     # clust_coef = nx.average_clustering(G)
-    scale_freeness = nx.algorithms.smetric.s_metric(G, normalized=False)
+    degree_sequence = sorted(
+        [d for n, d in G.degree()], reverse=True
+    )  # used for degree distribution and powerlaw test
+    fit = powerlaw.Fit(degree_sequence)
+    R, p = fit.distribution_compare("power_law", "exponential", normalized_ratio=True)
+    fig2 = fit.plot_pdf(color="b", linewidth=2)
+    plt.figure(figsize=(10, 6))
+    fit.distribution_compare("power_law", "lognormal")
+    fig4 = fit.plot_ccdf(linewidth=3, color="black")
+    fit.power_law.plot_ccdf(ax=fig4, color="r", linestyle="--")  # powerlaw
+    fit.lognormal.plot_ccdf(ax=fig4, color="g", linestyle="--")  # lognormal
+    fit.stretched_exponential.plot_ccdf(
+        ax=fig4, color="b", linestyle="--"
+    )  # stretched_exponential
     return {
         # "small_worldness": sw_sig,
         "is_connected": conn,
         #  "clustering": clust_coef,
-        "scale_freeness": scale_freeness,
+        "scale_freeness": [R, p],
     }
 
 

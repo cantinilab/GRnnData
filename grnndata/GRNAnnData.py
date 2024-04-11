@@ -40,18 +40,15 @@ class GRNAnnData(AnnData):
         if type(elem) == str:
             elem = [elem]
         loc = self.var.index.isin(elem)
-        sub = AnnData(
-            X=self.X[:, loc],
-            obs=self.obs,
-            var=self.var.loc[elem],
+        reg = self.varp["GRN"][loc][:, loc]
+        if len(reg.shape) == 1:
+            reg = np.array([reg])
+        sub = GRNAnnData(
+            X=self.X[:, loc], obs=self.obs, var=self.var[loc], grn=reg
         )
         sub.varm["Targets"] = self.varp["GRN"][loc]
         sub.varm["Regulators"] = self.varp["GRN"].T[loc]
-        reg = self.varp["GRN"][loc, loc]
-        if reg.shape[0] == 1:
-            sub.varp["GRN"] = np.array([reg])
-        else:
-            sub.varp["GRN"] = reg
+        sub.uns["regulated_genes"] = self.var.index.tolist()
         return sub
 
     @property
@@ -68,6 +65,30 @@ class GRNAnnData(AnnData):
         else:
             data = self.varp["GRN"]
         return pd.DataFrame(data=data, index=self.var_names, columns=self.var_names)
+
+    @property
+    def regulators(self):
+        if "Regulators" not in self.varm:
+            return self.grn
+        if scipy.sparse.issparse(self.varm["Regulators"]):
+            data = self.varm["Regulators"].toarray()
+        else:
+            data = self.varm["Regulators"]
+        return pd.DataFrame(
+            data=data, index=self.var_names, columns=self.uns["regulated_genes"]
+        )
+
+    @property
+    def targets(self):
+        if "Targets" not in self.varm:
+            return self.grn.T
+        if scipy.sparse.issparse(self.varm["Targets"]):
+            data = self.varm["Targets"].toarray()
+        else:
+            data = self.varm["Targets"]
+        return pd.DataFrame(
+            data=data, index=self.var_names, columns=self.uns["regulated_genes"]
+        )
 
     # add return list of genes and corresponding weights
     def extract_links(
