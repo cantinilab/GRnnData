@@ -19,6 +19,7 @@ def fileToList(filename, strconv=lambda x: x):
 
 file_dir = os.path.dirname(os.path.realpath(__file__))
 TF = fileToList(file_dir + "/TF.txt")
+mTF = fileToList(file_dir + "/mTF.txt")
 
 
 def get_centrality(grn, top_k=30):
@@ -97,7 +98,7 @@ def enrichment(
     else:
         raise ValueError("of must be one of 'Targets', 'Regulators', or 'Central'")
     rnk.name = None
-    rnk = rnk[rnk!=0]
+    rnk = rnk[rnk != 0]
     # run enrichment analysis
     pre_res = gp.prerank(
         rnk=rnk,  # or rnk = rnk,
