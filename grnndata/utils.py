@@ -7,6 +7,7 @@ import scanpy as sc
 from scipy.sparse import issparse
 import scipy
 import powerlaw  # Power laws are probability distributions with the form:p(x)∝x−α
+import logging
 
 
 def fileToList(filename, strconv=lambda x: x):
@@ -93,13 +94,19 @@ def enrichment(
     elif of == "Regulators":
         rnk = grn.grn.sum(0).sort_values(ascending=False)
     elif of == "Central":
-        get_centrality(grn, top_k=0)
+        try:
+            get_centrality(grn, top_k=0)
+        except nx.PowerIterationFailedConvergence:
+            print("PowerIterationFailedConvergence")
+            return None
         rnk = grn.var["centrality"].sort_values(ascending=False)
     else:
         raise ValueError("of must be one of 'Targets', 'Regulators', or 'Central'")
     rnk.name = None
     rnk = rnk[rnk != 0]
     # run enrichment analysis
+    previous_level = logging.root.manager.disable
+    logging.disable(logging.WARNING)
     pre_res = gp.prerank(
         rnk=rnk,  # or rnk = rnk,
         gene_sets=gene_sets,
@@ -108,14 +115,16 @@ def enrichment(
         permutation_num=permutation_num,
         **kwargs
     )
+    logging.disable(previous_level)
     val = (
         pre_res.res2d[(pre_res.res2d["FDR q-val"] < 0.1) & (pre_res.res2d["NES"] > 1)]
         .sort_values(by=["NES"], ascending=False)
         .drop(columns=["Name"])
     )
-    print(val.Term.tolist()[:top_k])
+
     # plot results
     if doplot:
+        print(val.Term.tolist()[:top_k])
         ax = dotplot(
             pre_res.res2d[
                 (pre_res.res2d["FDR q-val"] < 0.1) & (pre_res.res2d["NES"] > 1)
