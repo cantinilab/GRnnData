@@ -73,7 +73,7 @@ def enrichment(
         "PPI_Hub_Proteins",
     ],
     min_size=3,
-    max_size=1000,
+    max_size=4000,
     permutation_num=1000,  # reduce number to speed up testing
     **kwargs
 ):
