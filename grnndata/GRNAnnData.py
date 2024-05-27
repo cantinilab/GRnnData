@@ -43,9 +43,7 @@ class GRNAnnData(AnnData):
         reg = self.varp["GRN"][loc][:, loc]
         if len(reg.shape) == 1:
             reg = np.array([reg])
-        sub = GRNAnnData(
-            X=self.X[:, loc], obs=self.obs, var=self.var[loc], grn=reg
-        )
+        sub = GRNAnnData(X=self.X[:, loc], obs=self.obs, var=self.var[loc], grn=reg)
         sub.varm["Targets"] = self.varp["GRN"][loc]
         sub.varm["Regulators"] = self.varp["GRN"].T[loc]
         sub.uns["regulated_genes"] = self.var.index.tolist()
@@ -203,7 +201,7 @@ def from_scope_loomfile(filepath):
     adata.varm["regulons"] = regulons_df
 
     varnames = adata.var_names.tolist()
-    da = np.zeros((len(varnames), len(varnames)), dtype=np.float)
+    da = np.zeros((len(varnames), len(varnames)), dtype=float)
     for i, (_, row) in enumerate(adata.varm["regulons"].iterrows()):
         names = row[row > 0].index.tolist()
         for name in names:
@@ -215,7 +213,7 @@ def from_scope_loomfile(filepath):
 
 def from_adata_and_longform(adata, longform_df, has_weight=False):
     varnames = adata.var_names.tolist()
-    da = np.zeros((len(varnames), len(varnames)), dtype=np.float)
+    da = np.zeros((len(varnames), len(varnames)), dtype=float)
     svar = set(varnames)
     if has_weight:
         for i, j, v in longform_df.values:
