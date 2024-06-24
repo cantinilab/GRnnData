@@ -6,6 +6,13 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import networkx as nx
 from matplotlib import pyplot as plt
+import seaborn as sns
+from d3graph import d3graph, vec2adjmat
+
+
+# Get the base seaborn color palette as hex list
+base_color_palette = sns.color_palette().as_hex()
+base_color_palette
 
 
 class GRNAnnData(AnnData):
@@ -130,31 +137,46 @@ class GRNAnnData(AnnData):
         text += "\n    with a grn of {} elements".format((self.varp["GRN"] != 0).sum())
         return "GR" + text[1:]
 
-    def plot_subgraph(self, seed, using="Targets", max_edges=40, plot_size=15):
-        subgrn = self.get(seed)
-        loc = subgrn.varm[using] != 0
-        sub = self.varp["GRN"][loc[0]][:, loc[0]]
-
-        print("total edges: " + str((sub != 0).sum()))
-        # Create DataFrame
-        df = pd.DataFrame(
-            sub, index=self.var_names[loc[0]], columns=self.var_names[loc[0]]
-        )
-
-        # Generate random indices
-        if max_edges > df.shape[0]:
-            max_edges = df.shape[0]
-        random_indices = np.random.choice(df.index, size=max_edges, replace=False)
-        # Subset the DataFrame using the random indices
-        # Create a graph from the DataFrame
-        G = nx.from_pandas_adjacency(
-            df.loc[random_indices, random_indices], create_using=nx.DiGraph()
-        )
-
-        # Draw the graph
-        plt.figure(figsize=(15, 15))  # Increase the size of the plot
-        nx.draw(G, with_labels=True, arrows=True)
-        plt.show()
+    def plot_subgraph(
+        self,
+        seed,
+        gene_col="symbol",
+        using="Targets",
+        max_genes=10,
+        plot_size=15,
+        palette=base_color_palette,
+        interactive=True,
+        **kwargs
+    ):
+        gene_id = self.var[self.var[gene_col] == seed].index[0]
+        elem = self.grn.loc[gene_id].sort_values(ascending=False).head(
+            max_genes
+        ).index.tolist() + [gene_id]
+        rn = {k: v for k, v in self.var[gene_col].items()}
+        # subgrn = self.get(seed)
+        # loc = subgrn.varm[using] != 0
+        # sub = self.varp["GRN"][loc[0]][:, loc[0]]
+        mat = self.grn.loc[elem, elem].rename(columns=rn).rename(index=rn)
+        mat[mat < 0.3] = 0
+        mat = mat * 100
+        color = [base_color_palette[0]] * len(mat)
+        color[mat.columns.get_loc(seed)] = base_color_palette[1]
+        print(color, mat.index)
+        if interactive:
+            d3 = d3graph()
+            d3.graph(mat, color=None)
+            d3.set_node_properties(color=color, fontcolor="#000000", **kwargs)
+            d3.set_edge_properties(directed=True)
+            d3.show()
+            return d3
+        else:
+            # Create a graph from the DataFrame
+            G = nx.from_pandas_adjacency(mat, create_using=nx.DiGraph())
+            # Draw the graph
+            plt.figure(figsize=(15, 15))  # Increase the size of the plot
+            nx.draw(G, with_labels=True, arrows=True)
+            plt.show()
+            return nx
 
 
 def read_h5ad(*args, **kwargs):
