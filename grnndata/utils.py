@@ -107,15 +107,19 @@ def enrichment(
     # run enrichment analysis
     previous_level = logging.root.manager.disable
     logging.disable(logging.WARNING)
-    pre_res = gp.prerank(
-        rnk=rnk,  # or rnk = rnk,
-        gene_sets=gene_sets,
-        min_size=min_size,
-        max_size=max_size,
-        permutation_num=permutation_num,
-        **kwargs
-    )
-    logging.disable(previous_level)
+    try:
+        pre_res = gp.prerank(
+            rnk=rnk,  # or rnk = rnk,
+            gene_sets=gene_sets,
+            min_size=min_size,
+            max_size=max_size,
+            permutation_num=permutation_num,
+            **kwargs
+        )
+        logging.disable(previous_level)
+    except LookupError:
+        print("raised a lookup error")
+        return None
     val = (
         pre_res.res2d[(pre_res.res2d["FDR q-val"] < 0.1) & (pre_res.res2d["NES"] > 1)]
         .sort_values(by=["NES"], ascending=False)

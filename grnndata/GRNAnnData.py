@@ -143,7 +143,7 @@ class GRNAnnData(AnnData):
         gene_col="symbol",
         using="Targets",
         max_genes=10,
-        plot_size=15,
+        only = 0.3,
         palette=base_color_palette,
         interactive=True,
         **kwargs
@@ -157,7 +157,15 @@ class GRNAnnData(AnnData):
         # loc = subgrn.varm[using] != 0
         # sub = self.varp["GRN"][loc[0]][:, loc[0]]
         mat = self.grn.loc[elem, elem].rename(columns=rn).rename(index=rn)
-        mat[mat < 0.3] = 0
+        if only <1:
+            mat[mat < only] = 0
+        else:
+            top_connections = mat.stack().nlargest(only).reset_index()
+            top_connections.columns = ['Gene1', 'Gene2', 'Weight']
+
+            # Set anything not in the top N connections to 0
+            mask = mat.stack().isin(top_connections.set_index(['Gene1', 'Gene2'])['Weight'])
+            mat[~mask.unstack()] = 0
         mat = mat * 100
         color = [base_color_palette[0]] * len(mat)
         color[mat.columns.get_loc(seed)] = base_color_palette[1]
@@ -167,7 +175,7 @@ class GRNAnnData(AnnData):
             d3.graph(mat, color=None)
             d3.set_node_properties(color=color, fontcolor="#000000", **kwargs)
             d3.set_edge_properties(directed=True)
-            d3.show()
+            d3.show(notebook=True)
             return d3
         else:
             # Create a graph from the DataFrame
@@ -176,7 +184,7 @@ class GRNAnnData(AnnData):
             plt.figure(figsize=(15, 15))  # Increase the size of the plot
             nx.draw(G, with_labels=True, arrows=True)
             plt.show()
-            return nx
+            return G
 
 
 def read_h5ad(*args, **kwargs):
