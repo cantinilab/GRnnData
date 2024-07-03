@@ -104,6 +104,9 @@ def enrichment(
         raise ValueError("of must be one of 'Targets', 'Regulators', or 'Central'")
     rnk.name = None
     rnk = rnk[rnk != 0]
+    if rnk.nunique() == 1:
+        print("The DataFrame contains only the same values.")
+        return None
     # run enrichment analysis
     previous_level = logging.root.manager.disable
     logging.disable(logging.WARNING)
