@@ -113,6 +113,7 @@ def enrichment(
             gene_sets=gene_sets,
             min_size=min_size,
             max_size=max_size,
+            background=grn.var.index.tolist(),  # or "hsapiens_gene_ensembl", or int, or text file  or a list of genes
             permutation_num=permutation_num,
             **kwargs
         )
