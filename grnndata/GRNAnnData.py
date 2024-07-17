@@ -8,6 +8,7 @@ import networkx as nx
 from matplotlib import pyplot as plt
 import seaborn as sns
 from d3graph import d3graph, vec2adjmat
+from pyvis import network as pnx
 
 
 # Get the base seaborn color palette as hex list
@@ -143,7 +144,7 @@ class GRNAnnData(AnnData):
         gene_col="symbol",
         using="Targets",
         max_genes=10,
-        only = 0.3,
+        only=0.3,
         palette=base_color_palette,
         interactive=True,
         **kwargs
@@ -157,14 +158,18 @@ class GRNAnnData(AnnData):
         # loc = subgrn.varm[using] != 0
         # sub = self.varp["GRN"][loc[0]][:, loc[0]]
         mat = self.grn.loc[elem, elem].rename(columns=rn).rename(index=rn)
-        if only <1:
+        if only < 1:
             mat[mat < only] = 0
         else:
-            top_connections = mat.stack().nlargest(only).reset_index()
-            top_connections.columns = ['Gene1', 'Gene2', 'Weight']
-
+            top_connections = mat.stack().nlargest(only)
+            top_connections.index.names = ["Gene1", "Gene2"]
+            top_connections.name = "Weight"
+            top_connections = top_connections.reset_index()
+            mat.index.name += "_2"
             # Set anything not in the top N connections to 0
-            mask = mat.stack().isin(top_connections.set_index(['Gene1', 'Gene2'])['Weight'])
+            mask = mat.stack().isin(
+                top_connections.set_index(["Gene1", "Gene2"])["Weight"]
+            )
             mat[~mask.unstack()] = 0
         mat = mat * 100
         color = [base_color_palette[0]] * len(mat)
