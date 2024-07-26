@@ -147,13 +147,18 @@ class GRNAnnData(AnnData):
         only=0.3,
         palette=base_color_palette,
         interactive=True,
+        do_enr=False,
         **kwargs
     ):
-        gene_id = self.var[self.var[gene_col] == seed].index[0]
-        elem = self.grn.loc[gene_id].sort_values(ascending=False).head(
-            max_genes
-        ).index.tolist() + [gene_id]
         rn = {k: v for k, v in self.var[gene_col].items()}
+        if type(seed) is str:
+            gene_id = self.var[self.var[gene_col] == seed].index[0]
+            elem = self.grn.loc[gene_id].sort_values(ascending=False).head(
+                max_genes
+            ).index.tolist() + [gene_id]
+        else:
+            elem = seed
+
         # subgrn = self.get(seed)
         # loc = subgrn.varm[using] != 0
         # sub = self.varp["GRN"][loc[0]][:, loc[0]]
@@ -173,8 +178,10 @@ class GRNAnnData(AnnData):
             mat[~mask.unstack()] = 0
         mat = mat * 100
         color = [base_color_palette[0]] * len(mat)
-        color[mat.columns.get_loc(seed)] = base_color_palette[1]
+        if type(seed) is str:
+            color[mat.columns.get_loc(seed)] = base_color_palette[1]
         print(color, mat.index)
+        mat = mat.T
         if interactive:
             d3 = d3graph()
             d3.graph(mat, color=None)
@@ -189,7 +196,28 @@ class GRNAnnData(AnnData):
             plt.figure(figsize=(15, 15))  # Increase the size of the plot
             nx.draw(G, with_labels=True, arrows=True)
             plt.show()
-            return G
+        if do_enr:
+            enr = gp.enrichr(
+                gene_list=list(G.nodes),
+                gene_sets=[
+                    "KEGG_2021_Human",
+                    "MSigDB_Hallmark_2020",
+                    "Reactome_2022",
+                    "Tabula_Sapiens",
+                    "WikiPathway_2023_Human",
+                    "TF_Perturbations_Followed_by_Expression",
+                    "Reactome",
+                    "PPI_Hub_Proteins",
+                    "OMIM_Disease",
+                    "GO_Molecular_Function_2023",
+                ],
+                organism="Human",  # change accordingly
+                # description='pathway',
+                # cutoff=0.08, # test dataset, use lower value for real case
+                background=grn_c.var.symbol.tolist(),
+            )
+            print(enr.res2d.head(20))
+        return G
 
 
 def read_h5ad(*args, **kwargs):

@@ -5,9 +5,16 @@ import numpy as np
 import os.path
 import scanpy as sc
 from scipy.sparse import issparse
-import scipy
+import scipy.sparse
+import scipy.stats
 import powerlaw  # Power laws are probability distributions with the form:p(x)∝x−α
 import logging
+
+import pandas as pd
+from scanpy import _utils
+import leidenalg
+import louvain
+from natsort import natsorted
 
 
 def fileToList(filename, strconv=lambda x: x):
@@ -23,7 +30,29 @@ TF = fileToList(file_dir + "/TF.txt")
 mTF = fileToList(file_dir + "/mTF.txt")
 
 
-def get_centrality(grn, top_k=30):
+def compute_connectivities(grn, topK=20):
+    """
+    This function computes the connectivities of a given Gene Regulatory Network (GRN).
+    It uses the NetworkX library to convert the GRN into a graph and then computes the spanner of the graph.
+    The spanner of a graph is a subgraph that approximates the original graph in terms of distances between nodes.
+    The stretch parameter determines the maximum distance between nodes in the spanner compared to the original graph.
+    The computed connectivities are then stored in the GRN object.
+
+    Parameters:
+        grn : The Gene Regulatory Network for which the connectivities are to be computed.
+        stretch : The maximum distance between nodes in the spanner compared to the original graph. Default is 2.
+
+    Returns:
+    grn : The Gene Regulatory Network with the computed connectivities.
+    """
+    grn_mask = grn.grn.apply(lambda row: row >= row.nlargest(topK).min(), axis=1)
+    connect = grn.grn.values.copy()
+    connect[~grn_mask.values] = 0
+    grn.varp["connectivities"] = scipy.sparse.csr_matrix(connect)
+    return grn
+
+
+def get_centrality(grn, n_largest_to_consider=20, top_k_to_disp=30):
     """
     get_centrality uses the networkx library to calculate the centrality of each node in the GRN.
     The centrality is added to the grn object as a new column in the var dataframe.
@@ -31,26 +60,57 @@ def get_centrality(grn, top_k=30):
 
     Parameters:
         grn (GRNAnnData): The gene regulatory network to analyze.
-        top_k (int, optional): The number of top results to return. Defaults to 30.
+        n_largest_to_consider (int, optional): The number of largest values to consider when constructing the graph. Defaults to 20.
+        top_k_to_disp (int, optional): The number of top results to return. Defaults to 30.
 
     Returns:
         (list): A list of the top K most central genes in the GRN (sorted by centrality
     """
-    G = nx.from_numpy_array(grn.varp["GRN"])
+    grn = compute_connectivities(grn, n_largest_to_consider)
+    G = nx.from_scipy_sparse_array(grn.varp["connectivities"], create_using=nx.DiGraph)
     centrality = nx.eigenvector_centrality(G)
-
-    grn.var["centrality"] = [
-        centrality.get(gene, 0) for gene in range(len(grn.var_names))
-    ]
-
+    grn.var["centrality"] = pd.Series(centrality).values
     top_central_genes = sorted(
         [(gene, centrality) for gene, centrality in grn.var["centrality"].items()],
         key=lambda x: x[1],
         reverse=True,
-    )[:top_k]
+    )[:top_k_to_disp]
 
     print("Top central genes:", top_central_genes)
     return top_central_genes
+
+
+def compute_cluster(grn, resolution=1.5, seed=42, use="louvain", n_iterations=2, max_comm_size=0):
+    if "connectivities" not in grn.varp:
+        raise ValueError("Connectivities not found in the GRN object.")
+    g = _utils.get_igraph_from_adjacency(grn.varp["connectivities"], directed=True)
+    weights = np.array(g.es["weight"]).astype(np.float64)
+    if use == "louvain":
+        part = louvain.find_partition(
+            g,
+            louvain.RBConfigurationVertexPartition,
+            resolution_parameter=resolution,
+            weights=weights,
+            seed=seed,
+        )
+    elif use == "leiden":
+        part = leidenalg.find_partition(
+            g,
+            leidenalg.ModularityVertexPartition,
+            # resolution_parameter=resolution,
+            n_iterations=n_iterations,
+            weights=weights,
+            max_comm_size=max_comm_size,
+            seed=seed,
+        )
+    else:
+        raise ValueError("use must be one of 'louvain' or 'leiden'")
+    groups = np.array(part.membership)
+    grn.var["cluster_" + f"{resolution:.1f}"] = pd.Categorical(
+        values=groups.astype("U"),
+        categories=natsorted(map(str, np.unique(groups))),
+    )
+    return grn
 
 
 def enrichment(
@@ -75,7 +135,7 @@ def enrichment(
     min_size=3,
     max_size=4000,
     permutation_num=1000,  # reduce number to speed up testing
-    **kwargs
+    **kwargs,
 ):
     """
     This function performs enrichment analysis on a given gene regulatory network (grn).
@@ -118,7 +178,7 @@ def enrichment(
             max_size=max_size,
             background=grn.var.index.tolist(),  # or "hsapiens_gene_ensembl", or int, or text file  or a list of genes
             permutation_num=permutation_num,
-            **kwargs
+            **kwargs,
         )
         logging.disable(previous_level)
     except LookupError:
@@ -371,31 +431,6 @@ def metrics(grn):
         #  "clustering": clust_coef,
         "scale_freeness": [R, p],
     }
-
-
-def compute_connectivities(grn, stretch=2):
-    """
-    This function computes the connectivities of a given Gene Regulatory Network (GRN).
-    It uses the NetworkX library to convert the GRN into a graph and then computes the spanner of the graph.
-    The spanner of a graph is a subgraph that approximates the original graph in terms of distances between nodes.
-    The stretch parameter determines the maximum distance between nodes in the spanner compared to the original graph.
-    The computed connectivities are then stored in the GRN object.
-
-    Parameters:
-        grn : The Gene Regulatory Network for which the connectivities are to be computed.
-        stretch : The maximum distance between nodes in the spanner compared to the original graph. Default is 2.
-
-    Returns:
-    grn : The Gene Regulatory Network with the computed connectivities.
-    """
-    grn.uns["neighbors"] = {
-        "connectivities_key": "connectivities",
-        "params": {"method": "GRN"},
-    }
-    grn.varp["connectivities"] = nx.to_scipy_sparse_array(
-        nx.spanner(nx.from_numpy_array(grn.varp["GRN"]), stretch=stretch)
-    )
-    return grn
 
 
 def plot_cluster(grn, color=["louvain"], min_dist=0.5, spread=0.7, stretch=2, **kwargs):
