@@ -3,7 +3,7 @@ theme:
   name: readthedocs
   # analytics:
     # gtag: G-ABC123
-site_url: https://www.jkobject.com/grnndata/
+site_url: https://cantinilab.github.io/GRnnData
 nav:
   - Home: index.md
   - example notebook: notebooks/example.ipynb

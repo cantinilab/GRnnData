@@ -21,7 +21,15 @@ pip install grnndata
 
 ## Usage
 
-grnndata works similarly to anndata
+```py
+from grnndata import GRNAnnData
+from grnndata import utils
+
+grn = GRNAnnData(subdata.copy(), grn=grn[1:,1:])
+utils.some_function(grn)
+```
+
+grnndata works similarly to anndata. Learn more about usages in the documentation and its notebooks in the [docs](https://cantinilab.github.io/GRnnData/). 
 
 ### How do I do if I generate a GRN per cell type?
 
