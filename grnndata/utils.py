@@ -15,9 +15,11 @@ from scanpy import _utils
 import leidenalg
 import louvain
 from natsort import natsorted
+from typing import Callable, List
+from grnndata import GRNAnnData
 
 
-def fileToList(filename, strconv=lambda x: x):
+def fileToList(filename: str, strconv: Callable[[str], str] = lambda x: x) -> List[str]:
     """
     loads an input file with a\\n b\\n.. into a list [a,b,..]
     """
@@ -26,19 +28,31 @@ def fileToList(filename, strconv=lambda x: x):
 
 
 file_dir = os.path.dirname(os.path.realpath(__file__))
+
+
 TF = fileToList(file_dir + "/TF.txt")
+"""
+List of transcription factors (TF) loaded from the file 'TF.txt'.
+Each line in the file represents a transcription factor.
+"""
+
 mTF = fileToList(file_dir + "/mTF.txt")
+"""
+List of modified transcription factors (mTF) loaded from the file 'mTF.txt'.
+Each line in the file represents a modified transcription factor.
+"""
 
 
-def compute_connectivities(grn, topK=20):
+def compute_connectivities(grn: GRNAnnData, topK: int = 20) -> GRNAnnData:
     """
     This function computes the connectivities of a given Gene Regulatory Network (GRN).
+
     It uses the NetworkX library to convert the GRN into a graph and then computes the spanner of the graph.
     The spanner of a graph is a subgraph that approximates the original graph in terms of distances between nodes.
     The stretch parameter determines the maximum distance between nodes in the spanner compared to the original graph.
     The computed connectivities are then stored in the GRN object.
 
-    Parameters:
+    Args:
         grn : The Gene Regulatory Network for which the connectivities are to be computed.
         stretch : The maximum distance between nodes in the spanner compared to the original graph. Default is 2.
 
@@ -52,13 +66,16 @@ def compute_connectivities(grn, topK=20):
     return grn
 
 
-def get_centrality(grn, n_largest_to_consider=20, top_k_to_disp=30):
+def get_centrality(
+    grn: GRNAnnData, n_largest_to_consider: int = 20, top_k_to_disp: int = 30
+) -> list:
     """
     get_centrality uses the networkx library to calculate the centrality of each node in the GRN.
+
     The centrality is added to the grn object as a new column in the var dataframe.
     also prints the top K most central nodes in the GRN.
 
-    Parameters:
+    Args:
         grn (GRNAnnData): The gene regulatory network to analyze.
         n_largest_to_consider (int, optional): The number of largest values to consider when constructing the graph. Defaults to 20.
         top_k_to_disp (int, optional): The number of top results to return. Defaults to 30.
@@ -80,7 +97,32 @@ def get_centrality(grn, n_largest_to_consider=20, top_k_to_disp=30):
     return top_central_genes
 
 
-def compute_cluster(grn, resolution=1.5, seed=42, use="louvain", n_iterations=2, max_comm_size=0):
+def compute_cluster(
+    grn: GRNAnnData,
+    resolution: float = 1.5,
+    seed: int = 42,
+    use: str = "louvain",
+    n_iterations: int = 2,
+    max_comm_size: int = 0,
+):
+    """
+    compute_cluster uses the igraph library to perform clustering on the GRN.
+
+    Args:
+        grn (GRNAnnData): The gene regulatory network to analyze.
+        resolution (float, optional): The resolution parameter for the clustering algorithm. Defaults to 1.5.
+        seed (int, optional): The random seed for reproducibility. Defaults to 42.
+        use (str, optional): The clustering algorithm to use ('louvain' or 'leiden'). Defaults to "louvain".
+        n_iterations (int, optional): The number of iterations for the clustering algorithm. Defaults to 2.
+        max_comm_size (int, optional): The maximum community size for the clustering algorithm. Defaults to 0.
+
+    Raises:
+        ValueError: If connectivities are not found in the GRN object.
+        ValueError: If the clustering algorithm specified in 'use' is not 'louvain' or 'leiden'.
+
+    Returns:
+        GRNAnnData: The GRNAnnData object with the computed clusters added to the 'var' DataFrame.
+    """
     if "connectivities" not in grn.varp:
         raise ValueError("Connectivities not found in the GRN object.")
     g = _utils.get_igraph_from_adjacency(grn.varp["connectivities"], directed=True)
@@ -114,11 +156,11 @@ def compute_cluster(grn, resolution=1.5, seed=42, use="louvain", n_iterations=2,
 
 
 def enrichment(
-    grn,
-    of="Targets",
-    doplot=True,
-    top_k=30,
-    gene_sets=[
+    grn: GRNAnnData,
+    of: str = "Targets",
+    doplot: bool = True,
+    top_k: int = 30,
+    gene_sets: list = [
         "KEGG_2016",
         "ENCODE_TF_ChIP-seq_2014",
         "GO_Molecular_Function_2015",
@@ -132,19 +174,24 @@ def enrichment(
         "Chromosome_Location",
         "PPI_Hub_Proteins",
     ],
-    min_size=3,
-    max_size=4000,
-    permutation_num=1000,  # reduce number to speed up testing
+    min_size: int = 3,
+    max_size: int = 4000,
+    permutation_num: int = 1000,  # reduce number to speed up testing
     **kwargs,
 ):
     """
     This function performs enrichment analysis on a given gene regulatory network (grn).
 
-    Parameters:
+    Args:
         grn (GRNAnnData): The gene regulatory network to analyze.
         of (str, optional): The specific component of the grn to focus on.
         top_k (int, optional): The number of top results to return. Defaults to 10.
         doplot (bool, optional): Whether to generate a plot of the results. Defaults to False.
+        gene_sets (list, optional): The gene sets to use for the enrichment analysis. Defaults to the gene sets provided in the function.
+        min_size (int, optional): The minimum size of the gene sets to consider. Defaults to 3.
+        max_size (int, optional): The maximum size of the gene sets to consider. Defaults to 4000.
+        permutation_num (int, optional): The number of permutations to use for the enrichment analysis. Defaults to 1000.
+        **kwargs: Additional keyword arguments to be passed to the gseapy.prerank function.
 
     Returns:
         pandas.DataFrame: A DataFrame containing the results of the enrichment analysis.
@@ -209,7 +256,6 @@ def enrichment(
 
 
 def enrichment_of(grn, target, of="Targets", doplot=False):
-    """ """
     enr = gp.enrich(
         gene_list=grn.var[
             (grn.get(target).varm[of] != 0)[0]
@@ -252,7 +298,7 @@ def similarity(grn, other_grn):
     """
     This function calculates the similarity between two gene regulatory networks (grns).
 
-    Parameters:
+    Args:
         grn (GRNAnnData): The first gene regulatory network.
         other_grn (GRNAnnData): The second gene regulatory network.
 
@@ -378,12 +424,10 @@ def similarity(grn, other_grn):
     }
 
 
-def extract_main(grn):
-    pass
-
-
 def metrics(grn):
     """
+    metrics This function computes the following metrics for a given Gene Regulatory Network (GRN):
+
     ### small worldness
     A small-world network is a type of mathematical graph in which most nodes are not neighbors of one another,
     but most nodes can be reached from every other by a small number of hops or steps.
@@ -400,9 +444,8 @@ def metrics(grn):
     Therefore, a graph is more scale-free when its S(G) value is closer to 1.
     The range of the s metric is between 0 and 1, where 0 indicates "scale-rich" and 1 indicates "scale-free"
 
-    Parameters:
+    Args:
         grn : The Gene Regulatory Network for which the connectivities are to be computed.
-        stretch : The maximum distance between nodes in the spanner compared to the original graph. Default is 2.
 
     Returns:
         dict : {is_connected: bool, scale_freeness: float}
@@ -436,10 +479,11 @@ def metrics(grn):
 def plot_cluster(grn, color=["louvain"], min_dist=0.5, spread=0.7, stretch=2, **kwargs):
     """
     This function plots the clusters of a given Gene Regulatory Network (GRN).
+
     It first computes the connectivities of the GRN and then performs Louvain clustering on the transpose of the GRN.
     The clusters are then visualized using UMAP.
 
-    Parameters:
+    Args:
         grn : The Gene Regulatory Network to be clustered and visualized.
         color : The color of the clusters. Default is "louvain".
         min_dist : The minimum distance between points in the UMAP. Default is 0.5.

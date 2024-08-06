@@ -9,7 +9,7 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 from d3graph import d3graph, vec2adjmat
 from pyvis import network as pnx
-
+import gseapy as gp
 
 # Get the base seaborn color palette as hex list
 base_color_palette = sns.color_palette().as_hex()
@@ -17,11 +17,10 @@ base_color_palette
 
 
 class GRNAnnData(AnnData):
-    def __init__(self, *args, grn, **kwargs):
+    def __init__(self, *args, grn: scipy.sparse.csr_matrix | np.ndarray, **kwargs):
         """An AnnData object with a GRN matrix in varp["GRN"]
 
         Args:
-        -----
             grn: scipy.sparse.csr_matrix | np.ndarray a matrix with zeros and non-zeros
                 signifying the presence of an edge and the direction of the edge
                 respectively. The matrix should be square and the rows and columns
@@ -36,6 +35,18 @@ class GRNAnnData(AnnData):
 
     # add concat
     def concat(self, other):
+        """
+        concat two GRNAnnData objects
+
+        Args:
+            other (GRNAnnData): The other GRNAnnData object to concatenate with
+
+        Raises:
+            ValueError: Can only concatenate with another GRNAnnData object
+
+        Returns:
+            AnnData: The concatenated GRNAnnData object
+        """
         if not isinstance(other, GRNAnnData):
             raise ValueError("Can only concatenate with another GRNAnnData object")
         return GRNAnnData(
@@ -44,7 +55,16 @@ class GRNAnnData(AnnData):
         )
 
     # add slice
-    def get(self, elem):
+    def get(self, elem: str | list[str]) -> "GRNAnnData":
+        """
+        get a sub-GRNAnnData object with only the specified genes
+
+        Args:
+            elem (str | list): The gene names to include in the sub-GRNAnnData object
+
+        Returns:
+            GRNAnnData: The sub-GRNAnnData object with only the specified genes
+        """
         if type(elem) == str:
             elem = [elem]
         loc = self.var.index.isin(elem)
@@ -74,6 +94,12 @@ class GRNAnnData(AnnData):
 
     @property
     def regulators(self):
+        """
+        regulators outputs the regulators' connections of the GRN as a pandas DataFrame.
+
+        Returns:
+            pd.DataFrame: The regulators of the GRN as a DataFrame with gene names as index and columns.
+        """
         if "Regulators" not in self.varm:
             return self.grn
         if scipy.sparse.issparse(self.varm["Regulators"]):
@@ -86,6 +112,12 @@ class GRNAnnData(AnnData):
 
     @property
     def targets(self):
+        """
+        targets outputs the targets' connections of the GRN as a pandas DataFrame.
+
+        Returns:
+            pd.DataFrame: The targets of the GRN as a DataFrame with gene names as index and columns.
+        """
         if "Targets" not in self.varm:
             return self.grn.T
         if scipy.sparse.issparse(self.varm["Targets"]):
@@ -99,7 +131,7 @@ class GRNAnnData(AnnData):
     # add return list of genes and corresponding weights
     def extract_links(
         self,
-        columns=[
+        columns: list = [
             "regulator",
             "target",
             "weight",
@@ -140,16 +172,30 @@ class GRNAnnData(AnnData):
 
     def plot_subgraph(
         self,
-        seed,
-        gene_col="symbol",
-        using="Targets",
-        max_genes=10,
-        only=0.3,
-        palette=base_color_palette,
-        interactive=True,
-        do_enr=False,
-        **kwargs
+        seed: str,
+        gene_col: str = "symbol",
+        max_genes: int = 10,
+        only: float = 0.3,
+        palette: list = base_color_palette,
+        interactive: bool = True,
+        do_enr: bool = False,
+        **kwargs: dict
     ):
+        """
+        plot_subgraph plots a subgraph of the gene regulatory network (GRN) centered around a seed gene.
+
+        Args:
+            seed (str or list): The seed gene or list of genes around which the subgraph will be centered.
+            gene_col (str, optional): The column name in the .var DataFrame that contains gene identifiers. Defaults to "symbol".
+            max_genes (int, optional): The maximum number of genes to include in the subgraph. Defaults to 10.
+            only (float, optional): The threshold for filtering connections. If less than 1, it is used as a minimum weight threshold. If 1 or greater, it is used as the number of top connections to retain. Defaults to 0.3.
+            palette (list, optional): The color palette to use for plotting. Defaults to base_color_palette.
+            interactive (bool, optional): Whether to create an interactive plot. Defaults to True.
+            do_enr (bool, optional): Whether to perform enrichment analysis on the subgraph. Defaults to False.
+
+        Returns:
+            d3graph or None: The d3graph object if interactive is True, otherwise None.
+        """
         rn = {k: v for k, v in self.var[gene_col].items()}
         if type(seed) is str:
             gene_id = self.var[self.var[gene_col] == seed].index[0]
@@ -159,9 +205,6 @@ class GRNAnnData(AnnData):
         else:
             elem = seed
 
-        # subgrn = self.get(seed)
-        # loc = subgrn.varm[using] != 0
-        # sub = self.varp["GRN"][loc[0]][:, loc[0]]
         mat = self.grn.loc[elem, elem].rename(columns=rn).rename(index=rn)
         if only < 1:
             mat[mat < only] = 0
@@ -177,9 +220,9 @@ class GRNAnnData(AnnData):
             )
             mat[~mask.unstack()] = 0
         mat = mat * 100
-        color = [base_color_palette[0]] * len(mat)
+        color = [palette[0]] * len(mat)
         if type(seed) is str:
-            color[mat.columns.get_loc(seed)] = base_color_palette[1]
+            color[mat.columns.get_loc(seed)] = palette[1]
         print(color, mat.index)
         mat = mat.T
         if interactive:
@@ -214,23 +257,34 @@ class GRNAnnData(AnnData):
                 organism="Human",  # change accordingly
                 # description='pathway',
                 # cutoff=0.08, # test dataset, use lower value for real case
-                background=grn_c.var.symbol.tolist(),
+                background=self.var.symbol.tolist(),
             )
             print(enr.res2d.head(20))
         return G
 
 
 def read_h5ad(*args, **kwargs):
+    """same as anndata's one but for grnndata"""
     return from_anndata(anndata_read_h5ad(*args, **kwargs))
 
 
 def from_anndata(adata):
+    """converts an anndata with a varp['GRN'] to a GRNAnnData"""
     if "GRN" not in adata.varp:
         raise ValueError("GRN not found in adata.varp")
     return GRNAnnData(adata, grn=adata.varp["GRN"])
 
 
 def from_scope_loomfile(filepath):
+    """
+    from_scope_loomfile creates a GRNAnnData object from a SCope Loom file.
+
+    Args:
+        filepath (str): The path to the SCope Loom file.
+
+    Returns:
+        GRNAnnData: A GRNAnnData object created from the SCope Loom file.
+    """
     from loomxpy.loomxpy import SCopeLoom
 
     scopefile = SCopeLoom.read_loom(filepath)
@@ -274,7 +328,25 @@ def from_scope_loomfile(filepath):
     return GRNAnnData(adata, grn=da)
 
 
-def from_adata_and_longform(adata, longform_df, has_weight=False):
+def from_adata_and_longform(
+    adata: AnnData, longform_df: pd.DataFrame, has_weight: bool = False
+) -> GRNAnnData:
+    """
+    from_adata_and_longform creates a GRNAnnData object from an AnnData object and a longform DataFrame.
+
+    the longform DataFrame should have the following structure:
+        regulator  target  weight
+        gene1      gene2  0.5
+        gene2      gene3  0.7
+
+    Args:
+        adata (AnnData): An AnnData object containing gene expression data.
+        longform_df (pd.DataFrame): A DataFrame in longform format with columns 'regulator', 'target', and optionally 'weight'.
+        has_weight (bool, optional): If True, the 'weight' column in longform_df is used to set edge weights. Defaults to False.
+
+    Returns:
+        GRNAnnData: A GRNAnnData object containing the gene regulatory network.
+    """
     varnames = adata.var_names.tolist()
     da = np.zeros((len(varnames), len(varnames)), dtype=float)
     svar = set(varnames)
@@ -289,11 +361,22 @@ def from_adata_and_longform(adata, longform_df, has_weight=False):
     return GRNAnnData(adata, grn=da)
 
 
-def from_embeddings(embeddings_adata, threshold=0.4):
-    a = embeddings_adata.X
-    similarities = cosine_similarity(a.T)
+def from_embeddings(
+    adata: AnnData, layers: str = "emb", threshold: float = 0.4
+) -> GRNAnnData:
+    """
+    from_embeddings creates a GRNAnnData object from an AnnData object with embeddings in one of its .varm[]s.
+
+    Args:
+        adata (AnnData): An AnnData object containing gene expression data and embeddings.
+        layers (str, optional): The key in adata.varm where the embeddings are stored. Defaults to 'emb'.
+        threshold (float, optional): The similarity threshold below which connections are discarded. Defaults to 0.4.
+
+    Returns:
+        GRNAnnData: A GRNAnnData object containing the gene regulatory network derived from the embeddings.
+    """
+    a = adata.varm[layers]
+    similarities = cosine_similarity(a)
     similarities[similarities < 0.4] = 0
-    embeddings_gnndata = GRNAnnData(
-        embeddings_adata, grn=scipy.sparse.coo_array(similarities)
-    )
+    embeddings_gnndata = GRNAnnData(adata, grn=scipy.sparse.coo_array(similarities))
     return embeddings_gnndata

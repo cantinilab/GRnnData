@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "grnndata"
-version = "0.1.0"
+version = "1.0.0"
 description = "Awesome gene regulatory network enhanced anndata"
 authors = ["jkobject"]
 readme = ["README.md", "LICENSE"]
