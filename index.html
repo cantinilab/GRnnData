@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" /><link rel="canonical" href="https://www.jkobject.com/grnndata/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="None" /><link rel="canonical" href="https://cantinilab.github.io/GRnnData/" />
       <link rel="shortcut icon" href="img/favicon.ico" />
     <title>grnndata</title>
     <link rel="stylesheet" href="css/theme.css" />
@@ -15,7 +15,7 @@
         // Current page data
         var mkdocs_page_name = "Home";
         var mkdocs_page_input_path = "index.md";
-        var mkdocs_page_url = "/grnndata/";
+        var mkdocs_page_url = "/GRnnData/";
       </script>
     
     <!--[if lt IE 9]>
@@ -41,9 +41,13 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Home</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#install-it-from-pypi">Install it from PyPI</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#install-it-locally-and-run-the-notebooks">Install it locally and run the notebooks:</a>
+    </li>
+        </ul>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a>
         <ul>
@@ -92,22 +96,67 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="grnndata-putting-the-grn-in-anndata">grnndata (putting the grn in anndata)</h1>
-<p>Awesome gene regulatory network enhanced anndata created by jkobject &amp; remi trimbour</p>
-<p>grnndata works similarly to anndata. The goal was to use the .varm of anndata to store the GRN data associated with a dataset and have a formal way to work with GRNs.</p>
-<p>grnndata is a subclass of anndata.AnnData, it enforces only that a .varm exists for the anndata</p>
-<p>grnndata also contains multiple helper functions to work with GRNs in scRNAseq</p>
+                <h1 id="grnndata">GRnnData</h1>
+<p><a href="https://codecov.io/gh/cantinilab/GRnnData"><img alt="codecov" src="https://codecov.io/gh/cantinilab/GRnnData/branch/main/graph/badge.svg?token=GRnnData_token_here" /></a>
+<a href="https://github.com/cantinilab/GRnnData/actions/workflows/main.yml"><img alt="CI" src="https://github.com/cantinilab/GRnnData/actions/workflows/main.yml/badge.svg" /></a>
+<a href="https://badge.fury.io/py/benGRN"><img alt="PyPI version" src="https://badge.fury.io/py/GRnnData.svg" /></a>
+<a href="https://GRnnData.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation Status" src="https://readthedocs.org/projects/GRnnData/badge/?version=latest" /></a>
+<a href="https://pepy.tech/project/GRnnData"><img alt="Downloads" src="https://pepy.tech/badge/GRnnData" /></a>
+<a href="https://pepy.tech/project/GRnnData"><img alt="Downloads" src="https://pepy.tech/badge/GRnnData/month" /></a>
+<a href="https://pepy.tech/project/GRnnData"><img alt="Downloads" src="https://pepy.tech/badge/GRnnData/week" /></a>
+<a href="https://img.shields.io/github/issues/cantinilab/GRnnData"><img alt="GitHub issues" src="https://img.shields.io/github/issues/cantinilab/GRnnData" /></a>
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
+<a href="https://doi.org/10.1101/2024.07.29.605556"><img alt="DOI" src="https://img.shields.io/badge/DOI-10.1101%2F2024.07.29.605556-blue" /></a></p>
+<p>GRnnData works similarly to anndata. The goal was to use the .varm/.varp of anndata to store the GRN data associated with a dataset and have a formal way to work with GRNs.</p>
+<p>GRnnData is a subclass of anndata.AnnData, it enforces only that a .varp exists for the anndata</p>
+<p>GRnnData also contains multiple helper functions to work with GRNs in scRNAseq like compute_connectivities, get_centrality, compute_cluster, enrichment, metrics, etc. but also accessing the grn with .grn, .targets, .regulators,...</p>
+<p>The package has been designed together with the <a href="https://doi.org/10.1101/2024.07.29.605556">scPRINT paper</a> and <a href="https://github.com/cantinilab/scPRINT">model</a>, and the GRN benchmarking tool <a href="https://github.com/jkobject/BenGRN">BenGRN</a></p>
 <h2 id="install-it-from-pypi">Install it from PyPI</h2>
 <pre><code class="language-bash">pip install grnndata
 </code></pre>
+<h3 id="install-it-locally-and-run-the-notebooks">Install it locally and run the notebooks:</h3>
+<pre><code class="language-bash">git clone https://github.com/cantinilab/GRnnData.git
+pip install -e GRnnData
+</code></pre>
 <h2 id="usage">Usage</h2>
-<p>grnndata works similarly to anndata</p>
+<pre><code class="language-py">from grnndata import GRNAnnData, read_h5ad
+from grnndata import utils
+
+grn = np.random.rand(10,10)
+adata = anndata.AnnData(X=np.random.rand(10,10))
+
+grn = GRNAnnData(adata, grn=grn)
+
+print(grn) #shows the number of elements
+grn.varp['GRN'] or grn.grn #shows the GRN
+subgrn = grn.get(['gene1', 'gene2']) #only gets some elements from the GRN
+subgrn.targets #shows the target connections
+subgrn.plot() # displays the network
+
+subgrn.write_h5ad('grn.h5ad') #writes it
+read_h5ad('grn.h5ad') #reads it
+
+# or use some utils functions like:
+# compute_connectivities
+# get_centrality
+# compute_cluster
+# enrichment
+# metrics
+# see more in the documentation
+
+utils.some_function(grn)
+</code></pre>
+<p>GRnnData works similarly to anndata. Learn more about usages in the documentation and its notebooks in the <a href="https://cantinilab.github.io/GRnnData/">docs</a>. </p>
+<p>usage examples can be seen in the example notebooks of:
+- <a href="https://www.jkobject.com/scPRINT/notebooks/cancer_usecase/">scPRINT</a>
+- <a href="https://www.jkobject.com/benGRN/notebooks/bench_omni_genie3/">BenGRN</a></p>
 <h3 id="how-do-i-do-if-i-generate-a-grn-per-cell-type">How do I do if I generate a GRN per cell type?</h3>
 <p>In this context, we recommend creating a grnndata per cell type. This will allow you to store the GRN data in the .varm of the grnndata and have a formal way to work with GRNs.</p>
 <h3 id="how-do-i-do-if-i-generate-a-grn-per-cell">How do I do if I generate a GRN per cell?</h3>
 <p>In this context, we recommend trying to merge them across a similar group of cells in some way and storing uncertainty or variance in the GRN and then creating a grnndata across this group of cells</p>
 <h2 id="development">Development</h2>
-<p>Read the <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> file.</p>
+<p>Read the <a href="../CONTRIBUTING.md">CONTRIBUTING.md</a> file.</p>
+<p>Awesome gene regulatory network enhanced anndata created by @jkobject</p>
               
             </div>
           </div><footer>
@@ -155,6 +204,6 @@
 </html>
 
 <!--
-MkDocs version : 1.5.3
-Build Date UTC : 2024-01-11 16:38:48.676252+00:00
+MkDocs version : 1.6.0
+Build Date UTC : 2024-08-06 13:37:00.678003+00:00
 -->

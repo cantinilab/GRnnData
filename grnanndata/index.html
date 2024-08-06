@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://www.jkobject.com/grnndata/grnanndata/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://cantinilab.github.io/GRnnData/grnanndata/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
     <title>GRNAnnData - grnndata</title>
     <link rel="stylesheet" href="../css/theme.css" />
@@ -15,7 +15,7 @@
         // Current page data
         var mkdocs_page_name = "GRNAnnData";
         var mkdocs_page_input_path = "grnanndata.md";
-        var mkdocs_page_url = "/grnndata/grnanndata/";
+        var mkdocs_page_url = "/GRnnData/grnanndata/";
       </script>
     
     <!--[if lt IE 9]>
@@ -52,13 +52,23 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../utils/">utils</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">GRNAnnData</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">GRNAnnData</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#grnndata.GRNAnnData">GRNAnnData</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.grn">grn</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.extract_links">extract_links()</a>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.regulators">regulators</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.targets">targets</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.concat">concat</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.extract_links">extract_links</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.get">get</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.plot_subgraph">plot_subgraph</a>
     </li>
         </ul>
     </li>
@@ -96,51 +106,69 @@
 
 
 
-
 <h2 id="grnndata.GRNAnnData" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">grnndata</span><span class="o">.</span><span class="n">GRNAnnData</span></code>
+              <code class="highlight language-python"><span class="n">grnndata</span><span class="o">.</span><span class="n">GRNAnnData</span></code>
 
 </h2>
 
 
-  <div class="doc doc-contents first">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="anndata.AnnData">AnnData</span></code></p>
+    <div class="doc doc-contents first">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="anndata.AnnData">AnnData</span></code></p>
 
-  
+
       <p>An AnnData object with a GRN matrix in varp["GRN"]</p>
-      <hr />
-<pre><code>grn: scipy.sparse.csr_matrix | np.ndarray a matrix with zeros and non-zeros
-    signifying the presence of an edge and the direction of the edge
-    respectively. The matrix should be square and the rows and columns
-    should correspond to the genes in the AnnData object.
-    The row index correpond to genes that are regulators and the column
-    index corresponds to genes that are targets.
-</code></pre>
-<p>@see https://anndata.readthedocs.io for more informaiotn on AnnData objects</p>
 
-                <details class="quote">
-                  <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
-                  <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>grn</code></b>
+                  (<code><span title="scipy.sparse.csr_matrix">csr_matrix</span> | <span title="numpy.ndarray">ndarray</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>scipy.sparse.csr_matrix | np.ndarray a matrix with zeros and non-zeros
+signifying the presence of an edge and the direction of the edge
+respectively. The matrix should be square and the rows and columns
+should correspond to the genes in the AnnData object.
+The row index correpond to genes that are regulators and the column
+index corresponds to genes that are targets.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>      <p>@see https://anndata.readthedocs.io for more informaiotn on AnnData objects</p>
+
+                  <details class="quote">
+                    <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
 <span class="normal">21</span>
 <span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">grn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">grn</span><span class="p">:</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An AnnData object with a GRN matrix in varp[&quot;GRN&quot;]</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">    -----</span>
 <span class="sd">        grn: scipy.sparse.csr_matrix | np.ndarray a matrix with zeros and non-zeros</span>
 <span class="sd">            signifying the presence of an edge and the direction of the edge</span>
 <span class="sd">            respectively. The matrix should be square and the rows and columns</span>
@@ -150,12 +178,12 @@
 
 <span class="sd">    @see https://anndata.readthedocs.io for more informaiotn on AnnData objects</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">GRNAnnData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grn</span>
 </code></pre></div></td></tr></table></div>
-                </details>
+                  </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -169,10 +197,9 @@
 
 
 
-
 <h3 id="grnndata.GRNAnnData.grn" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">grn</span></code>
-  
+            <code class="highlight language-python"><span class="n">grn</span></code>
+
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
@@ -180,11 +207,10 @@
 </h3>
 
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>Property that returns the gene regulatory network (GRN) as a pandas DataFrame.
 The index and columns of the DataFrame are the gene names stored in 'var_names'.</p>
-
 
 
 <table class="field-list">
@@ -194,40 +220,251 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">Returns:</th>
-    <td class="field-body">
-      <ul class="first simple">
-          <li>
-            –
-            <div class="doc-md-description">
-              <p>pd.DataFrame: The GRN as a DataFrame with gene names as index and columns.</p>
-            </div>
-          </li>
-      </ul>
-    </td>
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              –
+              <div class="doc-md-description">
+                <p>pd.DataFrame: The GRN as a DataFrame with gene names as index and columns.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
-</table>  </div>
+</table>    </div>
 
 </div>
 
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="grnndata.GRNAnnData.regulators" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">regulators</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>regulators outputs the regulators' connections of the GRN as a pandas DataFrame.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              –
+              <div class="doc-md-description">
+                <p>pd.DataFrame: The regulators of the GRN as a DataFrame with gene names as index and columns.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="grnndata.GRNAnnData.targets" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">targets</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>targets outputs the targets' connections of the GRN as a pandas DataFrame.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              –
+              <div class="doc-md-description">
+                <p>pd.DataFrame: The targets of the GRN as a DataFrame with gene names as index and columns.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>    </div>
+
+</div>
 
 
 
 <div class="doc doc-object doc-function">
 
 
-
-
-<h3 id="grnndata.GRNAnnData.extract_links" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">extract_links</span></code>
+<h3 id="grnndata.GRNAnnData.concat" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">concat</span></code>
 
 </h3>
 
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
+      <p>concat two GRNAnnData objects</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>other</code></b>
+                  (<code><span title="grnndata.GRNAnnData.GRNAnnData">GRNAnnData</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>The other GRNAnnData object to concatenate with</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Raises:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+                  <code>ValueError</code>
+              –
+              <div class="doc-md-description">
+                <p>Can only concatenate with another GRNAnnData object</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+<b><code>AnnData</code></b>              –
+              <div class="doc-md-description">
+                <p>The concatenated GRNAnnData object</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">concat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    concat two GRNAnnData objects</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        other (GRNAnnData): The other GRNAnnData object to concatenate with</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: Can only concatenate with another GRNAnnData object</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        AnnData: The concatenated GRNAnnData object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">GRNAnnData</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can only concatenate with another GRNAnnData object&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">GRNAnnData</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">other</span><span class="p">),</span>
+        <span class="n">grn</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">],</span> <span class="n">other</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]]),</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="grnndata.GRNAnnData.extract_links" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">extract_links</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
       <p>This function extracts scores from anndata.varp['key'] and returns them as a pandas DataFrame.</p>
+
 
 <details class="the-resulting-dataframe-has-the-following-structure" open>
   <summary>The resulting DataFrame has the following structure</summary>
@@ -235,7 +472,6 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
 A    B      5
 C    D      8</p>
 </details>      <p>Where 'TF' and 'Gene' are the indices of the genes in the regulatory network, and 'Score' is the corresponding weight.</p>
-
 
 
 <table class="field-list">
@@ -264,7 +500,6 @@ C    D      8</p>
   </tbody>
 </table>
 
-
 <table class="field-list">
   <colgroup>
     <col class="field-name" />
@@ -272,59 +507,59 @@ C    D      8</p>
   </colgroup>
   <tbody valign="top">
     <tr class="field">
-    <th class="field-name">Returns:</th>
-    <td class="field-body">
-      <ul class="first simple">
-          <li>
-            –
-            <div class="doc-md-description">
-              <p>pd.DataFrame: The extracted scores as a DataFrame.</p>
-            </div>
-          </li>
-      </ul>
-    </td>
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              –
+              <div class="doc-md-description">
+                <p>pd.DataFrame: The extracted scores as a DataFrame.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>
-          <details class="quote">
-            <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">extract_links</span><span class="p">(</span>
+            <details class="quote">
+              <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">extract_links</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">[</span>
+    <span class="n">columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s2">&quot;regulator&quot;</span><span class="p">,</span>
         <span class="s2">&quot;target&quot;</span><span class="p">,</span>
         <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
@@ -358,8 +593,425 @@ C    D      8</p>
         <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
     <span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="grnndata.GRNAnnData.get" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>get a sub-GRNAnnData object with only the specified genes</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>elem</code></b>
+                  (<code>str | list</code>)
+              –
+              <div class="doc-md-description">
+                <p>The gene names to include in the sub-GRNAnnData object</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+<b><code>GRNAnnData</code></b>(                  <code><span title="grnndata.GRNAnnData.GRNAnnData">GRNAnnData</span></code>
+)              –
+              <div class="doc-md-description">
+                <p>The sub-GRNAnnData object with only the specified genes</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;GRNAnnData&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    get a sub-GRNAnnData object with only the specified genes</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        elem (str | list): The gene names to include in the sub-GRNAnnData object</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        GRNAnnData: The sub-GRNAnnData object with only the specified genes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">elem</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span><span class="p">]</span>
+    <span class="n">loc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+    <span class="n">reg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">][</span><span class="n">loc</span><span class="p">][:,</span> <span class="n">loc</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">reg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">reg</span><span class="p">])</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">GRNAnnData</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="n">loc</span><span class="p">],</span> <span class="n">obs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">obs</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">loc</span><span class="p">],</span> <span class="n">grn</span><span class="o">=</span><span class="n">reg</span><span class="p">)</span>
+    <span class="n">sub</span><span class="o">.</span><span class="n">varm</span><span class="p">[</span><span class="s2">&quot;Targets&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">][</span><span class="n">loc</span><span class="p">]</span>
+    <span class="n">sub</span><span class="o">.</span><span class="n">varm</span><span class="p">[</span><span class="s2">&quot;Regulators&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="n">loc</span><span class="p">]</span>
+    <span class="n">sub</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s2">&quot;regulated_genes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">sub</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="grnndata.GRNAnnData.plot_subgraph" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">plot_subgraph</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+      <p>plot_subgraph plots a subgraph of the gene regulatory network (GRN) centered around a seed gene.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>seed</code></b>
+                  (<code>str or list</code>)
+              –
+              <div class="doc-md-description">
+                <p>The seed gene or list of genes around which the subgraph will be centered.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>gene_col</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;symbol&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>The column name in the .var DataFrame that contains gene identifiers. Defaults to "symbol".</p>
+              </div>
+            </li>
+            <li>
+              <b><code>max_genes</code></b>
+                  (<code>int</code>, default:
+                      <code>10</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>The maximum number of genes to include in the subgraph. Defaults to 10.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>only</code></b>
+                  (<code>float</code>, default:
+                      <code>0.3</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>The threshold for filtering connections. If less than 1, it is used as a minimum weight threshold. If 1 or greater, it is used as the number of top connections to retain. Defaults to 0.3.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>palette</code></b>
+                  (<code>list</code>, default:
+                      <code><span title="grnndata.GRNAnnData.base_color_palette">base_color_palette</span></code>
+)
+              –
+              <div class="doc-md-description">
+                <p>The color palette to use for plotting. Defaults to base_color_palette.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>interactive</code></b>
+                  (<code>bool</code>, default:
+                      <code>True</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to create an interactive plot. Defaults to True.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>do_enr</code></b>
+                  (<code>bool</code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Whether to perform enrichment analysis on the subgraph. Defaults to False.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              –
+              <div class="doc-md-description">
+                <p>d3graph or None: The d3graph object if interactive is True, otherwise None.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+            <details class="quote">
+              <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_subgraph</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">gene_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;symbol&quot;</span><span class="p">,</span>
+    <span class="n">max_genes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="n">only</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
+    <span class="n">palette</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">base_color_palette</span><span class="p">,</span>
+    <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">do_enr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    plot_subgraph plots a subgraph of the gene regulatory network (GRN) centered around a seed gene.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        seed (str or list): The seed gene or list of genes around which the subgraph will be centered.</span>
+<span class="sd">        gene_col (str, optional): The column name in the .var DataFrame that contains gene identifiers. Defaults to &quot;symbol&quot;.</span>
+<span class="sd">        max_genes (int, optional): The maximum number of genes to include in the subgraph. Defaults to 10.</span>
+<span class="sd">        only (float, optional): The threshold for filtering connections. If less than 1, it is used as a minimum weight threshold. If 1 or greater, it is used as the number of top connections to retain. Defaults to 0.3.</span>
+<span class="sd">        palette (list, optional): The color palette to use for plotting. Defaults to base_color_palette.</span>
+<span class="sd">        interactive (bool, optional): Whether to create an interactive plot. Defaults to True.</span>
+<span class="sd">        do_enr (bool, optional): Whether to perform enrichment analysis on the subgraph. Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        d3graph or None: The d3graph object if interactive is True, otherwise None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rn</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">gene_col</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">gene_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">gene_col</span><span class="p">]</span> <span class="o">==</span> <span class="n">seed</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">elem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">gene_id</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span>
+            <span class="n">max_genes</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">gene_id</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">elem</span> <span class="o">=</span> <span class="n">seed</span>
+
+    <span class="n">mat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">elem</span><span class="p">,</span> <span class="n">elem</span><span class="p">]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rn</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">rn</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">only</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">mat</span><span class="p">[</span><span class="n">mat</span> <span class="o">&lt;</span> <span class="n">only</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">top_connections</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="n">only</span><span class="p">)</span>
+        <span class="n">top_connections</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Gene1&quot;</span><span class="p">,</span> <span class="s2">&quot;Gene2&quot;</span><span class="p">]</span>
+        <span class="n">top_connections</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Weight&quot;</span>
+        <span class="n">top_connections</span> <span class="o">=</span> <span class="n">top_connections</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="n">mat</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">+=</span> <span class="s2">&quot;_2&quot;</span>
+        <span class="c1"># Set anything not in the top N connections to 0</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span>
+            <span class="n">top_connections</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s2">&quot;Gene1&quot;</span><span class="p">,</span> <span class="s2">&quot;Gene2&quot;</span><span class="p">])[</span><span class="s2">&quot;Weight&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">mat</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="o">.</span><span class="n">unstack</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="n">palette</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">color</span><span class="p">[</span><span class="n">mat</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">seed</span><span class="p">)]</span> <span class="o">=</span> <span class="n">palette</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">mat</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
+        <span class="n">d3</span> <span class="o">=</span> <span class="n">d3graph</span><span class="p">()</span>
+        <span class="n">d3</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">d3</span><span class="o">.</span><span class="n">set_node_properties</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">d3</span><span class="o">.</span><span class="n">set_edge_properties</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">d3</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">notebook</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">d3</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Create a graph from the DataFrame</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_adjacency</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">())</span>
+        <span class="c1"># Draw the graph</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>  <span class="c1"># Increase the size of the plot</span>
+        <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">do_enr</span><span class="p">:</span>
+        <span class="n">enr</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">enrichr</span><span class="p">(</span>
+            <span class="n">gene_list</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span>
+            <span class="n">gene_sets</span><span class="o">=</span><span class="p">[</span>
+                <span class="s2">&quot;KEGG_2021_Human&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;MSigDB_Hallmark_2020&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Reactome_2022&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Tabula_Sapiens&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;WikiPathway_2023_Human&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;TF_Perturbations_Followed_by_Expression&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Reactome&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;PPI_Hub_Proteins&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;OMIM_Disease&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;GO_Molecular_Function_2023&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="n">organism</span><span class="o">=</span><span class="s2">&quot;Human&quot;</span><span class="p">,</span>  <span class="c1"># change accordingly</span>
+            <span class="c1"># description=&#39;pathway&#39;,</span>
+            <span class="c1"># cutoff=0.08, # test dataset, use lower value for real case</span>
+            <span class="n">background</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">symbol</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">enr</span><span class="o">.</span><span class="n">res2d</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">G</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
 
 </div>
 
@@ -367,7 +1019,7 @@ C    D      8</p>
 
   </div>
 
-  </div>
+    </div>
 
 </div>
               
