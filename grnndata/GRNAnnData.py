@@ -65,7 +65,7 @@ class GRNAnnData(AnnData):
         Returns:
             GRNAnnData: The sub-GRNAnnData object with only the specified genes
         """
-        if type(elem) == str:
+        if type(elem) is str:
             elem = [elem]
         loc = self.var.index.isin(elem)
         reg = self.varp["GRN"][loc][:, loc]

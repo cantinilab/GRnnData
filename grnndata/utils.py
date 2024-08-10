@@ -18,6 +18,8 @@ from natsort import natsorted
 from typing import Callable, List
 from grnndata import GRNAnnData
 
+import matplotlib.pyplot as plt
+
 
 def fileToList(filename: str, strconv: Callable[[str], str] = lambda x: x) -> List[str]:
     """
@@ -202,7 +204,7 @@ def enrichment(
         rnk = grn.grn.sum(0).sort_values(ascending=False)
     elif of == "Central":
         try:
-            get_centrality(grn, top_k=0)
+            get_centrality(grn, top_k_to_disp=0)
         except nx.PowerIterationFailedConvergence:
             print("PowerIterationFailedConvergence")
             return None
@@ -262,7 +264,6 @@ def enrichment_of(grn, target, of="Targets", doplot=False):
         ].index.tolist(),  # or gene_list=glist
         gene_sets=[
             "KEGG_2016",
-            {"h.all": gmt},
             "ENCODE_TF_ChIP-seq_2014",
             "GO_Molecular_Function_2015",
             {"TFs": TF},
@@ -291,7 +292,7 @@ def enrichment_of(grn, target, of="Targets", doplot=False):
             cutoff=0.25,
             show_ring=False,
         )
-    return enr2.results[enr2.results["Adjusted P-value"] < 0.2]
+    return enr.results[enr.results["Adjusted P-value"] < 0.2]
 
 
 def similarity(grn, other_grn):
@@ -459,7 +460,7 @@ def metrics(grn):
     )  # used for degree distribution and powerlaw test
     fit = powerlaw.Fit(degree_sequence)
     R, p = fit.distribution_compare("power_law", "exponential", normalized_ratio=True)
-    fig2 = fit.plot_pdf(color="b", linewidth=2)
+    _ = fit.plot_pdf(color="b", linewidth=2)
     plt.figure(figsize=(10, 6))
     fit.distribution_compare("power_law", "lognormal")
     fig4 = fit.plot_ccdf(linewidth=3, color="black")

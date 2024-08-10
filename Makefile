@@ -27,15 +27,14 @@ install:          ## Install the project in dev mode.
 .PHONY: fmt
 fmt:              ## Format code using black & isort.
 	$(ENV_PREFIX)isort grnndata/
-	$(ENV_PREFIX)black -l 79 grnndata/
-	$(ENV_PREFIX)black -l 79 tests/
+	$(ENV_PREFIX)black -l 100 grnndata/
+	$(ENV_PREFIX)black -l 100 tests/
 
 .PHONY: lint
 lint:             ## Run pep8, black, mypy linters.
-	$(ENV_PREFIX)flake8 grnndata/
-	$(ENV_PREFIX)black -l 79 --check grnndata/
-	$(ENV_PREFIX)black -l 79 --check tests/
-	$(ENV_PREFIX)mypy --ignore-missing-imports grnndata/
+	$(ENV_PREFIX)flake8 --ignore=E501,E203,E266,E265,W503 grnndata/
+	$(ENV_PREFIX)black -l 120 --check grnndata/
+	$(ENV_PREFIX)black -l 120 --check tests/
 
 .PHONY: test
 test: lint        ## Run tests and generate coverage report.

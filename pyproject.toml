@@ -6,7 +6,7 @@ authors = ["jkobject"]
 readme = ["README.md", "LICENSE"]
 license = "GPL3"
 repository = "https://github.com/cantinilab/GRnnData"
-keywords = ["scRNAseq", "gene regulatory networks", "anndata", "scPrint"]
+keywords = ["scRNAseq", "gene regulatory networks", "anndata", "scPRINT"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
