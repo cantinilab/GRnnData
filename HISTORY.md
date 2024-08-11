@@ -4,6 +4,7 @@ Changelog
 
 (unreleased)
 ------------
+- Release: version 1.0.1 🚀 [jkobject]
 - Debug. [jkobject]
 - Adding tests. [jkobject]
 - Adding documentation. [jkobject]
