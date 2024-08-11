@@ -4,6 +4,14 @@ Changelog
 
 (unreleased)
 ------------
+- Debug. [jkobject]
+- Adding tests. [jkobject]
+- Adding documentation. [jkobject]
+
+
+1.0.0 (2024-08-06)
+------------------
+- Release: version 1.0.0 🚀 [jkobject]
 - Merge branch 'dev' into main. [jkobject]
 - Debug enrichment and centrality. [jkobject]
 - Adding new plotting. [jkobject]
