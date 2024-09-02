@@ -32,7 +32,7 @@ fmt:              ## Format code using black & isort.
 
 .PHONY: lint
 lint:             ## Run pep8, black, mypy linters.
-	$(ENV_PREFIX)flake8 --ignore=E501,E203,E266,E265,W503,F401 grnndata/
+	$(ENV_PREFIX)flake8 --ignore=E501,E203,E266,E265,W503,F401,F403 grnndata/
 	$(ENV_PREFIX)black -l 88 --check grnndata/
 	$(ENV_PREFIX)black -l 88 --check tests/
 #	$(ENV_PREFIX)mypy --ignore-missing-imports grnndata/

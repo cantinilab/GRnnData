@@ -242,7 +242,7 @@ def enrichment(
     # plot results
     if doplot:
         print(val.Term.tolist()[:top_k])
-        ax = dotplot(
+        _ = dotplot(
             pre_res.res2d[
                 (pre_res.res2d["FDR q-val"] < 0.1) & (pre_res.res2d["NES"] > 1)
             ].sort_values(by=["NES"], ascending=False),
@@ -438,7 +438,7 @@ def metrics(grn):
     ### scale freeness
     A scale-free network is a network whose degree distribution follows a power law,
     at least asymptotically. The s metric is a measure of scale-freeness,
-    defined as ( S(G)={\frac {s(G)}{s_{\max }}} ), where ( s_{\max } )
+    defined as ( S(G)={frac {s(G)}{s_{max }}} ), where ( s_{max } )
     is the maximum value of s(H) for H in the set of all graphs with degree distribution.
     A graph with small S(G) is "scale-rich," and a graph with S(G) close to 1 is "scale-free"
 
