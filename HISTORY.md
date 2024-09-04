@@ -4,6 +4,12 @@ Changelog
 
 (unreleased)
 ------------
+- Makefile update. [jkobject]
+
+
+1.1.0 (2024-09-04)
+------------------
+- Release: version 1.1.0 🚀 [jkobject]
 - Better release process. [jkobject]
 - Format and clean. [jkobject]
 - Wip. [jkobject]
