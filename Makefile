@@ -80,7 +80,8 @@ release:          ## Create a new tag for release.
 	@read -p "Version? (provide the next x.y.z semver) : " TAG
 	@echo "$${TAG}" > grnndata/VERSION
 	@$(ENV_PREFIX)gitchangelog > HISTORY.md
-	@git add grnndata/VERSION HISTORY.md
+	@$(ENV_PREFIX)python -c "import toml; f = open('pyproject.toml', 'r'); data = toml.load(f); f.close(); data['tool']['poetry']['version'] = '${TAG}'; f = open('pyproject.toml', 'w'); toml.dump(data, f); f.close()"
+	@git add grnndata/VERSION HISTORY.md pyproject.toml
 	@git commit -m "release: version $${TAG} 🚀"
 	@echo "creating git tag : $${TAG}"
 	@git tag $${TAG}
