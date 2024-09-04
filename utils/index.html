@@ -323,9 +323,7 @@ Each line in the file represents a modified transcription factor.</p>
 </table>
             <details class="quote">
               <summary>Source code in <code>grnndata/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">102</span>
 <span class="normal">103</span>
 <span class="normal">104</span>
 <span class="normal">105</span>
@@ -378,7 +376,9 @@ Each line in the file represents a modified transcription factor.</p>
 <span class="normal">152</span>
 <span class="normal">153</span>
 <span class="normal">154</span>
-<span class="normal">155</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">compute_cluster</span><span class="p">(</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">compute_cluster</span><span class="p">(</span>
     <span class="n">grn</span><span class="p">:</span> <span class="n">GRNAnnData</span><span class="p">,</span>
     <span class="n">resolution</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span>
     <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42</span><span class="p">,</span>
@@ -491,9 +491,7 @@ grn : The Gene Regulatory Network with the computed connectivities.</p>
 
             <details class="quote">
               <summary>Source code in <code>grnndata/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
 <span class="normal">51</span>
@@ -511,7 +509,9 @@ grn : The Gene Regulatory Network with the computed connectivities.</p>
 <span class="normal">63</span>
 <span class="normal">64</span>
 <span class="normal">65</span>
-<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">compute_connectivities</span><span class="p">(</span><span class="n">grn</span><span class="p">:</span> <span class="n">GRNAnnData</span><span class="p">,</span> <span class="n">topK</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GRNAnnData</span><span class="p">:</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">compute_connectivities</span><span class="p">(</span><span class="n">grn</span><span class="p">:</span> <span class="n">GRNAnnData</span><span class="p">,</span> <span class="n">topK</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GRNAnnData</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function computes the connectivities of a given Gene Regulatory Network (GRN).</span>
 
@@ -676,9 +676,7 @@ grn : The Gene Regulatory Network with the computed connectivities.</p>
 </table>
             <details class="quote">
               <summary>Source code in <code>grnndata/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">160</span>
 <span class="normal">161</span>
 <span class="normal">162</span>
 <span class="normal">163</span>
@@ -773,7 +771,9 @@ grn : The Gene Regulatory Network with the computed connectivities.</p>
 <span class="normal">252</span>
 <span class="normal">253</span>
 <span class="normal">254</span>
-<span class="normal">255</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">enrichment</span><span class="p">(</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">enrichment</span><span class="p">(</span>
     <span class="n">grn</span><span class="p">:</span> <span class="n">GRNAnnData</span><span class="p">,</span>
     <span class="n">of</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Targets&quot;</span><span class="p">,</span>
     <span class="n">doplot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -820,7 +820,7 @@ grn : The Gene Regulatory Network with the computed connectivities.</p>
         <span class="n">rnk</span> <span class="o">=</span> <span class="n">grn</span><span class="o">.</span><span class="n">grn</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">of</span> <span class="o">==</span> <span class="s2">&quot;Central&quot;</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">get_centrality</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">get_centrality</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">top_k_to_disp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">nx</span><span class="o">.</span><span class="n">PowerIterationFailedConvergence</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PowerIterationFailedConvergence&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -858,7 +858,7 @@ grn : The Gene Regulatory Network with the computed connectivities.</p>
     <span class="c1"># plot results</span>
     <span class="k">if</span> <span class="n">doplot</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">Term</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[:</span><span class="n">top_k</span><span class="p">])</span>
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">dotplot</span><span class="p">(</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">dotplot</span><span class="p">(</span>
             <span class="n">pre_res</span><span class="o">.</span><span class="n">res2d</span><span class="p">[</span>
                 <span class="p">(</span><span class="n">pre_res</span><span class="o">.</span><span class="n">res2d</span><span class="p">[</span><span class="s2">&quot;FDR q-val&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pre_res</span><span class="o">.</span><span class="n">res2d</span><span class="p">[</span><span class="s2">&quot;NES&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
             <span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;NES&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
@@ -892,12 +892,12 @@ grn : The Gene Regulatory Network with the computed connectivities.</p>
 
             <details class="quote">
               <summary>Source code in <code>grnndata/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">fileToList</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">strconv</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">fileToList</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">strconv</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    loads an input file with a\\n b\\n.. into a list [a,b,..]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -993,9 +993,7 @@ also prints the top K most central nodes in the GRN.</p>
 </table>
             <details class="quote">
               <summary>Source code in <code>grnndata/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">71</span>
 <span class="normal">72</span>
 <span class="normal">73</span>
 <span class="normal">74</span>
@@ -1021,7 +1019,9 @@ also prints the top K most central nodes in the GRN.</p>
 <span class="normal">94</span>
 <span class="normal">95</span>
 <span class="normal">96</span>
-<span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_centrality</span><span class="p">(</span>
+<span class="normal">97</span>
+<span class="normal">98</span>
+<span class="normal">99</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_centrality</span><span class="p">(</span>
     <span class="n">grn</span><span class="p">:</span> <span class="n">GRNAnnData</span><span class="p">,</span> <span class="n">n_largest_to_consider</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">top_k_to_disp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1076,7 +1076,7 @@ if sigma &gt; 1, the network is a small-world network.</p>
 <h6 id="grnndata.utils.metrics--scale-freeness">scale freeness</h6>
 <p>A scale-free network is a network whose degree distribution follows a power law,
 at least asymptotically. The s metric is a measure of scale-freeness,
-defined as ( S(G)={rac {s(G)}{s_{\max }}} ), where ( s_{\max } )
+defined as ( S(G)={frac {s(G)}{s_{max }}} ), where ( s_{max } )
 is the maximum value of s(H) for H in the set of all graphs with degree distribution.
 A graph with small S(G) is "scale-rich," and a graph with S(G) close to 1 is "scale-free"</p>
 <p>Therefore, a graph is more scale-free when its S(G) value is closer to 1.
@@ -1129,8 +1129,7 @@ The range of the s metric is between 0 and 1, where 0 indicates "scale-rich" and
 </table>
             <details class="quote">
               <summary>Source code in <code>grnndata/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">427</span>
-<span class="normal">428</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">428</span>
 <span class="normal">429</span>
 <span class="normal">430</span>
 <span class="normal">431</span>
@@ -1178,7 +1177,8 @@ The range of the s metric is between 0 and 1, where 0 indicates "scale-rich" and
 <span class="normal">473</span>
 <span class="normal">474</span>
 <span class="normal">475</span>
-<span class="normal">476</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">metrics</span><span class="p">(</span><span class="n">grn</span><span class="p">):</span>
+<span class="normal">476</span>
+<span class="normal">477</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">metrics</span><span class="p">(</span><span class="n">grn</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    metrics This function computes the following metrics for a given Gene Regulatory Network (GRN):</span>
 
@@ -1191,7 +1191,7 @@ The range of the s metric is between 0 and 1, where 0 indicates "scale-rich" and
 <span class="sd">    ### scale freeness</span>
 <span class="sd">    A scale-free network is a network whose degree distribution follows a power law,</span>
 <span class="sd">    at least asymptotically. The s metric is a measure of scale-freeness,</span>
-<span class="sd">    defined as ( S(G)={\frac {s(G)}{s_{\max }}} ), where ( s_{\max } )</span>
+<span class="sd">    defined as ( S(G)={frac {s(G)}{s_{max }}} ), where ( s_{max } )</span>
 <span class="sd">    is the maximum value of s(H) for H in the set of all graphs with degree distribution.</span>
 <span class="sd">    A graph with small S(G) is &quot;scale-rich,&quot; and a graph with S(G) close to 1 is &quot;scale-free&quot;</span>
 
@@ -1213,7 +1213,7 @@ The range of the s metric is between 0 and 1, where 0 indicates "scale-rich" and
     <span class="p">)</span>  <span class="c1"># used for degree distribution and powerlaw test</span>
     <span class="n">fit</span> <span class="o">=</span> <span class="n">powerlaw</span><span class="o">.</span><span class="n">Fit</span><span class="p">(</span><span class="n">degree_sequence</span><span class="p">)</span>
     <span class="n">R</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">fit</span><span class="o">.</span><span class="n">distribution_compare</span><span class="p">(</span><span class="s2">&quot;power_law&quot;</span><span class="p">,</span> <span class="s2">&quot;exponential&quot;</span><span class="p">,</span> <span class="n">normalized_ratio</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">fig2</span> <span class="o">=</span> <span class="n">fit</span><span class="o">.</span><span class="n">plot_pdf</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">fit</span><span class="o">.</span><span class="n">plot_pdf</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
     <span class="n">fit</span><span class="o">.</span><span class="n">distribution_compare</span><span class="p">(</span><span class="s2">&quot;power_law&quot;</span><span class="p">,</span> <span class="s2">&quot;lognormal&quot;</span><span class="p">)</span>
     <span class="n">fig4</span> <span class="o">=</span> <span class="n">fit</span><span class="o">.</span><span class="n">plot_ccdf</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
@@ -1309,8 +1309,7 @@ The clusters are then visualized using UMAP.</p>
 </table>
             <details class="quote">
               <summary>Source code in <code>grnndata/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">479</span>
-<span class="normal">480</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">480</span>
 <span class="normal">481</span>
 <span class="normal">482</span>
 <span class="normal">483</span>
@@ -1329,7 +1328,8 @@ The clusters are then visualized using UMAP.</p>
 <span class="normal">496</span>
 <span class="normal">497</span>
 <span class="normal">498</span>
-<span class="normal">499</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_cluster</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;louvain&quot;</span><span class="p">],</span> <span class="n">min_dist</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">spread</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="normal">499</span>
+<span class="normal">500</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_cluster</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;louvain&quot;</span><span class="p">],</span> <span class="n">min_dist</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">spread</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function plots the clusters of a given Gene Regulatory Network (GRN).</span>
 
@@ -1428,8 +1428,7 @@ The clusters are then visualized using UMAP.</p>
 </table>
             <details class="quote">
               <summary>Source code in <code>grnndata/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">297</span>
-<span class="normal">298</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">298</span>
 <span class="normal">299</span>
 <span class="normal">300</span>
 <span class="normal">301</span>
@@ -1555,7 +1554,8 @@ The clusters are then visualized using UMAP.</p>
 <span class="normal">421</span>
 <span class="normal">422</span>
 <span class="normal">423</span>
-<span class="normal">424</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">similarity</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">other_grn</span><span class="p">):</span>
+<span class="normal">424</span>
+<span class="normal">425</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">similarity</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">other_grn</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates the similarity between two gene regulatory networks (grns).</span>
 

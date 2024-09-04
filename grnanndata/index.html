@@ -690,7 +690,7 @@ C    D      8</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        GRNAnnData: The sub-GRNAnnData object with only the specified genes</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">elem</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span><span class="p">]</span>
     <span class="n">loc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
     <span class="n">reg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">][</span><span class="n">loc</span><span class="p">][:,</span> <span class="n">loc</span><span class="p">]</span>
