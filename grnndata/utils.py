@@ -1,24 +1,24 @@
-import networkx as nx
-import gseapy as gp
-from gseapy.plot import barplot, dotplot
-import numpy as np
-import os.path
-import scanpy as sc
-from scipy.sparse import issparse
-import scipy.sparse
-import scipy.stats
-import powerlaw  # Power laws are probability distributions with the form:p(x)∝x−α
 import logging
+import os.path
+from typing import Callable, List
 
-import pandas as pd
-from scanpy import _utils
+import gseapy as gp
 import leidenalg
 import louvain
-from natsort import natsorted
-from typing import Callable, List
-from grnndata import GRNAnnData
-
 import matplotlib.pyplot as plt
+import networkx as nx
+import numpy as np
+import pandas as pd
+import powerlaw  # Power laws are probability distributions with the form:p(x)∝x−α
+import scanpy as sc
+import scipy.sparse
+import scipy.stats
+from gseapy.plot import barplot, dotplot
+from natsort import natsorted
+from scanpy import _utils
+from scipy.sparse import issparse
+
+from grnndata import GRNAnnData
 
 
 def fileToList(filename: str, strconv: Callable[[str], str] = lambda x: x) -> List[str]:

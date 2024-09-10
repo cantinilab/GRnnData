@@ -12,6 +12,25 @@ license = "GPL3"
 repository = "https://github.com/cantinilab/GRnnData"
 keywords = [ "scRNAseq", "gene regulatory networks", "anndata", "scPRINT",]
 
+[project]
+name = "grnndata"
+version = "1.1.2"
+description = "Awesome gene regulatory network enhanced anndata"
+authors = [ "jkobject",]
+readme = [ "README.md", "LICENSE",]
+license = "GPL3"
+repository = "https://github.com/cantinilab/GRnnData"
+keywords = [ "scRNAseq", "gene regulatory networks", "anndata", "scPRINT",]
+requires-python = ">=3.10"
+
+[tool.ruff]
+# Set the maximum line length to 88.
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501", "E203", "E266", "E265", "F401", "F403"]
+
 [tool.poetry.dependencies]
 python = "^3.10"
 anndata = "*"

@@ -1,15 +1,15 @@
+import gseapy as gp
+import networkx as nx
+import numpy as np
+import pandas as pd
+import scipy.sparse
+import seaborn as sns
 from anndata import AnnData
 from anndata import read_h5ad as anndata_read_h5ad
-import scipy.sparse
-import pandas as pd
-import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
-import networkx as nx
-from matplotlib import pyplot as plt
-import seaborn as sns
 from d3graph import d3graph, vec2adjmat
+from matplotlib import pyplot as plt
 from pyvis import network as pnx
-import gseapy as gp
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Get the base seaborn color palette as hex list
 base_color_palette = sns.color_palette().as_hex()
