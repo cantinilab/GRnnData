@@ -4,6 +4,12 @@ Changelog
 
 (unreleased)
 ------------
+- Update. [jkobject]
+
+
+1.1.3 (2024-10-08)
+------------------
+- Release: version 1.1.3 🚀 [jkobject]
 - Added ruff and uv. [jkobject]
 - Better tests. [jkobject]
 
