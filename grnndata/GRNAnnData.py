@@ -155,12 +155,11 @@ class GRNAnnData(AnnData):
         """
         return pd.DataFrame(
             [
-                a
-                for a in zip(
-                    [self.var_names[i] for i in self.varp["GRN"].row],
-                    [self.var_names[i] for i in self.varp["GRN"].col],
-                    self.varp["GRN"].data,
-                )
+                (regulator, target, weight)
+                for regulator, row in enumerate(self.varp["GRN"])
+                for target, weight in enumerate(row)
+                if (isinstance(row, np.ndarray) and weight != 0)
+                or (scipy.sparse.issparse(row) and row.getnnz() > 0 and weight != 0)
             ],
             columns=columns,
         ).sort_values(by=columns[2], ascending=False)
@@ -179,7 +178,7 @@ class GRNAnnData(AnnData):
         palette: list = base_color_palette,
         interactive: bool = True,
         do_enr: bool = False,
-        **kwargs: dict
+        **kwargs: dict,
     ):
         """
         plot_subgraph plots a subgraph of the gene regulatory network (GRN) centered around a seed gene.
