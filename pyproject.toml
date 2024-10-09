@@ -29,6 +29,7 @@ dependencies = [
     "d3graph>=0.2.0",
     "scanpy>=1.10.0",
     "numba>=0.56.0",  # This version supports Python 3.10
+    "setuptools>=58.0.0",
 ]
 
 [project.optional-dependencies]
