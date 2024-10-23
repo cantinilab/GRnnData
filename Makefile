@@ -63,6 +63,7 @@ virtualenv:       ## Create a virtual environment.
 	@uv venv
 	@source .venv/bin/activate
 	@make install
+	@echo "!!! Please run 'source .venv/bin/activate' to enable the environment !!!"
 
 .PHONY: release
 release:          ## Create a new tag for release.

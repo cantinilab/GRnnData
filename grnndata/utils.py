@@ -267,7 +267,7 @@ def enrichment_of(grn, target, of="Targets", doplot=False):
             "ENCODE_TF_ChIP-seq_2014",
             "GO_Molecular_Function_2015",
             {"TFs": TF},
-            "../../../GRnnData/grnndata/celltype.gmt",
+            file_dir + "/celltype.gmt",
             "OMIM_Disease",
             "WikiPathways_2016",
             "GO_Cellular_Component_2015",

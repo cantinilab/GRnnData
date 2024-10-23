@@ -10,10 +10,10 @@ from d3graph import d3graph, vec2adjmat
 from matplotlib import pyplot as plt
 from pyvis import network as pnx
 from sklearn.metrics.pairwise import cosine_similarity
+import tqdm
 
 # Get the base seaborn color palette as hex list
 base_color_palette = sns.color_palette().as_hex()
-base_color_palette
 
 
 class GRNAnnData(AnnData):
@@ -350,11 +350,11 @@ def from_adata_and_longform(
     da = np.zeros((len(varnames), len(varnames)), dtype=float)
     svar = set(varnames)
     if has_weight:
-        for i, j, v in longform_df.values:
+        for i, j, v in tqdm.tqdm(longform_df.values):
             if i in svar and j in svar:
                 da[varnames.index(i), varnames.index(j)] = v
     else:
-        for i, j in longform_df.values:
+        for i, j in tqdm.tqdm(longform_df.values):
             if i in svar and j in svar:
                 da[varnames.index(i), varnames.index(j)] = 1
     return GRNAnnData(adata, grn=da)
