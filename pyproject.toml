@@ -1,44 +1,65 @@
-[build-system]
-requires = [ "poetry-core",]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
+[project]
 name = "grnndata"
 version = "1.1.2"
 description = "Awesome gene regulatory network enhanced anndata"
-authors = [ "jkobject",]
-readme = [ "README.md", "LICENSE",]
-license = "GPL3"
+authors = [
+    {name = "jkobject", email = "jkobject@gmail.com"}
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["scRNAseq", "gene regulatory networks", "anndata", "scPRINT"]
+requires-python = ">=3.10,<3.11"
+
+dependencies = [
+    "anndata>=0.9.0",
+    "scipy>=1.7.0",
+    "networkx>=2.6.0",
+    "gseapy>=1.0.0,<2.0.0",
+    "scikit-learn>=1.0.0",
+    "numpy>=1.20.0",
+    "leidenalg>=0.8.0",
+    "louvain>=0.7.0",
+    "natsort>=7.1.0",
+    "powerlaw>=1.5.0",
+    "pyvis>=0.1.9",
+    "d3graph>=0.2.0",
+    "scanpy>=1.8.0",
+]
+
+[project.urls]
 repository = "https://github.com/cantinilab/GRnnData"
-keywords = [ "scRNAseq", "gene regulatory networks", "anndata", "scPRINT",]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-anndata = "*"
-scipy = "*"
-networkx = "*"
-gseapy = "1.*"
-scikit-learn = "*"
-numpy = "*"
-leidenalg = "*"
-louvain = "*"
-natsort = "*"
-powerlaw = "*"
-pyvis = "*"
-d3graph = "*"
-scanpy = "*"
-pytest = { version = "^7.4.3", optional = true }
-coverage = { version = "^7.3.2", optional = true }
-flake8 = { version = "^6.1.0", optional = true }
-black = { version = "^23.10.1", optional = true }
-isort = { version = "^5.12.0", optional = true }
-pytest-cov = { version = "^4.1.0", optional = true }
-mypy = { version = "^1.6.1", optional = true }
-gitchangelog = { version = "^3.0.4", optional = true }
-mkdocs = { version = "^1.5.3", optional = true }
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.3",
+    "coverage>=7.3.2",
+    "ruff>=0.6.4",
+    "pytest-cov>=4.1.0",
+    "gitchangelog>=3.0.4",
+    "mkdocs>=1.5.3",
+    "mkdocs-git-revision-date-localized-plugin>=1.0.0",
+    "mkdocstrings>=0.22.0",
+    "mkdocs-git-authors-plugin>=0.4.0",
+    "mkdocs-jupyter>=0.2.0",
+    "mkdocstrings-python>=0.10.0"
+]
 
-[tool.poetry.extras]
-dev = [ "pytest", "toml", "coverage", "flake8", "black", "isort", "pytest-cov", "mypy", "gitchangelog", "mkdocs", "mkdocs-git-revision-date-localized-plugin", "mkdocstrings", "mkdocs-git-authors-plugin", "mkdocs-jupyter", "mkdocstrings-python"]
-
-[tool.poetry.scripts]
+[project.scripts]
 grnndata = "grnndata.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501", "E203", "E266", "E265", "F401", "F403", "E722", "E741", "E731"]
+
+[tool.uv.sources]
+grnndata = { workspace = true }
