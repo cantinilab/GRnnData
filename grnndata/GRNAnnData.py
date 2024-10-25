@@ -1,19 +1,19 @@
+import gseapy as gp
+import networkx as nx
+import numpy as np
+import pandas as pd
+import scipy.sparse
+import seaborn as sns
 from anndata import AnnData
 from anndata import read_h5ad as anndata_read_h5ad
-import scipy.sparse
-import pandas as pd
-import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
-import networkx as nx
-from matplotlib import pyplot as plt
-import seaborn as sns
 from d3graph import d3graph, vec2adjmat
+from matplotlib import pyplot as plt
 from pyvis import network as pnx
-import gseapy as gp
+from sklearn.metrics.pairwise import cosine_similarity
+import tqdm
 
 # Get the base seaborn color palette as hex list
 base_color_palette = sns.color_palette().as_hex()
-base_color_palette
 
 
 class GRNAnnData(AnnData):
@@ -155,12 +155,11 @@ class GRNAnnData(AnnData):
         """
         return pd.DataFrame(
             [
-                a
-                for a in zip(
-                    [self.var_names[i] for i in self.varp["GRN"].row],
-                    [self.var_names[i] for i in self.varp["GRN"].col],
-                    self.varp["GRN"].data,
-                )
+                (regulator, target, weight)
+                for regulator, row in enumerate(self.varp["GRN"])
+                for target, weight in enumerate(row)
+                if (isinstance(row, np.ndarray) and weight != 0)
+                or (scipy.sparse.issparse(row) and row.getnnz() > 0 and weight != 0)
             ],
             columns=columns,
         ).sort_values(by=columns[2], ascending=False)
@@ -179,7 +178,7 @@ class GRNAnnData(AnnData):
         palette: list = base_color_palette,
         interactive: bool = True,
         do_enr: bool = False,
-        **kwargs: dict
+        **kwargs: dict,
     ):
         """
         plot_subgraph plots a subgraph of the gene regulatory network (GRN) centered around a seed gene.
@@ -351,11 +350,11 @@ def from_adata_and_longform(
     da = np.zeros((len(varnames), len(varnames)), dtype=float)
     svar = set(varnames)
     if has_weight:
-        for i, j, v in longform_df.values:
+        for i, j, v in tqdm.tqdm(longform_df.values):
             if i in svar and j in svar:
                 da[varnames.index(i), varnames.index(j)] = v
     else:
-        for i, j in longform_df.values:
+        for i, j in tqdm.tqdm(longform_df.values):
             if i in svar and j in svar:
                 da[varnames.index(i), varnames.index(j)] = 1
     return GRNAnnData(adata, grn=da)

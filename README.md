@@ -3,7 +3,6 @@
 [![codecov](https://codecov.io/gh/cantinilab/GRnnData/branch/main/graph/badge.svg?token=GRnnData_token_here)](https://codecov.io/gh/cantinilab/GRnnData)
 [![CI](https://github.com/cantinilab/GRnnData/actions/workflows/main.yml/badge.svg)](https://github.com/cantinilab/GRnnData/actions/workflows/main.yml)
 [![PyPI version](https://badge.fury.io/py/GRnnData.svg)](https://badge.fury.io/py/benGRN)
-[![Documentation Status](https://readthedocs.org/projects/GRnnData/badge/?version=latest)](https://GRnnData.readthedocs.io/en/latest/?badge=latest)
 [![Downloads](https://pepy.tech/badge/GRnnData)](https://pepy.tech/project/GRnnData)
 [![Downloads](https://pepy.tech/badge/GRnnData/month)](https://pepy.tech/project/GRnnData)
 [![Downloads](https://pepy.tech/badge/GRnnData/week)](https://pepy.tech/project/GRnnData)

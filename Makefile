@@ -8,23 +8,32 @@ help:             ## Show the help.
 	@echo "Targets:"
 	@fgrep "##" Makefile | fgrep -v fgrep
 
+
+.PHONY: show
+show:             ## Show the current environment.
+	@echo "Current environment:"
+	@if [ "$(USING_POETRY)" ]; then poetry env info && exit; fi
+	@echo "Running using $(ENV_PREFIX)"
+	@$(ENV_PREFIX)python -V
+	@$(ENV_PREFIX)python -m site
+
+.PHONY: install
+install:          ## Install the project in dev mode.
+	$(ENV_PREFIX)uv sync --all-extras --dev
+
 .PHONY: fmt
-fmt:              ## Format code using ruff.
-	$(ENV_PREFIX)ruff check --fix grnndata/
-	$(ENV_PREFIX)ruff check --fix tests/
-	$(ENV_PREFIX)ruff format grnndata/
-	$(ENV_PREFIX)ruff format tests/
+fmt:              ## Format code using black & isort.
+	$(ENV_PREFIX)uv run ruff format grnndata/ tests/
 
 .PHONY: lint
-lint:             ## Run ruff linter.
-	$(ENV_PREFIX)ruff check grnndata/
-	$(ENV_PREFIX)ruff check tests/
+lint:             ## Run pep8, black, mypy linters.
+	$(ENV_PREFIX)uv run ruff check --fix grnndata/ tests/
 
 .PHONY: test
 test: lint        ## Run tests and generate coverage report.
-	$(ENV_PREFIX)pytest -v --cov-config .coveragerc --cov=grnndata -l --tb=short --maxfail=1 tests/
-	$(ENV_PREFIX)coverage xml
-	$(ENV_PREFIX)coverage html
+	$(ENV_PREFIX)uv run pytest -v --cov-config .coveragerc --cov=grnndata -l --tb=short --maxfail=1 tests/
+	$(ENV_PREFIX)uv run coverage xml
+	$(ENV_PREFIX)uv run coverage html
 
 .PHONY: watch
 watch:            ## Run tests on every change.
@@ -45,6 +54,15 @@ clean:            ## Clean unused files.
 	@rm -rf htmlcov
 	@rm -rf .tox/
 	@rm -rf docs/_build
+
+.PHONY: virtualenv
+virtualenv:       ## Create a virtual environment.
+	@echo "creating virtualenv ..."
+	@rm -rf .venv
+	@uv venv
+	@source .venv/bin/activate
+	@make install
+	@echo "!!! Please run 'source .venv/bin/activate' to enable the environment !!!"
 
 .PHONY: release
 release:          ## Create a new tag for release.
