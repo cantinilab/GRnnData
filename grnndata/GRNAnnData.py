@@ -6,18 +6,25 @@ import scipy.sparse
 import seaborn as sns
 from anndata import AnnData
 from anndata import read_h5ad as anndata_read_h5ad
-from d3graph import d3graph, vec2adjmat
+from d3graph import d3graph
 from matplotlib import pyplot as plt
 from pyvis import network as pnx
 from sklearn.metrics.pairwise import cosine_similarity
 import tqdm
+
+from typing import Optional
 
 # Get the base seaborn color palette as hex list
 base_color_palette = sns.color_palette().as_hex()
 
 
 class GRNAnnData(AnnData):
-    def __init__(self, *args, grn: scipy.sparse.csr_matrix | np.ndarray, **kwargs):
+    def __init__(
+        self,
+        *args,
+        grn: Optional[scipy.sparse.csr_matrix | np.ndarray] = None,
+        **kwargs,
+    ):
         """An AnnData object with a GRN matrix in varp["GRN"]
 
         Args:
@@ -30,6 +37,11 @@ class GRNAnnData(AnnData):
 
         @see https://anndata.readthedocs.io for more informaiotn on AnnData objects
         """
+        # if isinstance(args[0], AnnData) and "GRN" in args[0].varp:
+        #    args[0] = args[0].copy()
+        #     grn = args[0].varp["GRN"]
+        # elif grn is None:
+        #    raise ValueError("grn argument must be provided")
         super(GRNAnnData, self).__init__(*args, **kwargs)
         self.varp["GRN"] = grn
 

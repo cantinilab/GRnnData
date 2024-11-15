@@ -62,7 +62,7 @@ read_h5ad('grn.h5ad') #reads it
 utils.some_function(grn)
 ```
 
-GRnnData works similarly to anndata. Learn more about usages in the documentation and its notebooks in the [docs](https://cantinilab.github.io/GRnnData/). 
+GRnnData works similarly to anndata. Learn more about usages in the documentation and its notebooks in the [docs](https://cantinilab.github.io/GRnnData/).
 
 usage examples can be seen in the example notebooks of:
 - [scPRINT](https://www.jkobject.com/scPRINT/notebooks/cancer_usecase/)
@@ -80,4 +80,4 @@ In this context, we recommend trying to merge them across a similar group of cel
 
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-Awesome gene regulatory network enhanced anndata created by @jkobject
+Awesome gene regulatory network enhanced anndata created by @jkobject and @r-trimbour
