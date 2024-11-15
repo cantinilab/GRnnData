@@ -10,6 +10,8 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![DOI](https://img.shields.io/badge/DOI-10.1101%2F2024.07.29.605556-blue)](https://doi.org/10.1101/2024.07.29.605556)
 
+<img src="./grnndata.png" width="300"/>
+
 GRnnData works similarly to anndata. The goal was to use the .varm/.varp of anndata to store the GRN data associated with a dataset and have a formal way to work with GRNs.
 
 GRnnData is a subclass of anndata.AnnData, it enforces only that a .varp exists for the anndata
@@ -17,7 +19,6 @@ GRnnData is a subclass of anndata.AnnData, it enforces only that a .varp exists 
 GRnnData also contains multiple helper functions to work with GRNs in scRNAseq like compute_connectivities, get_centrality, compute_cluster, enrichment, metrics, etc. but also accessing the grn with .grn, .targets, .regulators,...
 
 The package has been designed together with the [scPRINT paper](https://doi.org/10.1101/2024.07.29.605556) and [model](https://github.com/cantinilab/scPRINT), and the GRN benchmarking tool [BenGRN](https://github.com/jkobject/BenGRN)
-
 ## Install it from PyPI
 
 ```bash
