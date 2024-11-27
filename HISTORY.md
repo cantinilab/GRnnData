@@ -4,6 +4,59 @@ Changelog
 
 (unreleased)
 ------------
+- Merge pull request #5 from
+  cantinilab/dependabot/github_actions/codecov/codecov-action-5.
+  [Jérémie Kalfon]
+
+  Bump codecov/codecov-action from 4 to 5
+- Bump codecov/codecov-action from 4 to 5. [dependabot[bot]]
+
+  Bumps [codecov/codecov-action](https://github.com/codecov/codecov-action) from 4 to 5.
+  - [Release notes](https://github.com/codecov/codecov-action/releases)
+  - [Changelog](https://github.com/codecov/codecov-action/blob/main/CHANGELOG.md)
+  - [Commits](https://github.com/codecov/codecov-action/compare/v4...v5)
+
+  ---
+  updated-dependencies:
+  - dependency-name: codecov/codecov-action
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+- Merge branch 'main' of https://github.com/cantinilab/GRnnData into
+  main. [jkobject]
+- Update README.md. [Jérémie Kalfon]
+- Add files via upload. [Jérémie Kalfon]
+- Nothing. [jkobject]
+- Merge branch 'main' of https://github.com/cantinilab/GRnnData.
+  [maestro-jk]
+- Making it fail  and few debugs. [jkobject]
+- Update README.md. [Jérémie Kalfon]
+- Merge pull request #4 from
+  cantinilab/dependabot/github_actions/softprops/action-gh-release-2.
+  [Jérémie Kalfon]
+
+  Bump softprops/action-gh-release from 1 to 2
+- Bump softprops/action-gh-release from 1 to 2. [dependabot[bot]]
+
+  Bumps [softprops/action-gh-release](https://github.com/softprops/action-gh-release) from 1 to 2.
+  - [Release notes](https://github.com/softprops/action-gh-release/releases)
+  - [Changelog](https://github.com/softprops/action-gh-release/blob/master/CHANGELOG.md)
+  - [Commits](https://github.com/softprops/action-gh-release/compare/v1...v2)
+
+  ---
+  updated-dependencies:
+  - dependency-name: softprops/action-gh-release
+    dependency-type: direct:production
+    update-type: version-update:semver-major
+  ...
+- Adding setuptools. [jkobject]
+- Added coverage and better install. [jkobject]
+- New grnndata. [maestro-jk]
+
+
+1.1.4 (2024-10-08)
+------------------
+- Release: version 1.1.4 🚀 [jkobject]
 - Update. [jkobject]
 
 
