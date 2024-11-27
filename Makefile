@@ -71,6 +71,7 @@ release:          ## Create a new tag for release.
 	@echo "$${TAG}" > grnndata/VERSION
 	@$(ENV_PREFIX)gitchangelog > HISTORY.md
 	@sed -i 's/^version = .*/version = "'$${TAG}'"/' pyproject.toml
+	@sed -i 's/__version__ = .*/__version__ = "'$${TAG}'"/' grnndata/__init__.py
 	@git add grnndata/VERSION HISTORY.md pyproject.toml
 	@git commit -m "release: version $${TAG} 🚀"
 	@echo "creating git tag : $${TAG}"
