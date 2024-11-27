@@ -78,8 +78,6 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#grnndata.utils.plot_cluster">plot_cluster</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#grnndata.utils.similarity">similarity</a>
-    </li>
         </ul>
     </li>
     </ul>
@@ -1129,56 +1127,56 @@ The range of the s metric is between 0 and 1, where 0 indicates "scale-rich" and
 </table>
             <details class="quote">
               <summary>Source code in <code>grnndata/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">428</span>
-<span class="normal">429</span>
-<span class="normal">430</span>
-<span class="normal">431</span>
-<span class="normal">432</span>
-<span class="normal">433</span>
-<span class="normal">434</span>
-<span class="normal">435</span>
-<span class="normal">436</span>
-<span class="normal">437</span>
-<span class="normal">438</span>
-<span class="normal">439</span>
-<span class="normal">440</span>
-<span class="normal">441</span>
-<span class="normal">442</span>
-<span class="normal">443</span>
-<span class="normal">444</span>
-<span class="normal">445</span>
-<span class="normal">446</span>
-<span class="normal">447</span>
-<span class="normal">448</span>
-<span class="normal">449</span>
-<span class="normal">450</span>
-<span class="normal">451</span>
-<span class="normal">452</span>
-<span class="normal">453</span>
-<span class="normal">454</span>
-<span class="normal">455</span>
-<span class="normal">456</span>
-<span class="normal">457</span>
-<span class="normal">458</span>
-<span class="normal">459</span>
-<span class="normal">460</span>
-<span class="normal">461</span>
-<span class="normal">462</span>
-<span class="normal">463</span>
-<span class="normal">464</span>
-<span class="normal">465</span>
-<span class="normal">466</span>
-<span class="normal">467</span>
-<span class="normal">468</span>
-<span class="normal">469</span>
-<span class="normal">470</span>
-<span class="normal">471</span>
-<span class="normal">472</span>
-<span class="normal">473</span>
-<span class="normal">474</span>
-<span class="normal">475</span>
-<span class="normal">476</span>
-<span class="normal">477</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">metrics</span><span class="p">(</span><span class="n">grn</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">metrics</span><span class="p">(</span><span class="n">grn</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    metrics This function computes the following metrics for a given Gene Regulatory Network (GRN):</span>
 
@@ -1309,27 +1307,27 @@ The clusters are then visualized using UMAP.</p>
 </table>
             <details class="quote">
               <summary>Source code in <code>grnndata/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">480</span>
-<span class="normal">481</span>
-<span class="normal">482</span>
-<span class="normal">483</span>
-<span class="normal">484</span>
-<span class="normal">485</span>
-<span class="normal">486</span>
-<span class="normal">487</span>
-<span class="normal">488</span>
-<span class="normal">489</span>
-<span class="normal">490</span>
-<span class="normal">491</span>
-<span class="normal">492</span>
-<span class="normal">493</span>
-<span class="normal">494</span>
-<span class="normal">495</span>
-<span class="normal">496</span>
-<span class="normal">497</span>
-<span class="normal">498</span>
-<span class="normal">499</span>
-<span class="normal">500</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_cluster</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;louvain&quot;</span><span class="p">],</span> <span class="n">min_dist</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">spread</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_cluster</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;louvain&quot;</span><span class="p">],</span> <span class="n">min_dist</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">spread</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">stretch</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function plots the clusters of a given Gene Regulatory Network (GRN).</span>
 
@@ -1350,339 +1348,6 @@ The clusters are then visualized using UMAP.</p>
     <span class="n">sc</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">louvain</span><span class="p">(</span><span class="n">subgrn</span><span class="p">,</span> <span class="n">adjacency</span><span class="o">=</span><span class="n">subgrn</span><span class="o">.</span><span class="n">obsp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">])</span>
 
     <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">umap</span><span class="p">(</span><span class="n">subgrn</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="grnndata.utils.similarity" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">similarity</span></code>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>This function calculates the similarity between two gene regulatory networks (grns).</p>
-
-
-<table class="field-list">
-  <colgroup>
-    <col class="field-name" />
-    <col class="field-body" />
-  </colgroup>
-  <tbody valign="top">
-    <tr class="field">
-      <th class="field-name">Parameters:</th>
-      <td class="field-body">
-        <ul class="first simple">
-            <li>
-              <b><code>grn</code></b>
-                  (<code><a class="autorefs autorefs-internal" title="grnndata.GRNAnnData" href="../grnanndata/#grnndata.GRNAnnData">GRNAnnData</a></code>)
-              –
-              <div class="doc-md-description">
-                <p>The first gene regulatory network.</p>
-              </div>
-            </li>
-            <li>
-              <b><code>other_grn</code></b>
-                  (<code><a class="autorefs autorefs-internal" title="grnndata.GRNAnnData" href="../grnanndata/#grnndata.GRNAnnData">GRNAnnData</a></code>)
-              –
-              <div class="doc-md-description">
-                <p>The second gene regulatory network.</p>
-              </div>
-            </li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<table class="field-list">
-  <colgroup>
-    <col class="field-name" />
-    <col class="field-body" />
-  </colgroup>
-  <tbody valign="top">
-    <tr class="field">
-      <th class="field-name">Returns:</th>
-      <td class="field-body">
-        <ul class="first simple">
-            <li>
-<b><code>dict</code></b>              –
-              <div class="doc-md-description">
-                <p>A dictionary containing the similarity metrics between the two grns.
-{"spearman_corr", "precision", "precision_rand", "recall",
-"recall_rand", "accuracy", "accuracy_rand", "sim_expr",
-"intra_similarity_self", "intra_similarity_other"}</p>
-              </div>
-            </li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>
-            <details class="quote">
-              <summary>Source code in <code>grnndata/utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span>
-<span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
-<span class="normal">307</span>
-<span class="normal">308</span>
-<span class="normal">309</span>
-<span class="normal">310</span>
-<span class="normal">311</span>
-<span class="normal">312</span>
-<span class="normal">313</span>
-<span class="normal">314</span>
-<span class="normal">315</span>
-<span class="normal">316</span>
-<span class="normal">317</span>
-<span class="normal">318</span>
-<span class="normal">319</span>
-<span class="normal">320</span>
-<span class="normal">321</span>
-<span class="normal">322</span>
-<span class="normal">323</span>
-<span class="normal">324</span>
-<span class="normal">325</span>
-<span class="normal">326</span>
-<span class="normal">327</span>
-<span class="normal">328</span>
-<span class="normal">329</span>
-<span class="normal">330</span>
-<span class="normal">331</span>
-<span class="normal">332</span>
-<span class="normal">333</span>
-<span class="normal">334</span>
-<span class="normal">335</span>
-<span class="normal">336</span>
-<span class="normal">337</span>
-<span class="normal">338</span>
-<span class="normal">339</span>
-<span class="normal">340</span>
-<span class="normal">341</span>
-<span class="normal">342</span>
-<span class="normal">343</span>
-<span class="normal">344</span>
-<span class="normal">345</span>
-<span class="normal">346</span>
-<span class="normal">347</span>
-<span class="normal">348</span>
-<span class="normal">349</span>
-<span class="normal">350</span>
-<span class="normal">351</span>
-<span class="normal">352</span>
-<span class="normal">353</span>
-<span class="normal">354</span>
-<span class="normal">355</span>
-<span class="normal">356</span>
-<span class="normal">357</span>
-<span class="normal">358</span>
-<span class="normal">359</span>
-<span class="normal">360</span>
-<span class="normal">361</span>
-<span class="normal">362</span>
-<span class="normal">363</span>
-<span class="normal">364</span>
-<span class="normal">365</span>
-<span class="normal">366</span>
-<span class="normal">367</span>
-<span class="normal">368</span>
-<span class="normal">369</span>
-<span class="normal">370</span>
-<span class="normal">371</span>
-<span class="normal">372</span>
-<span class="normal">373</span>
-<span class="normal">374</span>
-<span class="normal">375</span>
-<span class="normal">376</span>
-<span class="normal">377</span>
-<span class="normal">378</span>
-<span class="normal">379</span>
-<span class="normal">380</span>
-<span class="normal">381</span>
-<span class="normal">382</span>
-<span class="normal">383</span>
-<span class="normal">384</span>
-<span class="normal">385</span>
-<span class="normal">386</span>
-<span class="normal">387</span>
-<span class="normal">388</span>
-<span class="normal">389</span>
-<span class="normal">390</span>
-<span class="normal">391</span>
-<span class="normal">392</span>
-<span class="normal">393</span>
-<span class="normal">394</span>
-<span class="normal">395</span>
-<span class="normal">396</span>
-<span class="normal">397</span>
-<span class="normal">398</span>
-<span class="normal">399</span>
-<span class="normal">400</span>
-<span class="normal">401</span>
-<span class="normal">402</span>
-<span class="normal">403</span>
-<span class="normal">404</span>
-<span class="normal">405</span>
-<span class="normal">406</span>
-<span class="normal">407</span>
-<span class="normal">408</span>
-<span class="normal">409</span>
-<span class="normal">410</span>
-<span class="normal">411</span>
-<span class="normal">412</span>
-<span class="normal">413</span>
-<span class="normal">414</span>
-<span class="normal">415</span>
-<span class="normal">416</span>
-<span class="normal">417</span>
-<span class="normal">418</span>
-<span class="normal">419</span>
-<span class="normal">420</span>
-<span class="normal">421</span>
-<span class="normal">422</span>
-<span class="normal">423</span>
-<span class="normal">424</span>
-<span class="normal">425</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">similarity</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">other_grn</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function calculates the similarity between two gene regulatory networks (grns).</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        grn (GRNAnnData): The first gene regulatory network.</span>
-<span class="sd">        other_grn (GRNAnnData): The second gene regulatory network.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        dict : A dictionary containing the similarity metrics between the two grns.</span>
-<span class="sd">            {&quot;spearman_corr&quot;, &quot;precision&quot;, &quot;precision_rand&quot;, &quot;recall&quot;,</span>
-<span class="sd">            &quot;recall_rand&quot;, &quot;accuracy&quot;, &quot;accuracy_rand&quot;, &quot;sim_expr&quot;,</span>
-<span class="sd">            &quot;intra_similarity_self&quot;, &quot;intra_similarity_other&quot;}</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># similarity in expression</span>
-    <span class="n">selfX</span> <span class="o">=</span> <span class="n">grn</span><span class="o">.</span><span class="n">X</span>
-    <span class="n">otherX</span> <span class="o">=</span> <span class="n">other_grn</span><span class="o">.</span><span class="n">X</span>
-    <span class="k">if</span> <span class="n">issparse</span><span class="p">(</span><span class="n">otherX</span><span class="p">):</span>
-        <span class="n">otherX</span> <span class="o">=</span> <span class="n">otherX</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
-    <span class="n">otherXrand</span> <span class="o">=</span> <span class="n">otherX</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">otherXrand</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">issparse</span><span class="p">(</span><span class="n">selfX</span><span class="p">):</span>
-        <span class="n">selfX</span> <span class="o">=</span> <span class="n">selfX</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
-    <span class="n">selfXrand</span> <span class="o">=</span> <span class="n">selfX</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">selfXrand</span><span class="p">)</span>
-    <span class="c1"># Compute intra matrix similarity</span>
-    <span class="n">intra_similarity_self</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">selfXrand</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">selfX</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span>
-                <span class="n">selfXrand</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">:,</span> <span class="p">:</span> <span class="n">selfXrand</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="p">]</span>
-        <span class="p">),</span>
-        <span class="mi">1</span><span class="p">,</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">intra_similarity_other</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">otherX</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">otherXrand</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="n">otherX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">:,</span> <span class="p">:</span> <span class="n">otherX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-        <span class="p">),</span>
-        <span class="mi">1</span><span class="p">,</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="c1"># Compute inter matrix similarity</span>
-    <span class="n">inter_similarity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">selfX</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">otherX</span><span class="o">.</span><span class="n">T</span><span class="p">)[</span><span class="n">selfX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">:,</span> <span class="p">:</span> <span class="n">selfX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]),</span>
-        <span class="mi">1</span><span class="p">,</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;intra_similarity_self&quot;</span><span class="p">,</span> <span class="n">intra_similarity_self</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;intra_similarity_other&quot;</span><span class="p">,</span> <span class="n">intra_similarity_other</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inter_similarity&quot;</span><span class="p">,</span> <span class="n">inter_similarity</span><span class="p">)</span>
-
-    <span class="c1"># similarity in network structure</span>
-    <span class="c1"># Get the GRN network from both grn objects</span>
-    <span class="n">grn_self</span> <span class="o">=</span> <span class="n">grn</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]</span>
-    <span class="n">grn_other</span> <span class="o">=</span> <span class="n">other_grn</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]</span>
-
-    <span class="c1"># Compute the number of similar edges</span>
-    <span class="c1"># Similar edges are those where both are non-zero and have the same sign</span>
-    <span class="n">similar_edges</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="p">(</span><span class="n">grn_self</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">grn_other</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">grn_self</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">grn_other</span><span class="p">))</span>
-    <span class="p">)</span>
-
-    <span class="n">similar_edges_ct</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">similar_edges</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;similar_edges_ct&quot;</span><span class="p">,</span> <span class="n">similar_edges_ct</span><span class="p">)</span>
-
-    <span class="c1"># Compute the total number of edges</span>
-    <span class="n">total_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">grn_self</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-
-    <span class="c1"># Compute the total number of edges in the other GRN</span>
-    <span class="n">total_edges_other</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">grn_other</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span>
-
-    <span class="c1"># Compute precision, recall, and accuracy</span>
-    <span class="n">precision</span> <span class="o">=</span> <span class="n">similar_edges_ct</span> <span class="o">/</span> <span class="n">total_edges</span>
-    <span class="n">recall</span> <span class="o">=</span> <span class="n">similar_edges_ct</span> <span class="o">/</span> <span class="n">total_edges_other</span>
-    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">similar_edges_ct</span> <span class="o">/</span> <span class="p">(</span><span class="n">total_edges</span> <span class="o">+</span> <span class="n">total_edges_other</span> <span class="o">-</span> <span class="n">similar_edges_ct</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;precision&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;recall&quot;</span><span class="p">,</span> <span class="n">recall</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">)</span>
-    <span class="c1"># Compute the Spearman&#39;s rank correlation between the two overlapping sets of edges</span>
-    <span class="n">spearman_corr</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span>
-        <span class="n">grn_self</span><span class="p">[</span><span class="n">similar_edges</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">grn_other</span><span class="p">[</span><span class="n">similar_edges</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-    <span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;spearman_corr&quot;</span><span class="p">,</span> <span class="n">spearman_corr</span><span class="p">)</span>
-    <span class="c1"># Generate a random permutation of varp[&#39;grn&#39;] matrix</span>
-    <span class="n">grn_other_rand</span> <span class="o">=</span> <span class="n">grn_other</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">grn_other_rand</span><span class="p">)</span>
-
-    <span class="c1"># Recompute the number of similar edges</span>
-    <span class="n">similar_edges_rand</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="p">(</span><span class="n">grn_self</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">grn_other_rand</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">grn_self</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">grn_other_rand</span><span class="p">))</span>
-    <span class="p">)</span>
-    <span class="n">similar_edges_ct_rand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">similar_edges_rand</span><span class="p">)</span>
-    <span class="n">total_edges_rand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">grn_other_rand</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span>
-
-    <span class="c1"># Recompute precision, recall, and accuracy</span>
-    <span class="n">precision_rand</span> <span class="o">=</span> <span class="n">similar_edges_ct_rand</span> <span class="o">/</span> <span class="n">total_edges</span>
-    <span class="n">recall_rand</span> <span class="o">=</span> <span class="n">similar_edges_ct_rand</span> <span class="o">/</span> <span class="n">total_edges_rand</span>
-    <span class="n">accuracy_rand</span> <span class="o">=</span> <span class="n">similar_edges_ct_rand</span> <span class="o">/</span> <span class="p">(</span>
-        <span class="n">total_edges</span> <span class="o">+</span> <span class="n">total_edges_rand</span> <span class="o">-</span> <span class="n">similar_edges_ct_rand</span>
-    <span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rand precision&quot;</span><span class="p">,</span> <span class="n">precision_rand</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rand recall&quot;</span><span class="p">,</span> <span class="n">recall_rand</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;rand accuracy&quot;</span><span class="p">,</span> <span class="n">accuracy_rand</span><span class="p">)</span>
-
-    <span class="c1"># compute graph edit distance</span>
-
-    <span class="c1"># G1 = nx.from_numpy_array(grn_self)</span>
-    <span class="c1"># G2 = nx.from_numpy_array(grn_other)</span>
-    <span class="c1"># dist = nx.graph_edit_distance(</span>
-    <span class="c1">#    G1,</span>
-    <span class="c1">#    G2,</span>
-    <span class="c1">#    node_match=None,</span>
-    <span class="c1">#    edge_match=lambda e1, e2: np.sign(e1) == np.sign(e2),</span>
-    <span class="c1">#    timeout=300,</span>
-    <span class="c1"># )</span>
-    <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;spearman_corr&quot;</span><span class="p">:</span> <span class="n">spearman_corr</span><span class="p">,</span>
-        <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">precision</span><span class="p">,</span>
-        <span class="s2">&quot;precision_rand&quot;</span><span class="p">:</span> <span class="n">precision_rand</span><span class="p">,</span>
-        <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="n">recall</span><span class="p">,</span>
-        <span class="s2">&quot;recall_rand&quot;</span><span class="p">:</span> <span class="n">recall_rand</span><span class="p">,</span>
-        <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">,</span>
-        <span class="s2">&quot;accuracy_rand&quot;</span><span class="p">:</span> <span class="n">accuracy_rand</span><span class="p">,</span>
-        <span class="s2">&quot;sim_expr&quot;</span><span class="p">:</span> <span class="n">inter_similarity</span><span class="p">,</span>
-        <span class="s2">&quot;intra_similarity_self&quot;</span><span class="p">:</span> <span class="n">intra_similarity_self</span><span class="p">,</span>
-        <span class="s2">&quot;intra_similarity_other&quot;</span><span class="p">:</span> <span class="n">intra_similarity_other</span><span class="p">,</span>
-        <span class="c1"># &quot;dist&quot;: dist,</span>
-    <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
