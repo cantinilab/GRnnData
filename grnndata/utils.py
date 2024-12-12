@@ -213,8 +213,8 @@ def enrichment(
         raise ValueError("of must be one of 'Targets', 'Regulators', or 'Central'")
     rnk.name = None
     rnk = rnk[rnk != 0]
-    if rnk.nunique() == 1:
-        print("The DataFrame contains only the same values.")
+    if rnk.nunique() <= 1:
+        print("The DataFrame contains only the same values or none.")
         return None
     # run enrichment analysis
     previous_level = logging.root.manager.disable
@@ -232,6 +232,9 @@ def enrichment(
         logging.disable(previous_level)
     except LookupError:
         print("raised a lookup error")
+        return None
+    except AssertionError:
+        print("raise an assertion error")
         return None
     val = (
         pre_res.res2d[(pre_res.res2d["FDR q-val"] < 0.1) & (pre_res.res2d["NES"] > 1)]
