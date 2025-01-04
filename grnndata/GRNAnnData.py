@@ -234,7 +234,6 @@ class GRNAnnData(AnnData):
         color = [palette[0]] * len(mat)
         if type(seed) is str:
             color[mat.columns.get_loc(seed)] = palette[1]
-        print(color, mat.index)
         mat = mat.T
         if interactive:
             d3 = d3graph()
