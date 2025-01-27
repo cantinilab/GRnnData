@@ -8,7 +8,8 @@
 [![Downloads](https://pepy.tech/badge/GRnnData/week)](https://pepy.tech/project/GRnnData)
 [![GitHub issues](https://img.shields.io/github/issues/cantinilab/GRnnData)](https://img.shields.io/github/issues/cantinilab/GRnnData)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![DOI](https://img.shields.io/badge/DOI-10.1101%2F2024.07.29.605556-blue)](https://doi.org/10.1101/2024.07.29.605556)
+[![DOI](https://zenodo.org/badge/731236048.svg)](https://doi.org/10.5281/zenodo.10573141)
+
 
 <img src="./grnndata.png" width="300"/>
 
