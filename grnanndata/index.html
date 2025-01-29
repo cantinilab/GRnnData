@@ -151,6 +151,97 @@ index corresponds to genes that are targets.</p>
   </tbody>
 </table>        <p>@see https://anndata.readthedocs.io for more informaiotn on AnnData objects</p>
 
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="grnndata.GRNAnnData.concat" href="#grnndata.GRNAnnData.concat">concat</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>concat two GRNAnnData objects</p>
+                </div>
+              </td>
+            </tr>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="grnndata.GRNAnnData.extract_links" href="#grnndata.GRNAnnData.extract_links">extract_links</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>This function extracts scores from anndata.varp['key'] and returns them as a pandas DataFrame.</p>
+                </div>
+              </td>
+            </tr>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="grnndata.GRNAnnData.get" href="#grnndata.GRNAnnData.get">get</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>get a sub-GRNAnnData object with only the specified genes</p>
+                </div>
+              </td>
+            </tr>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="grnndata.GRNAnnData.plot_subgraph" href="#grnndata.GRNAnnData.plot_subgraph">plot_subgraph</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>plot_subgraph plots a subgraph of the gene regulatory network (GRN) centered around a seed gene.</p>
+                </div>
+              </td>
+            </tr>
+      </tbody>
+    </table>
+
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Attributes:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>grn</code></b>
+              –
+              <div class="doc-md-description">
+                <p>Property that returns the gene regulatory network (GRN) as a pandas DataFrame.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>regulators</code></b>
+              –
+              <div class="doc-md-description">
+                <p>regulators outputs the regulators' connections of the GRN as a pandas DataFrame.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>targets</code></b>
+              –
+              <div class="doc-md-description">
+                <p>targets outputs the targets' connections of the GRN as a pandas DataFrame.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
                   <details class="quote">
                     <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
                     <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
@@ -177,7 +268,7 @@ index corresponds to genes that are targets.</p>
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="n">grn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -449,7 +540,7 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
 <span class="normal">64</span>
 <span class="normal">65</span>
 <span class="normal">66</span>
-<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">concat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">concat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    concat two GRNAnnData objects</span>
 
@@ -578,7 +669,7 @@ C    D      8</p>
 <span class="normal">174</span>
 <span class="normal">175</span>
 <span class="normal">176</span>
-<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">extract_links</span><span class="p">(</span>
+<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">extract_links</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s2">&quot;regulator&quot;</span><span class="p">,</span>
@@ -700,7 +791,7 @@ C    D      8</p>
 <span class="normal">87</span>
 <span class="normal">88</span>
 <span class="normal">89</span>
-<span class="normal">90</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;GRNAnnData&quot;</span><span class="p">:</span>
+<span class="normal">90</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;GRNAnnData&quot;</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    get a sub-GRNAnnData object with only the specified genes</span>
 
@@ -937,8 +1028,7 @@ C    D      8</p>
 <span class="normal">270</span>
 <span class="normal">271</span>
 <span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_subgraph</span><span class="p">(</span>
+<span class="normal">273</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_subgraph</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">gene_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;symbol&quot;</span><span class="p">,</span>
@@ -991,7 +1081,6 @@ C    D      8</p>
     <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="n">palette</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">color</span><span class="p">[</span><span class="n">mat</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">seed</span><span class="p">)]</span> <span class="o">=</span> <span class="n">palette</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">mat</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
     <span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">T</span>
     <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
         <span class="n">d3</span> <span class="o">=</span> <span class="n">d3graph</span><span class="p">()</span>
