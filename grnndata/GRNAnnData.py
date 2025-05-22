@@ -43,7 +43,84 @@ class GRNAnnData(AnnData):
         # elif grn is None:
         #    raise ValueError("grn argument must be provided")
         super(GRNAnnData, self).__init__(*args, **kwargs)
-        self.varp["GRN"] = grn
+        # Ensure GRN is stored in varp, not directly as an attribute
+        if grn is not None:
+            self.varp["GRN"] = grn
+        # Ensure GRN key exists even if grn is None
+        elif "GRN" not in self.varp:
+            self.varp["GRN"] = None
+
+    def copy(self, filename: str | None = None) -> "GRNAnnData":
+        """Return a copy of the object."""
+        adata_copy = super().copy(filename=filename)
+
+        new_grn = None
+        if "GRN" in self.varp and self.varp["GRN"] is not None:
+            # Ensure the GRN matrix is copied as well
+            new_grn = self.varp["GRN"].copy()
+
+        return GRNAnnData(adata_copy, grn=new_grn)
+
+    def __getitem__(self, index) -> "GRNAnnData":
+        """Return a sliced view or copy of the object."""
+        sliced_adata = super().__getitem__(index)
+
+        # If slicing resulted in something other than AnnData (e.g., a scalar), return it directly
+        if not isinstance(sliced_adata, AnnData):
+            return sliced_adata
+
+        # If the original GRN doesn't exist, return the sliced AnnData as GRNAnnData without a GRN
+        if "GRN" not in self.varp or self.varp["GRN"] is None:
+            return GRNAnnData(sliced_adata, grn=None)
+
+        original_grn = self.varp["GRN"]
+        new_grn = None
+
+        # Check if the variable dimension was sliced
+        if sliced_adata.n_vars < self.n_vars:
+            # Variables were sliced, subset the GRN accordingly
+            try:
+                # Find the integer indices of the remaining variables in the original object
+                original_var_indices = self.var_names.get_indexer(
+                    sliced_adata.var_names
+                )
+
+                if scipy.sparse.issparse(original_grn):
+                    # Slice sparse matrix: select rows, then columns
+                    new_grn = original_grn[original_var_indices][
+                        :, original_var_indices
+                    ]
+                elif isinstance(original_grn, np.ndarray):
+                    # Slice dense matrix using np.ix_ for correct indexing
+                    new_grn = original_grn[
+                        np.ix_(original_var_indices, original_var_indices)
+                    ]
+                else:
+                    # Fallback or error if GRN type is unexpected
+                    # For now, just pass None, but ideally handle or raise error
+                    new_grn = None
+            except Exception:
+                # If slicing fails for any reason, maybe default to no GRN?
+                # Or log a warning. For now, pass None.
+                import warnings
+
+                warnings.warn(
+                    "Failed to slice GRN matrix. Resulting GRNAnnData will have grn=None."
+                )
+                new_grn = None
+
+        elif sliced_adata.n_vars == self.n_vars:
+            # Variable dimension not sliced, keep a copy of the original GRN
+            new_grn = original_grn.copy()
+        # Else case (n_vars > self.n_vars) shouldn't happen with standard slicing
+
+        # Always return a GRNAnnData object
+        # The sliced_adata might be a view, creating GRNAnnData might implicitly copy?
+        # To be safe, explicitly copy the AnnData part if it's a view and we modified the GRN
+        # However, AnnData's __getitem__ often returns a view for performance.
+        # Let's stick to AnnData's default behavior regarding views/copies for the main data
+        # and just handle the GRN part.
+        return GRNAnnData(sliced_adata, grn=new_grn)
 
     # add concat
     def concat(self, other):
@@ -282,6 +359,7 @@ def from_anndata(adata):
     """converts an anndata with a varp['GRN'] to a GRNAnnData"""
     if "GRN" not in adata.varp:
         raise ValueError("GRN not found in adata.varp")
+    adata._X = adata.X
     return GRNAnnData(adata, grn=adata.varp["GRN"])
 
 
