@@ -63,7 +63,7 @@ class GRNAnnData(AnnData):
 
     def __getitem__(self, index) -> "GRNAnnData":
         """Return a sliced view or copy of the object."""
-        sliced_adata = super().__getitem__(index)
+        sliced_adata = super().__getitem__(index).copy()
 
         # If slicing resulted in something other than AnnData (e.g., a scalar), return it directly
         if not isinstance(sliced_adata, AnnData):
