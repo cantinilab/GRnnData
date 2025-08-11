@@ -162,7 +162,7 @@ def enrichment(
     of: str = "Targets",
     doplot: bool = True,
     top_k: int = 30,
-    gene_sets: list = [
+    gene_sets: List[str | dict[str, List[str]]] = [
         "KEGG_2016",
         "ENCODE_TF_ChIP-seq_2014",
         "GO_Molecular_Function_2015",

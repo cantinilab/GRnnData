@@ -1,18 +1,18 @@
+from typing import List, Optional
+
 import gseapy as gp
 import networkx as nx
 import numpy as np
 import pandas as pd
 import scipy.sparse
 import seaborn as sns
+import tqdm
 from anndata import AnnData
 from anndata import read_h5ad as anndata_read_h5ad
 from d3graph import d3graph
 from matplotlib import pyplot as plt
 from pyvis import network as pnx
 from sklearn.metrics.pairwise import cosine_similarity
-import tqdm
-
-from typing import Optional
 
 # Get the base seaborn color palette as hex list
 base_color_palette = sns.color_palette().as_hex()
@@ -144,7 +144,7 @@ class GRNAnnData(AnnData):
         )
 
     # add slice
-    def get(self, elem: str | list[str]) -> "GRNAnnData":
+    def get(self, elem: str | List[str]) -> "GRNAnnData":
         """
         get a sub-GRNAnnData object with only the specified genes
 
@@ -220,11 +220,6 @@ class GRNAnnData(AnnData):
     # add return list of genes and corresponding weights
     def extract_links(
         self,
-        columns: list = [
-            "regulator",
-            "target",
-            "weight",
-        ],  # output col names (e.g. 'TF', 'gene', 'score')
     ):
         """
         This function extracts scores from anndata.varp['key'] and returns them as a pandas DataFrame.
@@ -242,16 +237,15 @@ class GRNAnnData(AnnData):
         Returns:
             pd.DataFrame: The extracted scores as a DataFrame.
         """
-        return pd.DataFrame(
-            [
-                (regulator, target, weight)
-                for regulator, row in enumerate(self.varp["GRN"])
-                for target, weight in enumerate(row)
-                if (isinstance(row, np.ndarray) and weight != 0)
-                or (scipy.sparse.issparse(row) and row.getnnz() > 0 and weight != 0)
-            ],
-            columns=columns,
-        ).sort_values(by=columns[2], ascending=False)
+        dfgrn = self.grn  # .columns.name
+        dfgrn.columns.name = "targets"
+        dfgrn.index.name = "regulators"
+        dfgrn = dfgrn.reset_index()
+        dfgrn = dfgrn.melt(
+            id_vars="regulators", var_name="targets", value_name="weight"
+        )
+        dfgrn = dfgrn[dfgrn["weight"] != 0]
+        return dfgrn
 
     def __repr__(self):
         text = super().__repr__()
@@ -264,7 +258,7 @@ class GRNAnnData(AnnData):
         gene_col: str = "symbol",
         max_genes: int = 10,
         only: float = 0.3,
-        palette: list = base_color_palette,
+        palette: List[str] = base_color_palette,
         interactive: bool = True,
         do_enr: bool = False,
         **kwargs: dict,
