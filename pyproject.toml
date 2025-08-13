@@ -22,7 +22,6 @@ dependencies = [
     "scikit-learn>=1.0.0",
     "numpy>=1.21.0",
     "leidenalg>=0.8.0",
-    "louvain>=0.8.0",
     "natsort>=7.1.0",
     "powerlaw>=1.5.0",
     "pyvis>=0.1.9",

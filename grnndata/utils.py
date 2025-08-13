@@ -4,7 +4,6 @@ from typing import Callable, List
 
 import gseapy as gp
 import leidenalg
-import louvain
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
@@ -103,7 +102,6 @@ def compute_cluster(
     grn: GRNAnnData,
     resolution: float = 1.5,
     seed: int = 42,
-    use: str = "louvain",
     n_iterations: int = 2,
     max_comm_size: int = 0,
 ):
@@ -114,13 +112,11 @@ def compute_cluster(
         grn (GRNAnnData): The gene regulatory network to analyze.
         resolution (float, optional): The resolution parameter for the clustering algorithm. Defaults to 1.5.
         seed (int, optional): The random seed for reproducibility. Defaults to 42.
-        use (str, optional): The clustering algorithm to use ('louvain' or 'leiden'). Defaults to "louvain".
         n_iterations (int, optional): The number of iterations for the clustering algorithm. Defaults to 2.
         max_comm_size (int, optional): The maximum community size for the clustering algorithm. Defaults to 0.
 
     Raises:
         ValueError: If connectivities are not found in the GRN object.
-        ValueError: If the clustering algorithm specified in 'use' is not 'louvain' or 'leiden'.
 
     Returns:
         GRNAnnData: The GRNAnnData object with the computed clusters added to the 'var' DataFrame.
@@ -129,26 +125,15 @@ def compute_cluster(
         raise ValueError("Connectivities not found in the GRN object.")
     g = _utils.get_igraph_from_adjacency(grn.varp["connectivities"], directed=True)
     weights = np.array(g.es["weight"]).astype(np.float64)
-    if use == "louvain":
-        part = louvain.find_partition(
-            g,
-            louvain.RBConfigurationVertexPartition,
-            resolution_parameter=resolution,
-            weights=weights,
-            seed=seed,
-        )
-    elif use == "leiden":
-        part = leidenalg.find_partition(
-            g,
-            leidenalg.ModularityVertexPartition,
-            # resolution_parameter=resolution,
-            n_iterations=n_iterations,
-            weights=weights,
-            max_comm_size=max_comm_size,
-            seed=seed,
-        )
-    else:
-        raise ValueError("use must be one of 'louvain' or 'leiden'")
+    part = leidenalg.find_partition(
+        g,
+        leidenalg.ModularityVertexPartition,
+        # resolution_parameter=resolution,
+        n_iterations=n_iterations,
+        weights=weights,
+        max_comm_size=max_comm_size,
+        seed=seed,
+    )
     groups = np.array(part.membership)
     grn.var["cluster_" + f"{resolution:.1f}"] = pd.Categorical(
         values=groups.astype("U"),
@@ -369,5 +354,4 @@ def plot_cluster(grn, color=["louvain"], min_dist=0.5, spread=0.7, stretch=2, **
     grn = compute_connectivities(grn, stretch=stretch)
     subgrn = grn.T
     sc.tl.louvain(subgrn, adjacency=subgrn.obsp["GRN"])
-
     sc.pl.umap(subgrn, color=color, **kwargs)
