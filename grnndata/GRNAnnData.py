@@ -281,9 +281,14 @@ class GRNAnnData(AnnData):
         rn = {k: v for k, v in self.var[gene_col].items()}
         if type(seed) is str:
             gene_id = self.var[self.var[gene_col] == seed].index[0]
-            elem = self.grn.loc[gene_id].sort_values(ascending=False).head(
-                max_genes
-            ).index.tolist() + [gene_id]
+            elem = (
+                self.grn.loc[gene_id]
+                .sort_values(ascending=False)
+                .head(max_genes)
+                .index.tolist()
+            )
+            if gene_id not in elem:
+                elem += [gene_id]
         else:
             elem = seed
 
@@ -306,6 +311,8 @@ class GRNAnnData(AnnData):
         if type(seed) is str:
             color[mat.columns.get_loc(seed)] = palette[1]
         mat = mat.T
+        #print(mat)
+        #print(color)
         if interactive:
             d3 = d3graph()
             d3.graph(mat, color=None)
