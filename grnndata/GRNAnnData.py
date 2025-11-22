@@ -261,6 +261,9 @@ class GRNAnnData(AnnData):
         palette: List[str] = base_color_palette,
         interactive: bool = True,
         do_enr: bool = False,
+        color_overlap: pd.DataFrame | None = None,
+        node_size: int = 3000,
+        font_size: int = 14,
         **kwargs: dict,
     ):
         """
@@ -274,6 +277,7 @@ class GRNAnnData(AnnData):
             palette (list, optional): The color palette to use for plotting. Defaults to base_color_palette.
             interactive (bool, optional): Whether to create an interactive plot. Defaults to True.
             do_enr (bool, optional): Whether to perform enrichment analysis on the subgraph. Defaults to False.
+            color_overlap (pd.DataFrame | None, optional): A DataFrame with geneA, geneB, and value columns to color edges based on overlap. Defaults to None.
 
         Returns:
             d3graph or None: The d3graph object if interactive is True, otherwise None.
@@ -291,7 +295,6 @@ class GRNAnnData(AnnData):
                 elem += [gene_id]
         else:
             elem = seed
-
         mat = self.grn.loc[elem, elem].rename(columns=rn).rename(index=rn)
         if only < 1:
             mat[mat < only] = 0
@@ -311,13 +314,42 @@ class GRNAnnData(AnnData):
         if type(seed) is str:
             color[mat.columns.get_loc(seed)] = palette[1]
         mat = mat.T
-        #print(mat)
-        #print(color)
+
+        if color_overlap is not None:
+            import matplotlib.cm as cm
+            import matplotlib.colors as mcolors
+
+            # Create a mapping from (geneA, geneB) to value
+            edge_colors = {}
+            for _, row in color_overlap.iterrows():
+                edge_colors[(row["geneA"], row["geneB"])] = row["value"]
+
+            # Get min and max values for normalization
+            values = color_overlap["value"].values
+            vmin, vmax = values.min(), values.max()
+
+            # Create viridis colormap and normalizer
+            cmap = cm.get_cmap("viridis")
+            norm = mcolors.Normalize(vmin=vmin, vmax=vmax)
+
+        # print(mat)
+        # print(color)
         if interactive:
             d3 = d3graph()
             d3.graph(mat, color=None)
             d3.set_node_properties(color=color, fontcolor="#000000", **kwargs)
             d3.set_edge_properties(directed=True)
+            for i, gene1 in enumerate(mat.index):
+                for j, gene2 in enumerate(mat.columns):
+                    if mat.iloc[i, j] != 0 and gene1 != gene2:
+                        if (gene1, gene2) in edge_colors:
+                            rgba = cmap(norm(edge_colors[(gene1, gene2)]))
+                            hex_color = mcolors.rgb2hex(rgba)
+                            d3.edge_properties[(gene1, gene2)]["color"] = hex_color
+                        else:
+                            d3.edge_properties[(gene1, gene2)][
+                                "color"
+                            ] = "#808080"  # Default gray
             d3.show(notebook=True)
             return d3
         else:
@@ -325,7 +357,75 @@ class GRNAnnData(AnnData):
             G = nx.from_pandas_adjacency(mat, create_using=nx.DiGraph())
             # Draw the graph
             plt.figure(figsize=(15, 15))  # Increase the size of the plot
-            nx.draw(G, with_labels=True, arrows=True)
+            # Use spring layout with adjusted parameters for better spacing
+            pos = nx.spring_layout(G, k=2.0, iterations=50, seed=42)
+
+            # Or try kamada_kawai layout for better node distribution
+            # pos = nx.kamada_kawai_layout(G)
+
+            # Draw nodes with larger size
+            nx.draw_networkx_nodes(
+                G, pos, node_size=node_size, node_color=color, alpha=0.6
+            )
+
+            if color_overlap is not None:
+                # For networkx plotting
+                edge_colors_nx = []
+                for edge in G.edges():
+                    if edge in edge_colors:
+                        edge_colors_nx.append(cmap(norm(edge_colors[edge])))
+                    elif (edge[1], edge[0]) in edge_colors:  # Check reverse direction
+                        edge_colors_nx.append(
+                            cmap(norm(edge_colors[(edge[1], edge[0])]))
+                        )
+                    else:
+                        edge_colors_nx.append("#808080")  # Default gray
+                # Draw edges with transparency
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    alpha=0.7,
+                    width=1.5,
+                    edge_color=edge_colors_nx,
+                    arrows=True,
+                    edge_cmap=cmap,
+                    node_size=node_size,
+                    connectionstyle="arc3,rad=0.1",
+                    min_source_margin=15,
+                    min_target_margin=15,
+                )
+                # Add colorbar
+                sm = cm.ScalarMappable(cmap=cmap, norm=norm)
+                sm.set_array([])
+                plt.colorbar(sm, ax=plt.gca(), label="Overlap Value")
+            else:
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    alpha=0.7,
+                    width=1.5,
+                    arrows=True,
+                    node_size=node_size,
+                    connectionstyle="arc3,rad=0.1",
+                    min_source_margin=15,
+                    min_target_margin=15,
+                )
+            # Draw labels with better formatting
+            nx.draw_networkx_labels(
+                G,
+                pos,
+                font_size=font_size,
+                font_weight="bold",
+                font_family="sans-serif",
+                bbox=dict(
+                    boxstyle="round,pad=0.3",
+                    facecolor="white",
+                    edgecolor="none",
+                    alpha=0.7,
+                ),
+            )
+            plt.axis("off")
+            plt.tight_layout()
             plt.show()
         if do_enr:
             enr = gp.enrichr(
