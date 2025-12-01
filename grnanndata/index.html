@@ -56,19 +56,37 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#grnndata.GRNAnnData">GRNAnnData</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.grn">grn</a>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.GRNAnnData">GRNAnnData</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#grnndata.GRNAnnData.GRNAnnData.grn">grn</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.regulators">regulators</a>
+    <li class="toctree-l4"><a class="reference internal" href="#grnndata.GRNAnnData.GRNAnnData.regulators">regulators</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.targets">targets</a>
+    <li class="toctree-l4"><a class="reference internal" href="#grnndata.GRNAnnData.GRNAnnData.targets">targets</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.concat">concat</a>
+    <li class="toctree-l4"><a class="reference internal" href="#grnndata.GRNAnnData.GRNAnnData.__getitem__">__getitem__</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.extract_links">extract_links</a>
+    <li class="toctree-l4"><a class="reference internal" href="#grnndata.GRNAnnData.GRNAnnData.concat">concat</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.get">get</a>
+    <li class="toctree-l4"><a class="reference internal" href="#grnndata.GRNAnnData.GRNAnnData.copy">copy</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.plot_subgraph">plot_subgraph</a>
+    <li class="toctree-l4"><a class="reference internal" href="#grnndata.GRNAnnData.GRNAnnData.extract_links">extract_links</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#grnndata.GRNAnnData.GRNAnnData.get">get</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#grnndata.GRNAnnData.GRNAnnData.plot_subgraph">plot_subgraph</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.from_adata_and_longform">from_adata_and_longform</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.from_anndata">from_anndata</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.from_embeddings">from_embeddings</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.from_scope_loomfile">from_scope_loomfile</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#grnndata.GRNAnnData.read_h5ad">read_h5ad</a>
     </li>
         </ul>
     </li>
@@ -102,19 +120,130 @@
                 <h1 id="documentation-for-grnanndata-module">Documentation for <code>GRNAnnData</code> module</h1>
 
 
-<div class="doc doc-object doc-class">
+<div class="doc doc-object doc-module">
 
 
 
 <h2 id="grnndata.GRNAnnData" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">grnndata</span><span class="o">.</span><span class="n">GRNAnnData</span></code>
+            <code>grnndata.GRNAnnData</code>
+
 
 </h2>
 
-
     <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Classes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><a class="autorefs autorefs-internal" title="GRNAnnData (grnndata.GRNAnnData.GRNAnnData)" href="#grnndata.GRNAnnData.GRNAnnData">GRNAnnData</a></code></td>
+            <td>
+              <div class="doc-md-description">
+                
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+<p><span class="doc-section-title">Functions:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="from_adata_and_longform (grnndata.GRNAnnData.from_adata_and_longform)" href="#grnndata.GRNAnnData.from_adata_and_longform">from_adata_and_longform</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>from_adata_and_longform creates a GRNAnnData object from an AnnData object and a longform DataFrame.</p>
+                </div>
+              </td>
+            </tr>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="from_anndata (grnndata.GRNAnnData.from_anndata)" href="#grnndata.GRNAnnData.from_anndata">from_anndata</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>converts an anndata with a varp['GRN'] to a GRNAnnData</p>
+                </div>
+              </td>
+            </tr>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="from_embeddings (grnndata.GRNAnnData.from_embeddings)" href="#grnndata.GRNAnnData.from_embeddings">from_embeddings</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>from_embeddings creates a GRNAnnData object from an AnnData object with embeddings in one of its .varm[]s.</p>
+                </div>
+              </td>
+            </tr>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="from_scope_loomfile (grnndata.GRNAnnData.from_scope_loomfile)" href="#grnndata.GRNAnnData.from_scope_loomfile">from_scope_loomfile</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>from_scope_loomfile creates a GRNAnnData object from a SCope Loom file.</p>
+                </div>
+              </td>
+            </tr>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="read_h5ad (grnndata.GRNAnnData.read_h5ad)" href="#grnndata.GRNAnnData.read_h5ad">read_h5ad</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>same as anndata's one but for grnndata</p>
+                </div>
+              </td>
+            </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="grnndata.GRNAnnData.GRNAnnData" class="doc doc-heading">
+              <code class="highlight language-python"><span class="n">GRNAnnData</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
               Bases: <code><span title="anndata.AnnData">AnnData</span></code></p>
+
 
 
         <p>An AnnData object with a GRN matrix in varp["GRN"]</p>
@@ -159,6 +288,8 @@ index corresponds to genes that are targets.</p>
 
 
 
+
+
 <p><span class="doc-section-title">Methods:</span></p>
     <table>
       <thead>
@@ -169,7 +300,15 @@ index corresponds to genes that are targets.</p>
       </thead>
       <tbody>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="grnndata.GRNAnnData.concat" href="#grnndata.GRNAnnData.concat">concat</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="__getitem__ (grnndata.GRNAnnData.GRNAnnData.__getitem__)" href="#grnndata.GRNAnnData.GRNAnnData.__getitem__">__getitem__</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>Return a sliced view or copy of the object.</p>
+                </div>
+              </td>
+            </tr>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="concat (grnndata.GRNAnnData.GRNAnnData.concat)" href="#grnndata.GRNAnnData.GRNAnnData.concat">concat</a></code></td>
               <td>
                 <div class="doc-md-description">
                   <p>concat two GRNAnnData objects</p>
@@ -177,7 +316,15 @@ index corresponds to genes that are targets.</p>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="grnndata.GRNAnnData.extract_links" href="#grnndata.GRNAnnData.extract_links">extract_links</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="copy (grnndata.GRNAnnData.GRNAnnData.copy)" href="#grnndata.GRNAnnData.GRNAnnData.copy">copy</a></code></td>
+              <td>
+                <div class="doc-md-description">
+                  <p>Return a copy of the object.</p>
+                </div>
+              </td>
+            </tr>
+            <tr class="doc-section-item">
+              <td><code><a class="autorefs autorefs-internal" title="extract_links (grnndata.GRNAnnData.GRNAnnData.extract_links)" href="#grnndata.GRNAnnData.GRNAnnData.extract_links">extract_links</a></code></td>
               <td>
                 <div class="doc-md-description">
                   <p>This function extracts scores from anndata.varp['key'] and returns them as a pandas DataFrame.</p>
@@ -185,7 +332,7 @@ index corresponds to genes that are targets.</p>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="grnndata.GRNAnnData.get" href="#grnndata.GRNAnnData.get">get</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="get (grnndata.GRNAnnData.GRNAnnData.get)" href="#grnndata.GRNAnnData.GRNAnnData.get">get</a></code></td>
               <td>
                 <div class="doc-md-description">
                   <p>get a sub-GRNAnnData object with only the specified genes</p>
@@ -193,7 +340,7 @@ index corresponds to genes that are targets.</p>
               </td>
             </tr>
             <tr class="doc-section-item">
-              <td><code><a class="autorefs autorefs-internal" title="grnndata.GRNAnnData.plot_subgraph" href="#grnndata.GRNAnnData.plot_subgraph">plot_subgraph</a></code></td>
+              <td><code><a class="autorefs autorefs-internal" title="plot_subgraph (grnndata.GRNAnnData.GRNAnnData.plot_subgraph)" href="#grnndata.GRNAnnData.GRNAnnData.plot_subgraph">plot_subgraph</a></code></td>
               <td>
                 <div class="doc-md-description">
                   <p>plot_subgraph plots a subgraph of the gene regulatory network (GRN) centered around a seed gene.</p>
@@ -268,7 +415,12 @@ index corresponds to genes that are targets.</p>
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="o">*</span><span class="n">args</span><span class="p">,</span>
     <span class="n">grn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">csr_matrix</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -292,7 +444,12 @@ index corresponds to genes that are targets.</p>
     <span class="c1"># elif grn is None:</span>
     <span class="c1">#    raise ValueError(&quot;grn argument must be provided&quot;)</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">GRNAnnData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grn</span>
+    <span class="c1"># Ensure GRN is stored in varp, not directly as an attribute</span>
+    <span class="k">if</span> <span class="n">grn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grn</span>
+    <span class="c1"># Ensure GRN key exists even if grn is None</span>
+    <span class="k">elif</span> <span class="s2">&quot;GRN&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
                   </details>
 
@@ -310,14 +467,14 @@ index corresponds to genes that are targets.</p>
 
 
 
-<h3 id="grnndata.GRNAnnData.grn" class="doc doc-heading">
+<h4 id="grnndata.GRNAnnData.GRNAnnData.grn" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">grn</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
-</h3>
+</h4>
 
 
     <div class="doc doc-contents ">
@@ -346,7 +503,8 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
       </td>
     </tr>
   </tbody>
-</table>    </div>
+</table>
+    </div>
 
 </div>
 
@@ -354,14 +512,14 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
 
 
 
-<h3 id="grnndata.GRNAnnData.regulators" class="doc doc-heading">
+<h4 id="grnndata.GRNAnnData.GRNAnnData.regulators" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">regulators</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
-</h3>
+</h4>
 
 
     <div class="doc doc-contents ">
@@ -389,7 +547,8 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
       </td>
     </tr>
   </tbody>
-</table>    </div>
+</table>
+    </div>
 
 </div>
 
@@ -397,14 +556,14 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
 
 
 
-<h3 id="grnndata.GRNAnnData.targets" class="doc doc-heading">
+<h4 id="grnndata.GRNAnnData.GRNAnnData.targets" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">targets</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
-</h3>
+</h4>
 
 
     <div class="doc doc-contents ">
@@ -432,19 +591,162 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
       </td>
     </tr>
   </tbody>
-</table>    </div>
+</table>
+    </div>
 
 </div>
+
 
 
 
 <div class="doc doc-object doc-function">
 
 
-<h3 id="grnndata.GRNAnnData.concat" class="doc doc-heading">
+<h4 id="grnndata.GRNAnnData.GRNAnnData.__getitem__" class="doc doc-heading">
+            <code class="highlight language-python"><span class="fm">__getitem__</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return a sliced view or copy of the object.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;GRNAnnData&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a sliced view or copy of the object.&quot;&quot;&quot;</span>
+    <span class="n">sliced_adata</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># If slicing resulted in something other than AnnData (e.g., a scalar), return it directly</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sliced_adata</span><span class="p">,</span> <span class="n">AnnData</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">sliced_adata</span>
+
+    <span class="c1"># If the original GRN doesn&#39;t exist, return the sliced AnnData as GRNAnnData without a GRN</span>
+    <span class="k">if</span> <span class="s2">&quot;GRN&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">varp</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">GRNAnnData</span><span class="p">(</span><span class="n">sliced_adata</span><span class="p">,</span> <span class="n">grn</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">original_grn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]</span>
+    <span class="n">new_grn</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Check if the variable dimension was sliced</span>
+    <span class="k">if</span> <span class="n">sliced_adata</span><span class="o">.</span><span class="n">n_vars</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_vars</span><span class="p">:</span>
+        <span class="c1"># Variables were sliced, subset the GRN accordingly</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Find the integer indices of the remaining variables in the original object</span>
+            <span class="n">original_var_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">get_indexer</span><span class="p">(</span>
+                <span class="n">sliced_adata</span><span class="o">.</span><span class="n">var_names</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">original_grn</span><span class="p">):</span>
+                <span class="c1"># Slice sparse matrix: select rows, then columns</span>
+                <span class="n">new_grn</span> <span class="o">=</span> <span class="n">original_grn</span><span class="p">[</span><span class="n">original_var_indices</span><span class="p">][</span>
+                    <span class="p">:,</span> <span class="n">original_var_indices</span>
+                <span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">original_grn</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="c1"># Slice dense matrix using np.ix_ for correct indexing</span>
+                <span class="n">new_grn</span> <span class="o">=</span> <span class="n">original_grn</span><span class="p">[</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">ix_</span><span class="p">(</span><span class="n">original_var_indices</span><span class="p">,</span> <span class="n">original_var_indices</span><span class="p">)</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Fallback or error if GRN type is unexpected</span>
+                <span class="c1"># For now, just pass None, but ideally handle or raise error</span>
+                <span class="n">new_grn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># If slicing fails for any reason, maybe default to no GRN?</span>
+            <span class="c1"># Or log a warning. For now, pass None.</span>
+            <span class="kn">import</span> <span class="nn">warnings</span>
+
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Failed to slice GRN matrix. Resulting GRNAnnData will have grn=None.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">new_grn</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">elif</span> <span class="n">sliced_adata</span><span class="o">.</span><span class="n">n_vars</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_vars</span><span class="p">:</span>
+        <span class="c1"># Variable dimension not sliced, keep a copy of the original GRN</span>
+        <span class="n">new_grn</span> <span class="o">=</span> <span class="n">original_grn</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># Else case (n_vars &gt; self.n_vars) shouldn&#39;t happen with standard slicing</span>
+
+    <span class="c1"># Always return a GRNAnnData object</span>
+    <span class="c1"># The sliced_adata might be a view, creating GRNAnnData might implicitly copy?</span>
+    <span class="c1"># To be safe, explicitly copy the AnnData part if it&#39;s a view and we modified the GRN</span>
+    <span class="c1"># However, AnnData&#39;s __getitem__ often returns a view for performance.</span>
+    <span class="c1"># Let&#39;s stick to AnnData&#39;s default behavior regarding views/copies for the main data</span>
+    <span class="c1"># and just handle the GRN part.</span>
+    <span class="k">return</span> <span class="n">GRNAnnData</span><span class="p">(</span><span class="n">sliced_adata</span><span class="p">,</span> <span class="n">grn</span><span class="o">=</span><span class="n">new_grn</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="grnndata.GRNAnnData.GRNAnnData.concat" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">concat</span></code>
 
-</h3>
+</h4>
 
 
     <div class="doc doc-contents ">
@@ -464,7 +766,7 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
         <ul class="first simple">
             <li>
               <b><code>other</code></b>
-                  (<code><span title="grnndata.GRNAnnData.GRNAnnData">GRNAnnData</span></code>)
+                  (<code><a class="autorefs autorefs-internal" title="GRNAnnData (grnndata.GRNAnnData.GRNAnnData)" href="#grnndata.GRNAnnData.GRNAnnData">GRNAnnData</a></code>)
               –
               <div class="doc-md-description">
                 <p>The other GRNAnnData object to concatenate with</p>
@@ -487,7 +789,7 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
       <td class="field-body">
         <ul class="first simple">
             <li>
-                  <code>ValueError</code>
+                  <code><span title="ValueError">ValueError</span></code>
               –
               <div class="doc-md-description">
                 <p>Can only concatenate with another GRNAnnData object</p>
@@ -520,27 +822,28 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
     </tr>
   </tbody>
 </table>
-            <details class="quote">
+
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">concat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">concat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    concat two GRNAnnData objects</span>
 
@@ -568,10 +871,51 @@ The index and columns of the DataFrame are the gene names stored in 'var_names'.
 <div class="doc doc-object doc-function">
 
 
-<h3 id="grnndata.GRNAnnData.extract_links" class="doc doc-heading">
+<h4 id="grnndata.GRNAnnData.GRNAnnData.copy" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">copy</span></code>
+
+</h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Return a copy of the object.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;GRNAnnData&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a copy of the object.&quot;&quot;&quot;</span>
+    <span class="n">adata_copy</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="n">new_grn</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="s2">&quot;GRN&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">varp</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Ensure the GRN matrix is copied as well</span>
+        <span class="n">new_grn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">GRNAnnData</span><span class="p">(</span><span class="n">adata_copy</span><span class="p">,</span> <span class="n">grn</span><span class="o">=</span><span class="n">new_grn</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="grnndata.GRNAnnData.GRNAnnData.extract_links" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">extract_links</span></code>
 
-</h3>
+</h4>
 
 
     <div class="doc doc-contents ">
@@ -599,9 +943,7 @@ C    D      8</p>
         <ul class="first simple">
             <li>
               <b><code>columns</code></b>
-                  (<code>list</code>, default:
-                      <code>[&#39;regulator&#39;, &#39;target&#39;, &#39;weight&#39;]</code>
-)
+                  (<code><span title="list">list</span></code>)
               –
               <div class="doc-md-description">
                 <p>The names of the columns in the resulting DataFrame. Defaults to ['regulator', 'target', 'weight'].</p>
@@ -634,48 +976,38 @@ C    D      8</p>
     </tr>
   </tbody>
 </table>
-            <details class="quote">
+
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">extract_links</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">extract_links</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">columns</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;regulator&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;target&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;weight&quot;</span><span class="p">,</span>
-    <span class="p">],</span>  <span class="c1"># output col names (e.g. &#39;TF&#39;, &#39;gene&#39;, &#39;score&#39;)</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function extracts scores from anndata.varp[&#39;key&#39;] and returns them as a pandas DataFrame.</span>
@@ -693,16 +1025,15 @@ C    D      8</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        pd.DataFrame: The extracted scores as a DataFrame.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-        <span class="p">[</span>
-            <span class="p">(</span><span class="n">regulator</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">regulator</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">target</span><span class="p">,</span> <span class="n">weight</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">weight</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="ow">and</span> <span class="n">row</span><span class="o">.</span><span class="n">getnnz</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">weight</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="p">],</span>
-        <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">dfgrn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grn</span>  <span class="c1"># .columns.name</span>
+    <span class="n">dfgrn</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;targets&quot;</span>
+    <span class="n">dfgrn</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;regulators&quot;</span>
+    <span class="n">dfgrn</span> <span class="o">=</span> <span class="n">dfgrn</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">dfgrn</span> <span class="o">=</span> <span class="n">dfgrn</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+        <span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;regulators&quot;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;targets&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;weight&quot;</span>
+    <span class="p">)</span>
+    <span class="n">dfgrn</span> <span class="o">=</span> <span class="n">dfgrn</span><span class="p">[</span><span class="n">dfgrn</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dfgrn</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -712,10 +1043,10 @@ C    D      8</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="grnndata.GRNAnnData.get" class="doc doc-heading">
+<h4 id="grnndata.GRNAnnData.GRNAnnData.get" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">get</span></code>
 
-</h3>
+</h4>
 
 
     <div class="doc doc-contents ">
@@ -735,7 +1066,7 @@ C    D      8</p>
         <ul class="first simple">
             <li>
               <b><code>elem</code></b>
-                  (<code>str | list</code>)
+                  (<code><span title="str">str</span> | <span title="list">list</span></code>)
               –
               <div class="doc-md-description">
                 <p>The gene names to include in the sub-GRNAnnData object</p>
@@ -758,7 +1089,7 @@ C    D      8</p>
       <td class="field-body">
         <ul class="first simple">
             <li>
-<b><code>GRNAnnData</code></b>(                  <code><span title="grnndata.GRNAnnData.GRNAnnData">GRNAnnData</span></code>
+<b><code>GRNAnnData</code></b>(                  <code><a class="autorefs autorefs-internal" title="GRNAnnData (grnndata.GRNAnnData.GRNAnnData)" href="#grnndata.GRNAnnData.GRNAnnData">GRNAnnData</a></code>
 )              –
               <div class="doc-md-description">
                 <p>The sub-GRNAnnData object with only the specified genes</p>
@@ -769,29 +1100,30 @@ C    D      8</p>
     </tr>
   </tbody>
 </table>
-            <details class="quote">
+
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;GRNAnnData&quot;</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;GRNAnnData&quot;</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    get a sub-GRNAnnData object with only the specified genes</span>
 
@@ -821,10 +1153,10 @@ C    D      8</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="grnndata.GRNAnnData.plot_subgraph" class="doc doc-heading">
+<h4 id="grnndata.GRNAnnData.GRNAnnData.plot_subgraph" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">plot_subgraph</span></code>
 
-</h3>
+</h4>
 
 
     <div class="doc doc-contents ">
@@ -844,7 +1176,7 @@ C    D      8</p>
         <ul class="first simple">
             <li>
               <b><code>seed</code></b>
-                  (<code>str or list</code>)
+                  (<code><span title="str">str</span> or <span title="list">list</span></code>)
               –
               <div class="doc-md-description">
                 <p>The seed gene or list of genes around which the subgraph will be centered.</p>
@@ -852,7 +1184,7 @@ C    D      8</p>
             </li>
             <li>
               <b><code>gene_col</code></b>
-                  (<code>str</code>, default:
+                  (<code><span title="str">str</span></code>, default:
                       <code>&#39;symbol&#39;</code>
 )
               –
@@ -862,7 +1194,7 @@ C    D      8</p>
             </li>
             <li>
               <b><code>max_genes</code></b>
-                  (<code>int</code>, default:
+                  (<code><span title="int">int</span></code>, default:
                       <code>10</code>
 )
               –
@@ -872,7 +1204,7 @@ C    D      8</p>
             </li>
             <li>
               <b><code>only</code></b>
-                  (<code>float</code>, default:
+                  (<code><span title="float">float</span></code>, default:
                       <code>0.3</code>
 )
               –
@@ -882,7 +1214,7 @@ C    D      8</p>
             </li>
             <li>
               <b><code>palette</code></b>
-                  (<code>list</code>, default:
+                  (<code><span title="list">list</span></code>, default:
                       <code><span title="grnndata.GRNAnnData.base_color_palette">base_color_palette</span></code>
 )
               –
@@ -892,7 +1224,7 @@ C    D      8</p>
             </li>
             <li>
               <b><code>interactive</code></b>
-                  (<code>bool</code>, default:
+                  (<code><span title="bool">bool</span></code>, default:
                       <code>True</code>
 )
               –
@@ -902,12 +1234,22 @@ C    D      8</p>
             </li>
             <li>
               <b><code>do_enr</code></b>
-                  (<code>bool</code>, default:
+                  (<code><span title="bool">bool</span></code>, default:
                       <code>False</code>
 )
               –
               <div class="doc-md-description">
                 <p>Whether to perform enrichment analysis on the subgraph. Defaults to False.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>color_overlap</code></b>
+                  (<code><span title="pandas.DataFrame">DataFrame</span> | None</code>, default:
+                      <code>None</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>A DataFrame with geneA, geneB, and value columns to color edges based on overlap. Defaults to None.</p>
               </div>
             </li>
         </ul>
@@ -937,80 +1279,10 @@ C    D      8</p>
     </tr>
   </tbody>
 </table>
-            <details class="quote">
+
+            <details class="mkdocstrings-source">
               <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">255</span>
 <span class="normal">256</span>
 <span class="normal">257</span>
 <span class="normal">258</span>
@@ -1028,15 +1300,196 @@ C    D      8</p>
 <span class="normal">270</span>
 <span class="normal">271</span>
 <span class="normal">272</span>
-<span class="normal">273</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_subgraph</span><span class="p">(</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span>
+<span class="normal">450</span>
+<span class="normal">451</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_subgraph</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">gene_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;symbol&quot;</span><span class="p">,</span>
     <span class="n">max_genes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
     <span class="n">only</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
-    <span class="n">palette</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">base_color_palette</span><span class="p">,</span>
+    <span class="n">palette</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">base_color_palette</span><span class="p">,</span>
     <span class="n">interactive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">do_enr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">color_overlap</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">,</span>
+    <span class="n">font_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1050,6 +1503,7 @@ C    D      8</p>
 <span class="sd">        palette (list, optional): The color palette to use for plotting. Defaults to base_color_palette.</span>
 <span class="sd">        interactive (bool, optional): Whether to create an interactive plot. Defaults to True.</span>
 <span class="sd">        do_enr (bool, optional): Whether to perform enrichment analysis on the subgraph. Defaults to False.</span>
+<span class="sd">        color_overlap (pd.DataFrame | None, optional): A DataFrame with geneA, geneB, and value columns to color edges based on overlap. Defaults to None.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        d3graph or None: The d3graph object if interactive is True, otherwise None.</span>
@@ -1057,12 +1511,16 @@ C    D      8</p>
     <span class="n">rn</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">gene_col</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">gene_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="n">gene_col</span><span class="p">]</span> <span class="o">==</span> <span class="n">seed</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">elem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">gene_id</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span>
-            <span class="n">max_genes</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">gene_id</span><span class="p">]</span>
+        <span class="n">elem</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">gene_id</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">max_genes</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">gene_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">elem</span><span class="p">:</span>
+            <span class="n">elem</span> <span class="o">+=</span> <span class="p">[</span><span class="n">gene_id</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">elem</span> <span class="o">=</span> <span class="n">seed</span>
-
     <span class="n">mat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">elem</span><span class="p">,</span> <span class="n">elem</span><span class="p">]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rn</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">rn</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">only</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">mat</span><span class="p">[</span><span class="n">mat</span> <span class="o">&lt;</span> <span class="n">only</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1082,11 +1540,42 @@ C    D      8</p>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">color</span><span class="p">[</span><span class="n">mat</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">seed</span><span class="p">)]</span> <span class="o">=</span> <span class="n">palette</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="k">if</span> <span class="n">color_overlap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mcolors</span>
+
+        <span class="c1"># Create a mapping from (geneA, geneB) to value</span>
+        <span class="n">edge_colors</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">color_overlap</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">edge_colors</span><span class="p">[(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;geneA&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;geneB&quot;</span><span class="p">])]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Get min and max values for normalization</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">color_overlap</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">values</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+        <span class="c1"># Create viridis colormap and normalizer</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;viridis&quot;</span><span class="p">)</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+
+    <span class="c1"># print(mat)</span>
+    <span class="c1"># print(color)</span>
     <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
         <span class="n">d3</span> <span class="o">=</span> <span class="n">d3graph</span><span class="p">()</span>
         <span class="n">d3</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
         <span class="n">d3</span><span class="o">.</span><span class="n">set_node_properties</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">fontcolor</span><span class="o">=</span><span class="s2">&quot;#000000&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">d3</span><span class="o">.</span><span class="n">set_edge_properties</span><span class="p">(</span><span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">gene1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">gene2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">mat</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">gene1</span> <span class="o">!=</span> <span class="n">gene2</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">gene1</span><span class="p">,</span> <span class="n">gene2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">edge_colors</span><span class="p">:</span>
+                        <span class="n">rgba</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">edge_colors</span><span class="p">[(</span><span class="n">gene1</span><span class="p">,</span> <span class="n">gene2</span><span class="p">)]))</span>
+                        <span class="n">hex_color</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">rgba</span><span class="p">)</span>
+                        <span class="n">d3</span><span class="o">.</span><span class="n">edge_properties</span><span class="p">[(</span><span class="n">gene1</span><span class="p">,</span> <span class="n">gene2</span><span class="p">)][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hex_color</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">d3</span><span class="o">.</span><span class="n">edge_properties</span><span class="p">[(</span><span class="n">gene1</span><span class="p">,</span> <span class="n">gene2</span><span class="p">)][</span>
+                            <span class="s2">&quot;color&quot;</span>
+                        <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;#808080&quot;</span>  <span class="c1"># Default gray</span>
         <span class="n">d3</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">notebook</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d3</span>
     <span class="k">else</span><span class="p">:</span>
@@ -1094,7 +1583,75 @@ C    D      8</p>
         <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_adjacency</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">())</span>
         <span class="c1"># Draw the graph</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>  <span class="c1"># Increase the size of the plot</span>
-        <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Use spring layout with adjusted parameters for better spacing</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+        <span class="c1"># Or try kamada_kawai layout for better node distribution</span>
+        <span class="c1"># pos = nx.kamada_kawai_layout(G)</span>
+
+        <span class="c1"># Draw nodes with larger size</span>
+        <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span>
+            <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">color_overlap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># For networkx plotting</span>
+            <span class="n">edge_colors_nx</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edge_colors</span><span class="p">:</span>
+                    <span class="n">edge_colors_nx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">edge_colors</span><span class="p">[</span><span class="n">edge</span><span class="p">])))</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">in</span> <span class="n">edge_colors</span><span class="p">:</span>  <span class="c1"># Check reverse direction</span>
+                    <span class="n">edge_colors_nx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">edge_colors</span><span class="p">[(</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">])]))</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">edge_colors_nx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;#808080&quot;</span><span class="p">)</span>  <span class="c1"># Default gray</span>
+            <span class="c1"># Draw edges with transparency</span>
+            <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
+                <span class="n">G</span><span class="p">,</span>
+                <span class="n">pos</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors_nx</span><span class="p">,</span>
+                <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">edge_cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
+                <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span>
+                <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=0.1&quot;</span><span class="p">,</span>
+                <span class="n">min_source_margin</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                <span class="n">min_target_margin</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># Add colorbar</span>
+            <span class="n">sm</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">)</span>
+            <span class="n">sm</span><span class="o">.</span><span class="n">set_array</span><span class="p">([])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sm</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Overlap Value&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
+                <span class="n">G</span><span class="p">,</span>
+                <span class="n">pos</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span>
+                <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=0.1&quot;</span><span class="p">,</span>
+                <span class="n">min_source_margin</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                <span class="n">min_target_margin</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># Draw labels with better formatting</span>
+        <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span>
+            <span class="n">G</span><span class="p">,</span>
+            <span class="n">pos</span><span class="p">,</span>
+            <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+            <span class="n">font_weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
+            <span class="n">font_family</span><span class="o">=</span><span class="s2">&quot;sans-serif&quot;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                <span class="n">boxstyle</span><span class="o">=</span><span class="s2">&quot;round,pad=0.3&quot;</span><span class="p">,</span>
+                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">do_enr</span><span class="p">:</span>
         <span class="n">enr</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">enrichr</span><span class="p">(</span>
@@ -1118,6 +1675,526 @@ C    D      8</p>
         <span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">enr</span><span class="o">.</span><span class="n">res2d</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">G</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="grnndata.GRNAnnData.from_adata_and_longform" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">from_adata_and_longform</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>from_adata_and_longform creates a GRNAnnData object from an AnnData object and a longform DataFrame.</p>
+
+
+<details class="the-longform-dataframe-should-have-the-following-structure" open>
+  <summary>the longform DataFrame should have the following structure</summary>
+  <p>regulator  target  weight
+gene1      gene2  0.5
+gene2      gene3  0.7</p>
+</details>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>adata</code></b>
+                  (<code><span title="anndata.AnnData">AnnData</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>An AnnData object containing gene expression data.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>longform_df</code></b>
+                  (<code><span title="pandas.DataFrame">DataFrame</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>A DataFrame in longform format with columns 'regulator', 'target', and optionally 'weight'.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>has_weight</code></b>
+                  (<code><span title="bool">bool</span></code>, default:
+                      <code>False</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>If True, the 'weight' column in longform_df is used to set edge weights. Defaults to False.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+<b><code>GRNAnnData</code></b>(                  <code><a class="autorefs autorefs-internal" title="GRNAnnData (grnndata.GRNAnnData.GRNAnnData)" href="#grnndata.GRNAnnData.GRNAnnData">GRNAnnData</a></code>
+)              –
+              <div class="doc-md-description">
+                <p>A GRNAnnData object containing the gene regulatory network.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">520</span>
+<span class="normal">521</span>
+<span class="normal">522</span>
+<span class="normal">523</span>
+<span class="normal">524</span>
+<span class="normal">525</span>
+<span class="normal">526</span>
+<span class="normal">527</span>
+<span class="normal">528</span>
+<span class="normal">529</span>
+<span class="normal">530</span>
+<span class="normal">531</span>
+<span class="normal">532</span>
+<span class="normal">533</span>
+<span class="normal">534</span>
+<span class="normal">535</span>
+<span class="normal">536</span>
+<span class="normal">537</span>
+<span class="normal">538</span>
+<span class="normal">539</span>
+<span class="normal">540</span>
+<span class="normal">541</span>
+<span class="normal">542</span>
+<span class="normal">543</span>
+<span class="normal">544</span>
+<span class="normal">545</span>
+<span class="normal">546</span>
+<span class="normal">547</span>
+<span class="normal">548</span>
+<span class="normal">549</span>
+<span class="normal">550</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_adata_and_longform</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span> <span class="n">longform_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">has_weight</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GRNAnnData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    from_adata_and_longform creates a GRNAnnData object from an AnnData object and a longform DataFrame.</span>
+
+<span class="sd">    the longform DataFrame should have the following structure:</span>
+<span class="sd">        regulator  target  weight</span>
+<span class="sd">        gene1      gene2  0.5</span>
+<span class="sd">        gene2      gene3  0.7</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        adata (AnnData): An AnnData object containing gene expression data.</span>
+<span class="sd">        longform_df (pd.DataFrame): A DataFrame in longform format with columns &#39;regulator&#39;, &#39;target&#39;, and optionally &#39;weight&#39;.</span>
+<span class="sd">        has_weight (bool, optional): If True, the &#39;weight&#39; column in longform_df is used to set edge weights. Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        GRNAnnData: A GRNAnnData object containing the gene regulatory network.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">varnames</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">da</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">varnames</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">varnames</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">svar</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">varnames</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">has_weight</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="n">longform_df</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">svar</span> <span class="ow">and</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">svar</span><span class="p">:</span>
+                <span class="n">da</span><span class="p">[</span><span class="n">varnames</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">varnames</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">j</span><span class="p">)]</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="n">longform_df</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">svar</span> <span class="ow">and</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">svar</span><span class="p">:</span>
+                <span class="n">da</span><span class="p">[</span><span class="n">varnames</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">varnames</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">j</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">GRNAnnData</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">grn</span><span class="o">=</span><span class="n">da</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="grnndata.GRNAnnData.from_anndata" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">from_anndata</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>converts an anndata with a varp['GRN'] to a GRNAnnData</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
+<span class="normal">463</span>
+<span class="normal">464</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_anndata</span><span class="p">(</span><span class="n">adata</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;converts an anndata with a varp[&#39;GRN&#39;] to a GRNAnnData&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;GRN&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">varp</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;GRN not found in adata.varp&quot;</span><span class="p">)</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">_X</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span>
+    <span class="k">return</span> <span class="n">GRNAnnData</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">grn</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">varp</span><span class="p">[</span><span class="s2">&quot;GRN&quot;</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="grnndata.GRNAnnData.from_embeddings" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">from_embeddings</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>from_embeddings creates a GRNAnnData object from an AnnData object with embeddings in one of its .varm[]s.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>adata</code></b>
+                  (<code><span title="anndata.AnnData">AnnData</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>An AnnData object containing gene expression data and embeddings.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>layers</code></b>
+                  (<code><span title="str">str</span></code>, default:
+                      <code>&#39;emb&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>The key in adata.varm where the embeddings are stored. Defaults to 'emb'.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>threshold</code></b>
+                  (<code><span title="float">float</span></code>, default:
+                      <code>0.4</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>The similarity threshold below which connections are discarded. Defaults to 0.4.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+<b><code>GRNAnnData</code></b>(                  <code><a class="autorefs autorefs-internal" title="GRNAnnData (grnndata.GRNAnnData.GRNAnnData)" href="#grnndata.GRNAnnData.GRNAnnData">GRNAnnData</a></code>
+)              –
+              <div class="doc-md-description">
+                <p>A GRNAnnData object containing the gene regulatory network derived from the embeddings.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">553</span>
+<span class="normal">554</span>
+<span class="normal">555</span>
+<span class="normal">556</span>
+<span class="normal">557</span>
+<span class="normal">558</span>
+<span class="normal">559</span>
+<span class="normal">560</span>
+<span class="normal">561</span>
+<span class="normal">562</span>
+<span class="normal">563</span>
+<span class="normal">564</span>
+<span class="normal">565</span>
+<span class="normal">566</span>
+<span class="normal">567</span>
+<span class="normal">568</span>
+<span class="normal">569</span>
+<span class="normal">570</span>
+<span class="normal">571</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_embeddings</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span> <span class="n">layers</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;emb&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GRNAnnData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    from_embeddings creates a GRNAnnData object from an AnnData object with embeddings in one of its .varm[]s.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        adata (AnnData): An AnnData object containing gene expression data and embeddings.</span>
+<span class="sd">        layers (str, optional): The key in adata.varm where the embeddings are stored. Defaults to &#39;emb&#39;.</span>
+<span class="sd">        threshold (float, optional): The similarity threshold below which connections are discarded. Defaults to 0.4.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        GRNAnnData: A GRNAnnData object containing the gene regulatory network derived from the embeddings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">varm</span><span class="p">[</span><span class="n">layers</span><span class="p">]</span>
+    <span class="n">similarities</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">similarities</span><span class="p">[</span><span class="n">similarities</span> <span class="o">&lt;</span> <span class="mf">0.4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">embeddings_gnndata</span> <span class="o">=</span> <span class="n">GRNAnnData</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">grn</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">coo_array</span><span class="p">(</span><span class="n">similarities</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">embeddings_gnndata</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="grnndata.GRNAnnData.from_scope_loomfile" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">from_scope_loomfile</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>from_scope_loomfile creates a GRNAnnData object from a SCope Loom file.</p>
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>filepath</code></b>
+                  (<code><span title="str">str</span></code>)
+              –
+              <div class="doc-md-description">
+                <p>The path to the SCope Loom file.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Returns:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+<b><code>GRNAnnData</code></b>              –
+              <div class="doc-md-description">
+                <p>A GRNAnnData object created from the SCope Loom file.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">467</span>
+<span class="normal">468</span>
+<span class="normal">469</span>
+<span class="normal">470</span>
+<span class="normal">471</span>
+<span class="normal">472</span>
+<span class="normal">473</span>
+<span class="normal">474</span>
+<span class="normal">475</span>
+<span class="normal">476</span>
+<span class="normal">477</span>
+<span class="normal">478</span>
+<span class="normal">479</span>
+<span class="normal">480</span>
+<span class="normal">481</span>
+<span class="normal">482</span>
+<span class="normal">483</span>
+<span class="normal">484</span>
+<span class="normal">485</span>
+<span class="normal">486</span>
+<span class="normal">487</span>
+<span class="normal">488</span>
+<span class="normal">489</span>
+<span class="normal">490</span>
+<span class="normal">491</span>
+<span class="normal">492</span>
+<span class="normal">493</span>
+<span class="normal">494</span>
+<span class="normal">495</span>
+<span class="normal">496</span>
+<span class="normal">497</span>
+<span class="normal">498</span>
+<span class="normal">499</span>
+<span class="normal">500</span>
+<span class="normal">501</span>
+<span class="normal">502</span>
+<span class="normal">503</span>
+<span class="normal">504</span>
+<span class="normal">505</span>
+<span class="normal">506</span>
+<span class="normal">507</span>
+<span class="normal">508</span>
+<span class="normal">509</span>
+<span class="normal">510</span>
+<span class="normal">511</span>
+<span class="normal">512</span>
+<span class="normal">513</span>
+<span class="normal">514</span>
+<span class="normal">515</span>
+<span class="normal">516</span>
+<span class="normal">517</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_scope_loomfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    from_scope_loomfile creates a GRNAnnData object from a SCope Loom file.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filepath (str): The path to the SCope Loom file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        GRNAnnData: A GRNAnnData object created from the SCope Loom file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">loomxpy.loomxpy</span> <span class="kn">import</span> <span class="n">SCopeLoom</span>
+
+    <span class="n">scopefile</span> <span class="o">=</span> <span class="n">SCopeLoom</span><span class="o">.</span><span class="n">read_loom</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="n">adata</span> <span class="o">=</span> <span class="n">AnnData</span><span class="p">(</span>
+        <span class="n">scopefile</span><span class="o">.</span><span class="n">ex_mtx</span><span class="p">,</span>
+        <span class="n">obs</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">scopefile</span><span class="o">.</span><span class="n">col_attrs</span><span class="o">.</span><span class="n">items</span><span class="p">()],</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;CellID&quot;</span><span class="p">),</span>
+        <span class="n">var</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">scopefile</span><span class="o">.</span><span class="n">row_attrs</span><span class="o">.</span><span class="n">items</span><span class="p">()],</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Gene&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">scopefile</span><span class="o">.</span><span class="n">embeddings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">embedding</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="n">adata</span><span class="o">.</span><span class="n">uns</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">i</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]:</span> <span class="n">i</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">scopefile</span><span class="o">.</span><span class="n">global_attrs</span><span class="p">[</span><span class="s2">&quot;MetaData&quot;</span><span class="p">][</span><span class="s2">&quot;annotations&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s2">&quot;regulon_thresholds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scopefile</span><span class="o">.</span><span class="n">global_attrs</span><span class="p">[</span><span class="s2">&quot;MetaData&quot;</span><span class="p">][</span>
+        <span class="s2">&quot;regulonThresholds&quot;</span>
+    <span class="p">]</span>
+
+    <span class="n">regulons_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">scopefile</span><span class="o">.</span><span class="n">row_attrs</span><span class="p">[</span><span class="s2">&quot;Regulons&quot;</span><span class="p">])</span>
+    <span class="n">regulons_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">reg</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">for</span> <span class="n">reg</span> <span class="ow">in</span> <span class="n">regulons_array</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">regulons_array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">names</span>
+    <span class="p">)</span>
+    <span class="n">regulons_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">varm</span><span class="p">[</span><span class="s2">&quot;regulons&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">regulons_df</span>
+
+    <span class="n">varnames</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">da</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">varnames</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">varnames</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">varm</span><span class="p">[</span><span class="s2">&quot;regulons&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()):</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">row</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+            <span class="n">sign</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">da</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">varnames</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">sign</span> <span class="o">==</span> <span class="s2">&quot;+&quot;</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">GRNAnnData</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">grn</span><span class="o">=</span><span class="n">da</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="grnndata.GRNAnnData.read_h5ad" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">read_h5ad</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>same as anndata's one but for grnndata</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">read_h5ad</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;same as anndata&#39;s one but for grnndata&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">from_anndata</span><span class="p">(</span><span class="n">anndata_read_h5ad</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

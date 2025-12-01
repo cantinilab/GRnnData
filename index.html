@@ -57,8 +57,6 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#development">Development</a>
-    </li>
     </ul>
                 </li>
               </ul>
@@ -107,10 +105,18 @@
 <a href="https://img.shields.io/github/issues/cantinilab/GRnnData"><img alt="GitHub issues" src="https://img.shields.io/github/issues/cantinilab/GRnnData" /></a>
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
 <a href="https://doi.org/10.1101/2024.07.29.605556"><img alt="DOI" src="https://img.shields.io/badge/DOI-10.1101%2F2024.07.29.605556-blue" /></a></p>
-<p>GRnnData works similarly to anndata. The goal was to use the .varm/.varp of anndata to store the GRN data associated with a dataset and have a formal way to work with GRNs.</p>
-<p>GRnnData is a subclass of anndata.AnnData, it enforces only that a .varp exists for the anndata</p>
-<p>GRnnData also contains multiple helper functions to work with GRNs in scRNAseq like compute_connectivities, get_centrality, compute_cluster, enrichment, metrics, etc. but also accessing the grn with .grn, .targets, .regulators,...</p>
-<p>The package has been designed together with the <a href="https://doi.org/10.1101/2024.07.29.605556">scPRINT paper</a> and <a href="https://github.com/cantinilab/scPRINT">model</a>, and the GRN benchmarking tool <a href="https://github.com/jkobject/BenGRN">BenGRN</a></p>
+<p>GRnnData works similarly to anndata. The goal was to use the .varm/.varp of
+anndata to store the GRN data associated with a dataset and have a formal way to
+work with GRNs.</p>
+<p>GRnnData is a subclass of anndata.AnnData, it enforces only that a .varp exists
+for the anndata</p>
+<p>GRnnData also contains multiple helper functions to work with GRNs in scRNAseq
+like compute_connectivities, get_centrality, compute_cluster, enrichment,
+metrics, etc. but also accessing the grn with .grn, .targets, .regulators,...</p>
+<p>The package has been designed together with the
+<a href="https://doi.org/10.1101/2024.07.29.605556">scPRINT paper</a> and
+<a href="https://github.com/cantinilab/scPRINT">model</a>, and the GRN benchmarking tool
+<a href="https://github.com/jkobject/BenGRN">BenGRN</a></p>
 <h2 id="install-it-from-pypi">Install it from PyPI</h2>
 <pre><code class="language-bash">pip install grnndata
 </code></pre>
@@ -146,16 +152,22 @@ read_h5ad('grn.h5ad') #reads it
 
 utils.some_function(grn)
 </code></pre>
-<p>GRnnData works similarly to anndata. Learn more about usages in the documentation and its notebooks in the <a href="https://cantinilab.github.io/GRnnData/">docs</a>. </p>
-<p>usage examples can be seen in the example notebooks of:
-- <a href="https://www.jkobject.com/scPRINT/notebooks/cancer_usecase/">scPRINT</a>
-- <a href="https://www.jkobject.com/benGRN/notebooks/bench_omni_genie3/">BenGRN</a></p>
+<p>GRnnData works similarly to anndata. Learn more about usages in the
+documentation and its notebooks in the
+<a href="https://cantinilab.github.io/GRnnData/">docs</a>.</p>
+<p>usage examples can be seen in the example notebooks of:</p>
+<ul>
+<li><a href="https://www.jkobject.com/scPRINT/notebooks/cancer_usecase/">scPRINT</a></li>
+<li><a href="https://www.jkobject.com/benGRN/notebooks/bench_omni_genie3/">BenGRN</a></li>
+</ul>
 <h3 id="how-do-i-do-if-i-generate-a-grn-per-cell-type">How do I do if I generate a GRN per cell type?</h3>
-<p>In this context, we recommend creating a grnndata per cell type. This will allow you to store the GRN data in the .varm of the grnndata and have a formal way to work with GRNs.</p>
+<p>In this context, we recommend creating a grnndata per cell type. This will allow
+you to store the GRN data in the .varm of the grnndata and have a formal way to
+work with GRNs.</p>
 <h3 id="how-do-i-do-if-i-generate-a-grn-per-cell">How do I do if I generate a GRN per cell?</h3>
-<p>In this context, we recommend trying to merge them across a similar group of cells in some way and storing uncertainty or variance in the GRN and then creating a grnndata across this group of cells</p>
-<h2 id="development">Development</h2>
-<p>Read the <a href="../CONTRIBUTING.md">CONTRIBUTING.md</a> file.</p>
+<p>In this context, we recommend trying to merge them across a similar group of
+cells in some way and storing uncertainty or variance in the GRN and then
+creating a grnndata across this group of cells</p>
 <p>Awesome gene regulatory network enhanced anndata created by @jkobject</p>
               
             </div>
@@ -205,5 +217,5 @@ utils.some_function(grn)
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-01-29 17:14:46.563964+00:00
+Build Date UTC : 2025-12-01 10:20:34.946482+00:00
 -->
