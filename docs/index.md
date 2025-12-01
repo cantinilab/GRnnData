@@ -11,13 +11,21 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![DOI](https://img.shields.io/badge/DOI-10.1101%2F2024.07.29.605556-blue)](https://doi.org/10.1101/2024.07.29.605556)
 
-GRnnData works similarly to anndata. The goal was to use the .varm/.varp of anndata to store the GRN data associated with a dataset and have a formal way to work with GRNs.
+GRnnData works similarly to anndata. The goal was to use the .varm/.varp of
+anndata to store the GRN data associated with a dataset and have a formal way to
+work with GRNs.
 
-GRnnData is a subclass of anndata.AnnData, it enforces only that a .varp exists for the anndata
+GRnnData is a subclass of anndata.AnnData, it enforces only that a .varp exists
+for the anndata
 
-GRnnData also contains multiple helper functions to work with GRNs in scRNAseq like compute_connectivities, get_centrality, compute_cluster, enrichment, metrics, etc. but also accessing the grn with .grn, .targets, .regulators,...
+GRnnData also contains multiple helper functions to work with GRNs in scRNAseq
+like compute_connectivities, get_centrality, compute_cluster, enrichment,
+metrics, etc. but also accessing the grn with .grn, .targets, .regulators,...
 
-The package has been designed together with the [scPRINT paper](https://doi.org/10.1101/2024.07.29.605556) and [model](https://github.com/cantinilab/scPRINT), and the GRN benchmarking tool [BenGRN](https://github.com/jkobject/BenGRN)
+The package has been designed together with the
+[scPRINT paper](https://doi.org/10.1101/2024.07.29.605556) and
+[model](https://github.com/cantinilab/scPRINT), and the GRN benchmarking tool
+[BenGRN](https://github.com/jkobject/BenGRN)
 
 ## Install it from PyPI
 
@@ -63,22 +71,25 @@ read_h5ad('grn.h5ad') #reads it
 utils.some_function(grn)
 ```
 
-GRnnData works similarly to anndata. Learn more about usages in the documentation and its notebooks in the [docs](https://cantinilab.github.io/GRnnData/). 
+GRnnData works similarly to anndata. Learn more about usages in the
+documentation and its notebooks in the
+[docs](https://cantinilab.github.io/GRnnData/).
 
 usage examples can be seen in the example notebooks of:
+
 - [scPRINT](https://www.jkobject.com/scPRINT/notebooks/cancer_usecase/)
 - [BenGRN](https://www.jkobject.com/benGRN/notebooks/bench_omni_genie3/)
 
 ### How do I do if I generate a GRN per cell type?
 
-In this context, we recommend creating a grnndata per cell type. This will allow you to store the GRN data in the .varm of the grnndata and have a formal way to work with GRNs.
+In this context, we recommend creating a grnndata per cell type. This will allow
+you to store the GRN data in the .varm of the grnndata and have a formal way to
+work with GRNs.
 
 ### How do I do if I generate a GRN per cell?
 
-In this context, we recommend trying to merge them across a similar group of cells in some way and storing uncertainty or variance in the GRN and then creating a grnndata across this group of cells
-
-## Development
-
-Read the [CONTRIBUTING.md](../CONTRIBUTING.md) file.
+In this context, we recommend trying to merge them across a similar group of
+cells in some way and storing uncertainty or variance in the GRN and then
+creating a grnndata across this group of cells
 
 Awesome gene regulatory network enhanced anndata created by @jkobject
