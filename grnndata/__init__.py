@@ -1,4 +1,4 @@
 from .GRNAnnData import *
 from importlib.metadata import version
 
-__version__ = version("grnndata")
+__version__ = "1.3.1"

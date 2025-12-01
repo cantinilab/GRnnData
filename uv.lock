@@ -223,7 +223,7 @@ name = "click"
 version = "8.1.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "platform_system == 'Windows'" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/96/d3/f04c7bfcf5c1862a2a5b845c6b2b360488cf47af55dfa79c98f6a6bf98b5/click-8.1.7.tar.gz", hash = "sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de", size = 336121 }
 wheels = [
@@ -598,14 +598,13 @@ wheels = [
 
 [[package]]
 name = "grnndata"
-version = "1.1.4"
+version = "1.1.5"
 source = { editable = "." }
 dependencies = [
     { name = "anndata" },
     { name = "d3graph" },
     { name = "gseapy" },
     { name = "leidenalg" },
-    { name = "louvain" },
     { name = "natsort" },
     { name = "networkx" },
     { name = "numba" },
@@ -615,6 +614,7 @@ dependencies = [
     { name = "scanpy" },
     { name = "scikit-learn" },
     { name = "scipy" },
+    { name = "setuptools" },
 ]
 
 [package.optional-dependencies]
@@ -638,9 +638,8 @@ requires-dist = [
     { name = "coverage", marker = "extra == 'dev'", specifier = ">=7.3.2" },
     { name = "d3graph", specifier = ">=0.2.0" },
     { name = "gitchangelog", marker = "extra == 'dev'", specifier = ">=3.0.4" },
-    { name = "gseapy", specifier = ">=1.0.0" },
+    { name = "gseapy", specifier = ">=0.14.0" },
     { name = "leidenalg", specifier = ">=0.8.0" },
-    { name = "louvain", specifier = ">=0.8.0" },
     { name = "mkdocs", marker = "extra == 'dev'", specifier = ">=1.5.3" },
     { name = "mkdocs-git-authors-plugin", marker = "extra == 'dev'", specifier = ">=0.4.0" },
     { name = "mkdocs-git-revision-date-localized-plugin", marker = "extra == 'dev'", specifier = ">=1.0.0" },
@@ -659,6 +658,7 @@ requires-dist = [
     { name = "scanpy", specifier = ">=1.10.0" },
     { name = "scikit-learn", specifier = ">=1.0.0" },
     { name = "scipy", specifier = ">=1.7.0" },
+    { name = "setuptools", specifier = ">=58.0.0" },
 ]
 
 [[package]]
@@ -775,7 +775,7 @@ name = "ipykernel"
 version = "6.29.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "appnope", marker = "platform_system == 'Darwin'" },
+    { name = "appnope", marker = "sys_platform == 'darwin'" },
     { name = "comm" },
     { name = "debugpy" },
     { name = "ipython" },
@@ -1088,35 +1088,6 @@ wheels = [
 ]
 
 [[package]]
-name = "louvain"
-version = "0.8.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "igraph" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/4b/14/4bf2d8b73639ffedc8a949e6ad40cd2207e0dc4ed9720afeb3f69656c194/louvain-0.8.2.tar.gz", hash = "sha256:ce040bb0c5e349aead5a1e5e99738dcd9f2d10c22526d0633281b6ae230ee8d4", size = 4219094 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/e8/30/73078108273bbda56fe67883fdd3f6ec66277d9b734e26cd1d9caf38c638/louvain-0.8.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:a2f6a07d4d5120d16e1ac81a65368e3607a77ff1c2ea7f2d6959f043349fe8cc", size = 207129 },
-    { url = "https://files.pythonhosted.org/packages/91/c7/becc3f0b6f338f5abca6db2e8eac79aee68caf9cd409f4c04f8b0e2e3a86/louvain-0.8.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:ac39e8a760ce620d53b1fac314a5c6c0cdc7bc471a4973b8acc3f566459f4d78", size = 185203 },
-    { url = "https://files.pythonhosted.org/packages/5c/48/25ef90b37625944ca7c7f988fb26e2c9efdb1a4242c14d2fa5f1bd86132b/louvain-0.8.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:17f59af1db73e5cfb49cd264bb57454a1f53f6287cde073844942e5d01898426", size = 1051667 },
-    { url = "https://files.pythonhosted.org/packages/33/1c/79271563445c4d6b3e8bd11e022b7fdfd7384ba400e3be4caf46db3991f5/louvain-0.8.2-cp310-cp310-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:e25e7c2242ba3ac3d998f12a6ee329d285ce0e286bdb29996cf43cf9f80774aa", size = 1056936 },
-    { url = "https://files.pythonhosted.org/packages/5c/01/83d1dc711209568dd5847e87a856ff0d1a9bee092626f59b7c732b3c3fa4/louvain-0.8.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9ffe980d7cfe7e00492eb4de8d847f7b46ce68ca2d1fa2d8c1598c03d773c66d", size = 1078284 },
-    { url = "https://files.pythonhosted.org/packages/84/7b/fb5d1f3581dd3ad67dc56a559213584a1403a67637d55279dccd8e3c4a23/louvain-0.8.2-cp310-cp310-musllinux_1_1_i686.whl", hash = "sha256:53dd1fa129025b71d0d5714af4ac09b85b35f9b0439e34cb36b71e8dd87e80ee", size = 1603157 },
-    { url = "https://files.pythonhosted.org/packages/4c/1c/e6d7ac9a0f4309745a5ec1b96c3dd185fb70a5121c33938f496a121895a9/louvain-0.8.2-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:5222b93da8be423507979cbdc875fff06987a56cc649717d4afa4b3042cfd800", size = 1589042 },
-    { url = "https://files.pythonhosted.org/packages/8a/d3/54ff2e5fb782e22a5aaa28a889b3d53fd43e79f5654e0613667ade7b500f/louvain-0.8.2-cp310-cp310-win32.whl", hash = "sha256:8c5f1362e38b821b77863a8a1173d3c135982ebc947f0313ba71fb5f2702144f", size = 82073 },
-    { url = "https://files.pythonhosted.org/packages/86/2d/6ef4192aa1fcced0cd8ad69a449090b3bc7834e5043231813d48b88ec252/louvain-0.8.2-cp310-cp310-win_amd64.whl", hash = "sha256:9573f1b3ac42a35ff709a52bd4652aef3dcd041a5bbd589df2a4e831e3d81931", size = 89850 },
-    { url = "https://files.pythonhosted.org/packages/4c/a0/b08b20e4a3366ef39555bcf390cc1489a1d12d76f53413c5cc4cc0e760a6/louvain-0.8.2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:ad0f20e5e9ed22db3c0cfec25d5c5f004a4a2ca00f556779f5cdc421d816a250", size = 207124 },
-    { url = "https://files.pythonhosted.org/packages/fc/26/d99a77f5c17ef366bbd11b3509dfad47bcd968c4c1778bfccd4279e4ea25/louvain-0.8.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:3514682845c7b9d8f14e275f3826ad8aeaff079267eadaec1353a52629f1212e", size = 185202 },
-    { url = "https://files.pythonhosted.org/packages/ae/e4/9854d680fc4ae73bdc545544dc596d3a5f89f2a50abe597daded7140c4e2/louvain-0.8.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4dc11889d69b596f7f5755a4a197ef96da480b6e09959d3340717836ae3cc255", size = 1051707 },
-    { url = "https://files.pythonhosted.org/packages/99/15/dfa3d33935e4c90d5a45676e8d3bdf0cbd0c173e7a7f45dee23e7cc636bb/louvain-0.8.2-cp311-cp311-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:b7ae4a8b11f94acd90509972a2fc5d393ad2a6f327e5506be3ed5e97b6ec94ce", size = 1057039 },
-    { url = "https://files.pythonhosted.org/packages/3f/3e/b20691ad452187d88c247202cc144dd55babe0dba20f67fd9f715bb0e6fe/louvain-0.8.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:df66bf58b03ca257299e5652816bae0203a62447f31eec1008f719e0d5604b88", size = 1078332 },
-    { url = "https://files.pythonhosted.org/packages/b7/12/1e8a2748dbce63eae1b05ed938834ab1568a7d60da615cf247b8918d4a83/louvain-0.8.2-cp311-cp311-musllinux_1_1_i686.whl", hash = "sha256:f25d97fe0c4367ea9a9ca3edd731d742b6a0f420e922ea1b4ce4448b8caa0a3b", size = 1605109 },
-    { url = "https://files.pythonhosted.org/packages/c3/10/485c648c2dba47aae745f428f77728ec4e7188f77e16c8834e3aaa7c6342/louvain-0.8.2-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:a4968137c22004b7ffb465f87f798d2cff1efb456c0f4ad2cea98d2eae057ad1", size = 1591018 },
-    { url = "https://files.pythonhosted.org/packages/6e/8e/befb2f08063f1eef786b7c911f10588572bba11687b54056b79553730c93/louvain-0.8.2-cp311-cp311-win32.whl", hash = "sha256:5fee00958c0b45bfd43c20b9141370607c91e32cda28e04db4512187005616c9", size = 82079 },
-    { url = "https://files.pythonhosted.org/packages/46/a0/ab037cddff15b67fe747bcbb04ab6e2668c78b749e031514af0cee1c6071/louvain-0.8.2-cp311-cp311-win_amd64.whl", hash = "sha256:797fa410e2d0f208202eda27ecd686ebecefd2ce3631a754475408eb7ba01421", size = 89850 },
-]
-
-[[package]]
 name = "markdown"
 version = "3.7"
 source = { registry = "https://pypi.org/simple" }
@@ -1260,7 +1231,7 @@ version = "1.6.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
-    { name = "colorama", marker = "platform_system == 'Windows'" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
     { name = "ghp-import" },
     { name = "jinja2" },
     { name = "markdown" },
@@ -2430,6 +2401,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/94/e4/ea615bb8185a298b21df1ac52a4a5db4e3351823a218f47ef3f883def88c/session_info-1.0.0.tar.gz", hash = "sha256:3cda5e03cca703f32ae2eadbd6bd80b6c21442cfb60e412c21cb8ad6d5cbb6b7", size = 24345 }
 
 [[package]]
+name = "setuptools"
+version = "80.9.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/18/5d/3bf57dcd21979b887f014ea83c24ae194cfcd12b9e0fda66b957c69d1fca/setuptools-80.9.0.tar.gz", hash = "sha256:f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c", size = 1319958 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl", hash = "sha256:062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922", size = 1201486 },
+]
+
+[[package]]
 name = "six"
 version = "1.16.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2580,7 +2560,7 @@ name = "tqdm"
 version = "4.66.5"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "platform_system == 'Windows'" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/58/83/6ba9844a41128c62e810fddddd72473201f3eacde02046066142a2d96cc5/tqdm-4.66.5.tar.gz", hash = "sha256:e1020aef2e5096702d8a025ac7d16b1577279c9d63f8375b63083e9a5f0fcbad", size = 169504 }
 wheels = [
