@@ -270,7 +270,7 @@ class GRNAnnData(AnnData):
         plot_subgraph plots a subgraph of the gene regulatory network (GRN) centered around a seed gene.
 
         Args:
-            seed (str or list): The seed gene or list of genes around which the subgraph will be centered.
+            seed (str or list): The seed gene or list of genes from which the subgraph will be centered.
             gene_col (str, optional): The column name in the .var DataFrame that contains gene identifiers. Defaults to "symbol".
             max_genes (int, optional): The maximum number of genes to include in the subgraph. Defaults to 10.
             only (float, optional): The threshold for filtering connections. If less than 1, it is used as a minimum weight threshold. If 1 or greater, it is used as the number of top connections to retain. Defaults to 0.3.
@@ -278,6 +278,9 @@ class GRNAnnData(AnnData):
             interactive (bool, optional): Whether to create an interactive plot. Defaults to True.
             do_enr (bool, optional): Whether to perform enrichment analysis on the subgraph. Defaults to False.
             color_overlap (pd.DataFrame | None, optional): A DataFrame with geneA, geneB, and value columns to color edges based on overlap. Defaults to None.
+            node_size (int, optional): Size of the nodes in the plot. Defaults to 3000.
+            font_size (int, optional): Font size for the node labels. Defaults to 14.
+            **kwargs: Additional keyword arguments to pass to the d3graph or networkx plotting functions.
 
         Returns:
             d3graph or None: The d3graph object if interactive is True, otherwise None.
