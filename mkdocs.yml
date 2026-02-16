@@ -1,6 +1,7 @@
 site_name: grnndata
 theme:
   name: readthedocs
+  logo: grnndata.png
   # analytics:
   # gtag: G-ABC123
 site_url: https://cantinilab.github.io/GRnnData
