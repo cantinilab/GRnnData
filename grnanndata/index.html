@@ -31,7 +31,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> grnndata
+          <a href="..">
+          <img src="../grnndata.png" class="logo" alt="Logo"/>
         </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
@@ -1179,7 +1180,7 @@ C    D      8</p>
                   (<code><span title="str">str</span> or <span title="list">list</span></code>)
               –
               <div class="doc-md-description">
-                <p>The seed gene or list of genes around which the subgraph will be centered.</p>
+                <p>The seed gene or list of genes from which the subgraph will be centered.</p>
               </div>
             </li>
             <li>
@@ -1250,6 +1251,36 @@ C    D      8</p>
               –
               <div class="doc-md-description">
                 <p>A DataFrame with geneA, geneB, and value columns to color edges based on overlap. Defaults to None.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>node_size</code></b>
+                  (<code><span title="int">int</span></code>, default:
+                      <code>3000</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Size of the nodes in the plot. Defaults to 3000.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>font_size</code></b>
+                  (<code><span title="int">int</span></code>, default:
+                      <code>14</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Font size for the node labels. Defaults to 14.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>**kwargs</code></b>
+                  (<code><span title="dict">dict</span></code>, default:
+                      <code>{}</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>Additional keyword arguments to pass to the d3graph or networkx plotting functions.</p>
               </div>
             </li>
         </ul>
@@ -1478,7 +1509,10 @@ C    D      8</p>
 <span class="normal">448</span>
 <span class="normal">449</span>
 <span class="normal">450</span>
-<span class="normal">451</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_subgraph</span><span class="p">(</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_subgraph</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">gene_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;symbol&quot;</span><span class="p">,</span>
@@ -1496,7 +1530,7 @@ C    D      8</p>
 <span class="sd">    plot_subgraph plots a subgraph of the gene regulatory network (GRN) centered around a seed gene.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        seed (str or list): The seed gene or list of genes around which the subgraph will be centered.</span>
+<span class="sd">        seed (str or list): The seed gene or list of genes from which the subgraph will be centered.</span>
 <span class="sd">        gene_col (str, optional): The column name in the .var DataFrame that contains gene identifiers. Defaults to &quot;symbol&quot;.</span>
 <span class="sd">        max_genes (int, optional): The maximum number of genes to include in the subgraph. Defaults to 10.</span>
 <span class="sd">        only (float, optional): The threshold for filtering connections. If less than 1, it is used as a minimum weight threshold. If 1 or greater, it is used as the number of top connections to retain. Defaults to 0.3.</span>
@@ -1504,6 +1538,9 @@ C    D      8</p>
 <span class="sd">        interactive (bool, optional): Whether to create an interactive plot. Defaults to True.</span>
 <span class="sd">        do_enr (bool, optional): Whether to perform enrichment analysis on the subgraph. Defaults to False.</span>
 <span class="sd">        color_overlap (pd.DataFrame | None, optional): A DataFrame with geneA, geneB, and value columns to color edges based on overlap. Defaults to None.</span>
+<span class="sd">        node_size (int, optional): Size of the nodes in the plot. Defaults to 3000.</span>
+<span class="sd">        font_size (int, optional): Font size for the node labels. Defaults to 14.</span>
+<span class="sd">        **kwargs: Additional keyword arguments to pass to the d3graph or networkx plotting functions.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        d3graph or None: The d3graph object if interactive is True, otherwise None.</span>
@@ -1611,7 +1648,7 @@ C    D      8</p>
                 <span class="n">G</span><span class="p">,</span>
                 <span class="n">pos</span><span class="p">,</span>
                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
-                <span class="n">width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
                 <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors_nx</span><span class="p">,</span>
                 <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">edge_cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
@@ -1629,7 +1666,7 @@ C    D      8</p>
                 <span class="n">G</span><span class="p">,</span>
                 <span class="n">pos</span><span class="p">,</span>
                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
-                <span class="n">width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
                 <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                 <span class="n">node_size</span><span class="o">=</span><span class="n">node_size</span><span class="p">,</span>
                 <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=0.1&quot;</span><span class="p">,</span>
@@ -1779,10 +1816,7 @@ gene2      gene3  0.7</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">520</span>
-<span class="normal">521</span>
-<span class="normal">522</span>
-<span class="normal">523</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">523</span>
 <span class="normal">524</span>
 <span class="normal">525</span>
 <span class="normal">526</span>
@@ -1809,7 +1843,10 @@ gene2      gene3  0.7</p>
 <span class="normal">547</span>
 <span class="normal">548</span>
 <span class="normal">549</span>
-<span class="normal">550</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_adata_and_longform</span><span class="p">(</span>
+<span class="normal">550</span>
+<span class="normal">551</span>
+<span class="normal">552</span>
+<span class="normal">553</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_adata_and_longform</span><span class="p">(</span>
     <span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span> <span class="n">longform_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">has_weight</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GRNAnnData</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1862,12 +1899,12 @@ gene2      gene3  0.7</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">459</span>
-<span class="normal">460</span>
-<span class="normal">461</span>
-<span class="normal">462</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">462</span>
 <span class="normal">463</span>
-<span class="normal">464</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_anndata</span><span class="p">(</span><span class="n">adata</span><span class="p">):</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span>
+<span class="normal">467</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_anndata</span><span class="p">(</span><span class="n">adata</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;converts an anndata with a varp[&#39;GRN&#39;] to a GRNAnnData&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="s2">&quot;GRN&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">varp</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;GRN not found in adata.varp&quot;</span><span class="p">)</span>
@@ -1962,10 +1999,7 @@ gene2      gene3  0.7</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">553</span>
-<span class="normal">554</span>
-<span class="normal">555</span>
-<span class="normal">556</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">556</span>
 <span class="normal">557</span>
 <span class="normal">558</span>
 <span class="normal">559</span>
@@ -1980,7 +2014,10 @@ gene2      gene3  0.7</p>
 <span class="normal">568</span>
 <span class="normal">569</span>
 <span class="normal">570</span>
-<span class="normal">571</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_embeddings</span><span class="p">(</span>
+<span class="normal">571</span>
+<span class="normal">572</span>
+<span class="normal">573</span>
+<span class="normal">574</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_embeddings</span><span class="p">(</span>
     <span class="n">adata</span><span class="p">:</span> <span class="n">AnnData</span><span class="p">,</span> <span class="n">layers</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;emb&quot;</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.4</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GRNAnnData</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -2067,10 +2104,7 @@ gene2      gene3  0.7</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">467</span>
-<span class="normal">468</span>
-<span class="normal">469</span>
-<span class="normal">470</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">470</span>
 <span class="normal">471</span>
 <span class="normal">472</span>
 <span class="normal">473</span>
@@ -2117,7 +2151,10 @@ gene2      gene3  0.7</p>
 <span class="normal">514</span>
 <span class="normal">515</span>
 <span class="normal">516</span>
-<span class="normal">517</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_scope_loomfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+<span class="normal">517</span>
+<span class="normal">518</span>
+<span class="normal">519</span>
+<span class="normal">520</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">from_scope_loomfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    from_scope_loomfile creates a GRNAnnData object from a SCope Loom file.</span>
 
@@ -2190,9 +2227,9 @@ gene2      gene3  0.7</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>grnndata/GRNAnnData.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">454</span>
-<span class="normal">455</span>
-<span class="normal">456</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">read_h5ad</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">read_h5ad</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;same as anndata&#39;s one but for grnndata&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">from_anndata</span><span class="p">(</span><span class="n">anndata_read_h5ad</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
